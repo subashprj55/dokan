@@ -25,15 +25,15 @@ const Intro = () => {
       </div>
 
       {/* body contant  start form here*/}
-      <div className="py-48">
-        <h1 className=" text-7xl text-center font-bold text-gray-800 mb-4">
+      <div className="pt-48">
+        <h1 className="text-3xl md:text-7xl text-center font-bold text-gray-800 mb-4">
           Welcome to Your Grocery Store Management System
         </h1>
         <br />
-        <h1 className="text-8xl text-center font-bold text-gray-600 mb-4">
+        <h1 className="text-5xl md:text-8xl text-center font-bold text-gray-600 mb-4">
           DOKAN
         </h1>
-        <p className=" text-gray-600 text-center mb-8 text-2xl mt-14">
+        <p className=" text-gray-600 text-center mb-5 text-2xl mt-5 md:mt-14">
           Manage your grocery store efficiently with our user-friendly system.
         </p>
         <div className="flex justify-center gap-3 ">

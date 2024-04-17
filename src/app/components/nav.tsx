@@ -33,7 +33,7 @@ const Nav = () => {
       <nav
         className={`${
           isScrolled ? 'md:bg-gray-200' : 'bg-transparant'
-        } transition-colors duration-700 ease-in-out`}
+        } transition-colors duration-500 ease-in-out`}
       >
         <div className="max-w-7xl mx-auto px-4 py-2 sm:px-6 flex justify-between lg:px-8 md:block bg-gray-200 md:bg-transparent">
           <div className="flex justify-between items-center">
