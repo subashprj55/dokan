@@ -1,11 +1,14 @@
+import Container from './components/container'
 import Nav from './components/nav'
 
 export default function Home() {
   return (
     <>
       <Nav />
-      <Intro />
-      <Futures />
+      <Container>
+        <Intro />
+        <Futures />
+      </Container>
     </>
   )
 }
