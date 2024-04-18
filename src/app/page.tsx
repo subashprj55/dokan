@@ -11,6 +11,7 @@ export default function Home() {
       <Container>
         <Intro />
         <Futures />
+        <AboutUsSection />
       </Container>
     </>
   )
@@ -94,8 +95,8 @@ const Futures = () => {
   ]
 
   return (
-    <div className="my-20">
-      <h1 className="text-2xl  mb-5 md:overflow-hidden">
+    <div className="mt-20 md:my-20">
+      <h1 className="text-2xl text-center md:text-start mb-5 md:overflow-hidden">
         Our grocery store management system offers:-
       </h1>
       <div className="flex flex-wrap md:flex-nowrap justify-center md:justify-between gap-9 md:overflow-scroll">
@@ -122,5 +123,43 @@ const Futures = () => {
         })}
       </div>
     </div>
+  )
+}
+
+const AboutUsSection = () => {
+  return (
+    <section className="bg-gray-100 mt-10 py-10 md:py-16 mx-[-8%] md:mx-0">
+      <div className="container mx-auto px-4">
+        <h2 className="text-3xl font-semibold text-center mb-8">About Us</h2>
+        <div className="grid items-center grid-cols-1 md:grid-cols-2 gap-8 ">
+          <div>
+            <Image
+              alt={'image'}
+              src={'/images/Sales.webp'}
+              width={0}
+              height={0}
+              sizes="100vw"
+              style={{ width: '100%', height: 'auto' }}
+            />
+          </div>
+          <div className="max-w-lg">
+            <p className="text-lg mb-4">
+              At Dokan, we are dedicated to revolutionizing the way grocery
+              stores manage their operations. With a focus on innovation and
+              excellence, we strive to provide cutting-edge solutions that
+              streamline inventory management, enhance sales tracking, and
+              improve customer satisfaction.
+            </p>
+            <p className="text-lg">
+              Our team consists of passionate professionals who are committed to
+              delivering exceptional results and exceeding our customers'
+              expectations. With a deep understanding of the challenges faced by
+              grocery store owners, we work tirelessly to develop and implement
+              solutions that drive success and growth.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
   )
 }
