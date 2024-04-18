@@ -1,3 +1,6 @@
+'use client'
+import Image from 'next/image'
+import { useEffect, useState } from 'react'
 import Container from './components/container'
 import Nav from './components/nav'
 
@@ -49,23 +52,75 @@ const Intro = () => {
   )
 }
 
-const Futures = () => {
-  return (
-    <>
-      <h1 className="text-lg text-gray-700 mb-4">
-        Our grocery store management system offers:
-      </h1>
-    </>
-  )
-}
+// Define your images and descriptions
 
-{
-  /* <ul className="list-disc ml-8">
-            <li className="mb-2">Inventory management</li>
-            <li className="mb-2">Sales tracking</li>
-            <li className="mb-2">Customer management</li>
-            <li className="mb-2">Order processing</li>
-            <li className="mb-2">Employee scheduling</li>
-          </ul>
-          <p className="text-lg text-gray-700">And much more...</p> */
+const Futures = () => {
+  const imagesData = [
+    {
+      id: 0,
+      imageSrc: '/images/Inventory.jpeg',
+      imageDescription: 'Inventory Management',
+    },
+    {
+      id: 1,
+      imageSrc: '/images/Sales.webp',
+      imageDescription: 'Sales Tracking',
+    },
+    {
+      id: 2,
+      imageSrc: '/images/Order.avif',
+      imageDescription: 'Order Processing',
+    },
+    {
+      id: 3,
+      imageSrc: '/images/Emplyee.jpeg',
+      imageDescription: 'Employee Scheduling',
+    },
+    {
+      id: 4,
+      imageSrc: '/images/customer.jpeg',
+      imageDescription: 'Customer Management',
+    },
+    {
+      id: 5,
+      imageSrc: '/images/Inventory.jpeg',
+      imageDescription: 'Inventory Management',
+    },
+    {
+      id: 6,
+      imageSrc: '/images/Sales.webp',
+      imageDescription: 'Sales Tracking',
+    },
+  ]
+
+  return (
+    <div className="my-20">
+      <h1 className="text-2xl  mb-5 md:overflow-hidden">
+        Our grocery store management system offers:-
+      </h1>
+      <div className="flex flex-wrap md:flex-nowrap justify-center md:justify-between gap-9 md:overflow-scroll">
+        {imagesData.map(({ id, imageSrc, imageDescription }) => {
+          return (
+            <div key={id}>
+              {/* image */}
+              <div className="w-[300px] h-[200px]">
+                <Image
+                  alt={imageDescription}
+                  src={imageSrc}
+                  width={0}
+                  height={0}
+                  sizes="100vw"
+                  style={{ width: '100%', height: '100%' }}
+                />
+              </div>
+              {/* descrition */}
+              <p className="mb-2 text-center text-lg my-5">
+                {imageDescription}
+              </p>
+            </div>
+          )
+        })}
+      </div>
+    </div>
+  )
 }
