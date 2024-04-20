@@ -53,14 +53,17 @@ const Nav = () => {
                     About
                   </p>
                 </Link>
-                <Link href="/about">
-                  <p className=" hover:text-lavender-300 px-3 py-2 rounded-md text-sm  font-medium">
-                    Contact Us
+                <Link
+                  href="/about"
+                  className=" border border-yellow-500 rounded-xl hover:text-white hover:bg-yellow-500 duration-300"
+                >
+                  <p className="px-3 py-2 rounded-md text-sm  font-medium">
+                    Sign In
                   </p>
                 </Link>
                 <Link href="/about">
-                  <p className=" hover:text-lavender-300 px-3 py-2 rounded-md text-sm  font-medium">
-                    Info
+                  <p className="px-3 py-2 text-sm font-medium rounded-xl text-blue-700 hover:text-blue-800 border hover:border-blue-800 duration-300">
+                    Login
                   </p>
                 </Link>
 
@@ -130,12 +133,12 @@ const Nav = () => {
             </Link>
             <Link href="/about">
               <p className=" hover:text-lavender-300 px-3 py-2 rounded-md text-sm  font-medium">
-                Contact Us
+                Sign In
               </p>
             </Link>
             <Link href="/about">
               <p className=" hover:text-lavender-300 px-3 py-2 rounded-md text-sm  font-medium">
-                Info
+                Login
               </p>
             </Link>
             {/* Add more navigation links as needed */}

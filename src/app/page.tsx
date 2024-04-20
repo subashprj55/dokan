@@ -2,6 +2,7 @@
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import Container from './components/container'
+import Footer from './components/footer'
 import Nav from './components/nav'
 
 export default function Home() {
@@ -16,6 +17,7 @@ export default function Home() {
         <TestimonialsSection />
         <PricingPlansSection />
         <FaqsSection />
+        <Footer />
       </Container>
     </>
   )
@@ -44,12 +46,9 @@ const Intro = () => {
         <p className=" text-gray-600 text-center mb-5 text-2xl mt-5 md:mt-14">
           Manage your grocery store efficiently with our user-friendly system.
         </p>
-        <div className="flex justify-center gap-3 ">
-          <button className="bg-yellow-300 py-2 px-4 rounded-md hover:bg-yellow-400 duration-500">
-            Sign Up
-          </button>
-          <button className="bg-blue-700 text-white py-2 px-4 rounded-md hover:bg-blue-800 duration-500">
-            Log In
+        <div className="flex justify-center gap-3 pt-5">
+          <button className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg text-sm font-semibold transition-colors duration-300">
+            Let's Start
           </button>
         </div>
       </div>
