@@ -1,5 +1,6 @@
 'use client'
 import Image from 'next/image'
+import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import Container from './components/container'
 import Footer from './components/footer'
@@ -47,9 +48,12 @@ const Intro = () => {
           Manage your grocery store efficiently with our user-friendly system.
         </p>
         <div className="flex justify-center gap-3 pt-5">
-          <button className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg text-sm font-semibold transition-colors duration-300">
+          <Link
+            href={'/dashboard'}
+            className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg text-sm font-semibold transition-colors duration-300"
+          >
             Let's Start
-          </button>
+          </Link>
         </div>
       </div>
     </div>

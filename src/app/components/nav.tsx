@@ -54,8 +54,8 @@ const Nav = () => {
                   </p>
                 </Link>
                 <Link
-                  href="/about"
-                  className=" border border-yellow-500 rounded-xl hover:text-white hover:bg-yellow-500 duration-300"
+                  href="/signIn"
+                  className=" border border-yellow-200 rounded-xl duration-300 hover:border-yellow-600"
                 >
                   <p className="px-3 py-2 rounded-md text-sm  font-medium">
                     Sign In
@@ -131,7 +131,7 @@ const Nav = () => {
                 About
               </p>
             </Link>
-            <Link href="/about">
+            <Link href="/signIn">
               <p className=" hover:text-lavender-300 px-3 py-2 rounded-md text-sm  font-medium">
                 Sign In
               </p>
