@@ -30,7 +30,7 @@ const Nav = () => {
   }
   return (
     <>
-      <div className="fixed w-screen z-10">
+      <div className="fixed w-screen z-20">
         <nav
           className={`${isScrolled ? 'md:bg-gray-200' : 'bg-transparant'} ${
             isOpen ? ' block' : ' block'
@@ -121,7 +121,7 @@ const Nav = () => {
       <div
         className={`${
           isOpen ? 'translate-x-0' : 'translate-x-full'
-        } md:hidden duration-500 w-full h-screen bg-slate-200 fixed `}
+        } md:hidden duration-500 w-full h-screen bg-slate-200 fixed z-10 top-[50px]`}
       >
         <div className="px-2 pt-2 pb-3 space-y-1 ">
           <Link href="/">

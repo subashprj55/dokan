@@ -49,3 +49,10 @@ export const notifications = [
   },
   // Add more notifications as needed
 ]
+
+export const products = [
+  { id: 1, name: 'Apples', quantity: 100, category: 'Fruits' },
+  { id: 2, name: 'Bananas', quantity: 80, category: 'Fruits' },
+  { id: 3, name: 'Milk', quantity: 50, category: 'Dairy' },
+  // Add more products as needed
+]

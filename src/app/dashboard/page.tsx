@@ -1,12 +1,12 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ActivityFeed from '../components/activity'
 import Chart from '../components/chart'
 import Container from '../components/container'
 import DataTable from '../components/dataTable'
 import Footer from '../components/footer'
 import Nav from '../components/nav'
-import { chartData, columns, data, notifications } from './data'
+import { chartData, columns, data, notifications, products } from './data'
 
 const Dashboard = () => {
   return (
@@ -14,6 +14,9 @@ const Dashboard = () => {
       <Nav />
       <Container>
         <SummaryWidgets />
+        <InventoryOverview />
+        <ProductListing />
+        <SearchFilterSection />
         <DashboardDataTables />
         <DashboardCharts />
         <DashboardActivityFeed />
@@ -170,6 +173,163 @@ const HelpSupportSection = () => {
         </li>
         {/* Add more links as needed */}
       </ul>
+    </div>
+  )
+}
+
+const InventoryOverview = () => {
+  // Sample inventory data (replace with actual data)
+  const [inventory, setInventory] = useState([
+    { id: 1, name: 'Apples', quantity: 100, category: 'Fruits' },
+    { id: 2, name: 'Bananas', quantity: 80, category: 'Fruits' },
+    { id: 3, name: 'Milk', quantity: 50, category: 'Dairy' },
+    // Add more products as needed
+  ])
+
+  // Calculate total number of products
+  const totalProducts = inventory.length
+
+  // Calculate total quantity of all products
+  const totalQuantity = inventory.reduce(
+    (total, product) => total + product.quantity,
+    0
+  )
+
+  // Calculate number of low-stock products (quantity less than 10)
+  const lowStockProducts = inventory.filter(
+    (product) => product.quantity < 10
+  ).length
+
+  useEffect(() => {
+    // Fetch inventory data from API or database
+    // Example: fetchInventoryData().then(data => setInventory(data));
+  }, []) // Empty dependency array ensures useEffect only runs once on component mount
+
+  return (
+    <div className="bg-white p-6 rounded-lg shadow-md">
+      <h2 className="text-2xl font-semibold mb-4">Inventory Overview</h2>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="border p-4 rounded-lg bg-blue-100">
+          <h3 className="text-lg font-semibold mb-2">Total Products</h3>
+          <p className="text-3xl font-bold">{totalProducts}</p>
+        </div>
+        <div className="border p-4 rounded-lg bg-green-100">
+          <h3 className="text-lg font-semibold mb-2">Total Quantity</h3>
+          <p className="text-3xl font-bold">{totalQuantity}</p>
+        </div>
+        <div className="border p-4 rounded-lg bg-yellow-100">
+          <h3 className="text-lg font-semibold mb-2">Low-Stock Products</h3>
+          <p className="text-3xl font-bold">{lowStockProducts}</p>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+const ProductListing = () => {
+  // Sample product data
+
+  return (
+    <div className="bg-white p-6 rounded-lg shadow-md my-20">
+      <h2 className="text-2xl font-semibold mb-4">Product Listing</h2>
+      <div className="overflow-x-auto">
+        <table className="min-w-full divide-y divide-gray-200">
+          <thead className="bg-gray-50">
+            <tr>
+              <th
+                scope="col"
+                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+              >
+                Name
+              </th>
+              <th
+                scope="col"
+                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+              >
+                Quantity
+              </th>
+              <th
+                scope="col"
+                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+              >
+                Category
+              </th>
+            </tr>
+          </thead>
+          <tbody className="bg-white divide-y divide-gray-200">
+            {products.map((product) => (
+              <tr key={product.id}>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <div className="text-sm font-medium text-gray-900">
+                    {product.name}
+                  </div>
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <div className="text-sm text-gray-500">
+                    {product.quantity}
+                  </div>
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <div className="text-sm text-gray-500">
+                    {product.category}
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  )
+}
+
+const SearchFilterSection = () => {
+  // Sample product data
+  const products = [
+    { id: 1, name: 'Apples', category: 'Fruits' },
+    { id: 2, name: 'Bananas', category: 'Fruits' },
+    { id: 3, name: 'Milk', category: 'Dairy' },
+    // Add more products as needed
+  ]
+
+  const [searchTerm, setSearchTerm] = useState('')
+  const [filteredProducts, setFilteredProducts] = useState(products)
+
+  const handleSearch = (e: any) => {
+    const term = e.target.value
+    setSearchTerm(term)
+    const filtered = products.filter((product) =>
+      product.name.toLowerCase().includes(term.toLowerCase())
+    )
+    setFilteredProducts(filtered)
+  }
+
+  return (
+    <div className="bg-white p-6 rounded-lg shadow-md my-20">
+      <h2 className="text-2xl font-semibold mb-4">Search and Filter</h2>
+      <div className="mb-4">
+        <input
+          type="text"
+          placeholder="Search by product name"
+          value={searchTerm}
+          onChange={handleSearch}
+          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+        />
+      </div>
+      <div>
+        <h3 className="text-lg font-semibold mb-2">Filtered Products</h3>
+        {filteredProducts.length === 0 ? (
+          <p className="text-gray-500">No products found</p>
+        ) : (
+          <ul className="divide-y divide-gray-200">
+            {filteredProducts.map((product) => (
+              <li key={product.id} className="py-2">
+                {product.name} - {product.category}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
     </div>
   )
 }
