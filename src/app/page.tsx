@@ -1,10 +1,10 @@
 'use client'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
 import Container from './components/container'
 import Footer from './components/footer'
 import Nav from './components/nav'
+import PriceDetails from './components/price'
 
 export default function Home() {
   return (
@@ -265,34 +265,27 @@ const PricingPlansSection = () => {
     <section className="bg-white py-16 md:mt-20">
       <div className="container mx-auto px-4">
         <h2 className="text-3xl font-semibold text-center mb-8">
-          Pricing Plans
+          Choose best plan for your Business
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="bg-gray-100 rounded-lg p-6">
-            <h3 className="text-xl font-semibold mb-4">Basic</h3>
-            <p className="text-lg mb-4">Ideal for small businesses</p>
-            <p className="text-lg mb-4">- Inventory Management</p>
-            <p className="text-lg mb-4">- Sales Tracking</p>
-            <p className="text-lg mb-4">- Limited Support</p>
-            <p className="text-lg">Price: $19.99/month</p>
-          </div>
-          <div className="bg-gray-100 rounded-lg p-6">
-            <h3 className="text-xl font-semibold mb-4">Pro</h3>
-            <p className="text-lg mb-4">Ideal for medium-sized businesses</p>
-            <p className="text-lg mb-4">- Inventory Management</p>
-            <p className="text-lg mb-4">- Sales Tracking</p>
-            <p className="text-lg mb-4">- Customer Management</p>
-            <p className="text-lg">Price: $39.99/month</p>
-          </div>
-          <div className="bg-gray-100 rounded-lg p-6">
-            <h3 className="text-xl font-semibold mb-4">Enterprise</h3>
-            <p className="text-lg mb-4">Ideal for large businesses</p>
-            <p className="text-lg mb-4">- Inventory Management</p>
-            <p className="text-lg mb-4">- Sales Tracking</p>
-            <p className="text-lg mb-4">- Customer Management</p>
-            <p className="text-lg mb-4">- Advanced Analytics</p>
-            <p className="text-lg">Price: $79.99/month</p>
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center ">
+          <PriceDetails
+            time={'1 Month'}
+            color={'blue'}
+            price={'99.99'}
+            bgColor={'red'}
+          />
+          <PriceDetails
+            time={'6 Month'}
+            color={'yellow'}
+            price={'449.9'}
+            bgColor={'blue'}
+          />
+          <PriceDetails
+            time={'1 Years'}
+            color={'red'}
+            price={'999.9'}
+            bgColor={'yellow'}
+          />
         </div>
       </div>
     </section>
