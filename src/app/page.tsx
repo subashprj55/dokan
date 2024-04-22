@@ -5,6 +5,9 @@ import Container from './components/container'
 import Footer from './components/footer'
 import Nav from './components/nav'
 import PriceDetails from './components/price'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import 'swiper/css'
+import { Autoplay } from 'swiper/modules'
 
 export default function Home() {
   return (
@@ -89,16 +92,6 @@ const Futures = () => {
       imageSrc: '/images/customer.jpeg',
       imageDescription: 'Customer Management',
     },
-    {
-      id: 5,
-      imageSrc: '/images/Inventory.jpeg',
-      imageDescription: 'Inventory Management',
-    },
-    {
-      id: 6,
-      imageSrc: '/images/Sales.webp',
-      imageDescription: 'Sales Tracking',
-    },
   ]
 
   return (
@@ -106,28 +99,67 @@ const Futures = () => {
       <h1 className="text-2xl text-center md:text-start mb-5 md:overflow-hidden">
         Our grocery store management system offers:-
       </h1>
-      <div className="flex flex-wrap md:flex-nowrap justify-center md:justify-between gap-9 md:overflow-scroll">
-        {imagesData.map(({ id, imageSrc, imageDescription }) => {
-          return (
-            <div key={id}>
-              {/* image */}
-              <div className="w-[300px] h-[200px]">
-                <Image
-                  alt={imageDescription}
-                  src={imageSrc}
-                  width={0}
-                  height={0}
-                  sizes="100vw"
-                  style={{ width: '100%', height: '100%' }}
-                />
+      {/* image slide for tab and laptop */}
+      <div className=" hidden md:block">
+        <Swiper
+          spaceBetween={50}
+          modules={[Autoplay]}
+          autoplay={{ delay: 3000, disableOnInteraction: false }}
+          slidesPerView={4}
+          navigation
+          pagination={{ clickable: true }}
+          scrollbar={{ draggable: true }}
+          loop
+          speed={700}
+        >
+          {imagesData.map(({ id, imageSrc, imageDescription }) => {
+            return (
+              <SwiperSlide key={id} className="cursor-pointer">
+                {/* image */}
+                <div className="w-auto h-[200px]">
+                  <Image
+                    alt={imageDescription}
+                    src={imageSrc}
+                    width={0}
+                    height={0}
+                    sizes="100vw"
+                    style={{ width: '100%', height: '100%' }}
+                  />
+                </div>
+                {/* descrition */}
+                <p className="mb-2 text-center text-lg my-5">
+                  {imageDescription}
+                </p>
+              </SwiperSlide>
+            )
+          })}
+        </Swiper>
+      </div>
+      {/* image for mobile */}
+      <div>
+        <div className="flex flex-wrap md:hidden justify-center gap-4">
+          {imagesData.map(({ id, imageSrc, imageDescription }) => {
+            return (
+              <div key={id}>
+                {/* image */}
+                <div className="w-[300px] h-[200px]">
+                  <Image
+                    alt={imageDescription}
+                    src={imageSrc}
+                    width={0}
+                    height={0}
+                    sizes="100vw"
+                    style={{ width: '100%', height: '100%' }}
+                  />
+                </div>
+                {/* descrition */}
+                <p className="mb-2 text-center text-lg my-5">
+                  {imageDescription}
+                </p>
               </div>
-              {/* descrition */}
-              <p className="mb-2 text-center text-lg my-5">
-                {imageDescription}
-              </p>
-            </div>
-          )
-        })}
+            )
+          })}
+        </div>
       </div>
     </div>
   )
