@@ -8,8 +8,19 @@ import PriceDetails from './components/price'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
 import { Autoplay } from 'swiper/modules'
+import { useEffect } from 'react'
+import AOS from 'aos'
+import 'aos/dist/aos.css'
 
 export default function Home() {
+  useEffect(() => {
+    // Initialize AOS
+    AOS.init({
+      duration: 1000, // Animation duration
+      easing: 'ease-in-out', // Easing option
+    })
+  }, [])
+
   return (
     <>
       <Nav />
@@ -29,7 +40,7 @@ export default function Home() {
 
 const Intro = () => {
   return (
-    <div className="bg-white">
+    <div className="bg-white" data-aos="fade-up">
       <div>
         <title>Your Grocery Store Management</title>
         <meta
@@ -104,13 +115,13 @@ const Futures = () => {
         <Swiper
           spaceBetween={50}
           modules={[Autoplay]}
-          autoplay={{ delay: 3000, disableOnInteraction: false }}
+          autoplay={{ delay: 2000, disableOnInteraction: false }}
           slidesPerView={4}
           navigation
           pagination={{ clickable: true }}
           scrollbar={{ draggable: true }}
           loop
-          speed={700}
+          speed={1700}
         >
           {imagesData.map(({ id, imageSrc, imageDescription }) => {
             return (
@@ -171,7 +182,7 @@ const AboutUsSection = () => {
       <div className="container mx-auto px-4">
         <h2 className="text-3xl font-semibold text-center mb-8">About Us</h2>
         <div className="grid items-center grid-cols-1 md:grid-cols-2 gap-8 ">
-          <div>
+          <div data-aos="fade-right">
             <Image
               alt={'image'}
               src={'/images/Sales.webp'}
@@ -181,7 +192,7 @@ const AboutUsSection = () => {
               style={{ width: '100%', height: 'auto' }}
             />
           </div>
-          <div className="max-w-lg">
+          <div className="max-w-lg" data-aos="fade-left">
             <p className="text-lg mb-4">
               At Dokan, we are dedicated to revolutionizing the way grocery
               stores manage their operations. With a focus on innovation and
@@ -210,7 +221,10 @@ const HowItWorksSection = () => {
         <h2 className="text-3xl font-semibold text-center mb-8">
           How It Works
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+        <div
+          className="grid grid-cols-1 md:grid-cols-3 gap-12"
+          data-aos="zoom-out-up"
+        >
           <div className="text-center">
             <div className="rounded-full bg-blue-500 text-white w-16 h-16 flex items-center justify-center mb-4 mx-auto">
               <span className="text-2xl font-bold">1</span>
@@ -255,7 +269,11 @@ const TestimonialsSection = () => {
         <h2 className="text-3xl font-semibold text-center mb-8">
           Happy Customers
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          data-aos="fade-up"
+          data-aos-anchor-placement="center-bottom"
+        >
           <div className="bg-white rounded-lg shadow-lg p-6">
             <p className="text-lg mb-4">
               "I'm amazed by how easy it is to manage my store with this system.
@@ -299,7 +317,12 @@ const PricingPlansSection = () => {
         <h2 className="text-3xl font-semibold text-center mb-8">
           Choose best plan for your Business
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center ">
+        <div
+          className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center "
+          data-aos="fade-right"
+          data-aos-offset="300"
+          data-aos-easing="ease-in-sine"
+        >
           <PriceDetails
             time={'1 Month'}
             color={'blue'}
