@@ -62,7 +62,7 @@ const Nav = () => {
                       Sign In
                     </p>
                   </Link>
-                  <Link href="/about">
+                  <Link href="/login">
                     <p className="px-3 py-2 text-sm font-medium rounded-xl text-blue-700 hover:text-blue-800 border hover:border-blue-800 duration-300">
                       Login
                     </p>
@@ -139,7 +139,7 @@ const Nav = () => {
               Sign In
             </p>
           </Link>
-          <Link href="/about">
+          <Link href="/login">
             <p className=" hover:text-lavender-300 px-3 py-2 rounded-md text-sm  font-medium">
               Login
             </p>
