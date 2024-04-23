@@ -129,6 +129,7 @@ const Futures = () => {
                 {/* image */}
                 <div className="w-auto h-[200px]">
                   <Image
+                    className=" rounded-lg"
                     alt={imageDescription}
                     src={imageSrc}
                     width={0}

@@ -5,66 +5,84 @@ import { useState } from 'react'
 const SignInPage = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [error, setError] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
 
-  const handleSubmit = async (e: any) => {
-    e.preventDefault()
-
-    // Simulated authentication logic
-    if (email === 'user@example.com' && password === 'password') {
-      // router.push('/dashboard'); // Redirect to dashboard on successful login
-    } else {
-      setError('Invalid email or password')
-    }
+  const handleSignUp = () => {
+    // Perform sign-up logic here
+    console.log('Signing up...')
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="bg-white p-8 rounded-lg shadow-md w-96">
-        <h2 className="text-2xl font-semibold mb-6 text-center">Sign In</h2>
-        {error && <p className="text-red-500 mb-4">{error}</p>}
-        <form onSubmit={handleSubmit}>
+    <div className="bg-gray-100 min-h-screen flex flex-col justify-center items-center">
+      <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
+        <h2 className="text-3xl font-light mb-6">Create your Free Account</h2>
+        <div className="mb-6 flex flex-col md:flex-row md:space-x-4">
+          <button className="bg-blue-500 text-white py-2 px-4 rounded mb-4 md:mb-0">
+            Sign up with Google
+          </button>
+          <button className="bg-gray-500 text-white py-2 px-4 rounded mb-4 md:mb-0">
+            Sign up with Apple
+          </button>
+        </div>
+
+        <form onSubmit={handleSignUp} className="w-full">
           <div className="mb-4">
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium text-gray-700"
-            >
+            <label className="block text-gray-700 text-sm font-medium mb-2">
               Email
             </label>
             <input
               type="email"
-              id="email"
-              name="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:ring focus:ring-blue-200 focus:border-blue-500"
+              className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              required
             />
           </div>
-          <div className="mb-6">
-            <label
-              htmlFor="password"
-              className="block text-sm font-medium text-gray-700"
-            >
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-medium mb-2">
               Password
             </label>
             <input
               type="password"
-              id="password"
-              name="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:ring focus:ring-blue-200 focus:border-blue-500"
+              className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              required
             />
           </div>
-          <div className="flex justify-center">
-            <button
-              type="submit"
-              className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-200 focus:border-blue-500"
-            >
-              Sign In
-            </button>
+          <div className="mb-6">
+            <label className="block text-gray-700 text-sm font-medium mb-2">
+              Confirm Password
+            </label>
+            <input
+              type="password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              required
+            />
           </div>
+          <div className="mb-6">
+            <input type="checkbox" className="mr-2 leading-tight" required />
+            <span className="text-sm text-gray-600">
+              By signing up, you are creating a Flowbite account, and you agree
+              to Flowbite’s Terms of Use and Privacy Policy.
+            </span>
+          </div>
+          <button
+            type="submit"
+            className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded w-full focus:outline-none focus:shadow-outline"
+          >
+            Create an account
+          </button>
         </form>
+
+        <div className="mt-6 text-center">
+          Already have an account?{' '}
+          <a href="#" className="text-blue-500 hover:underline">
+            Sign in here
+          </a>
+        </div>
       </div>
     </div>
   )
