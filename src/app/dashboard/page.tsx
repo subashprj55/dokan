@@ -5,25 +5,26 @@ import Chart from '../components/chart'
 import Container from '../components/container'
 import DataTable from '../components/dataTable'
 import Footer from '../components/footer'
-import Nav from '../components/nav'
+import NavContainer from '../components/navContainer'
 import { chartData, columns, data, notifications, products } from './data'
 
 const Dashboard = () => {
   return (
     <>
-      <Nav />
-      <Container>
-        <SummaryWidgets />
-        <InventoryOverview />
-        <ProductListing />
-        <SearchFilterSection />
-        <DashboardDataTables />
-        <DashboardCharts />
-        <DashboardActivityFeed />
-        <ProfileSettingsForm />
-        <HelpSupportSection />
-        <Footer />
-      </Container>
+      <NavContainer>
+        <Container>
+          <SummaryWidgets />
+          <InventoryOverview />
+          <ProductListing />
+          <SearchFilterSection />
+          <DashboardDataTables />
+          <DashboardCharts />
+          <DashboardActivityFeed />
+          <ProfileSettingsForm />
+          <HelpSupportSection />
+          <Footer />
+        </Container>
+      </NavContainer>
     </>
   )
 }

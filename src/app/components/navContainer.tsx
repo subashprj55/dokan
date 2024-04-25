@@ -7,10 +7,10 @@ const NavContainer = ({ children }: any) => {
     <>
       <Nav />
       <div className="flex">
-        <div className="hidden md:block w-1/6">
+        <div className="hidden md:block w-[15%]">
           <VerticalNav />
         </div>
-        <div className="w-full md:w-5/6">{children}</div>
+        <div className="w-full md:w-[85%]">{children}</div>
       </div>
     </>
   )
