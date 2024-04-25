@@ -1,7 +1,10 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Link from 'next/link'
 import { List, ListItem, ListItemText } from '@mui/material'
 import Divider from '@mui/material/Divider'
+import { usePathname } from 'next/navigation'
+import Aos from 'aos'
+import 'aos/dist/aos.css'
 
 const VerticalLinks = [
   {
@@ -11,8 +14,8 @@ const VerticalLinks = [
   },
   {
     id: 1,
-    name: 'Quick Shell',
-    link: '/',
+    name: 'Quick Sell',
+    link: '/quickSell',
   },
   {
     id: 2,
@@ -37,7 +40,7 @@ const VerticalLinks = [
   {
     id: 6,
     name: 'Setting',
-    link: '/',
+    link: '/setting',
   },
   {
     id: 7,
@@ -47,19 +50,35 @@ const VerticalLinks = [
 ]
 
 const VerticalNav = () => {
+  useEffect(() => {
+    Aos.init({
+      duration: 500,
+      easing: 'ease-in-out',
+    })
+  }, [])
+
+  const pathName = usePathname()
   return (
-    <div className="fixed left-0 top-0 pt-14 h-full bg-white w-64 overflow-y-auto ">
-      <nav className="border-r border-gray-200 h-full">
+    <div className="fixed left-0 top-0 pt-14 h-full bg-white w-[inherit] overflow-y-auto ">
+      <nav className="border-r border-gray-200 h-full" data-aos="fade-right">
         <List className="pt-0">
           {VerticalLinks.map(({ id, name, link }) => {
             return (
               <div key={id}>
                 <Divider />
-                <ListItem button>
-                  <Link href={link}>
+                <Link href={link}>
+                  <ListItem
+                    onClick={() => console.log(link, pathName)}
+                    button
+                    className={`${
+                      pathName === link
+                        ? 'bg-yellow-300 hover:bg-yellow-300 '
+                        : 'hover:bg-yellow-300'
+                    }`}
+                  >
                     <ListItemText className=" capitalize" primary={name} />
-                  </Link>
-                </ListItem>
+                  </ListItem>
+                </Link>
               </div>
             )
           })}

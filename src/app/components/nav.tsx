@@ -2,24 +2,24 @@
 import React, { useEffect } from 'react'
 import Link from 'next/link'
 import { useState } from 'react'
+import { usePathname } from 'next/navigation'
 
 const Nav = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
 
+  const routerPath = usePathname()
+
   useEffect(() => {
     const handleScroll = () => {
       const scrollTop = window.pageYOffset
-
       if (scrollTop > 10) {
         setIsScrolled(true)
       } else {
         setIsScrolled(false)
       }
     }
-
     window.addEventListener('scroll', handleScroll)
-
     return () => {
       window.removeEventListener('scroll', handleScroll)
     }
@@ -28,11 +28,12 @@ const Nav = () => {
   const toggleNavbar = () => {
     setIsOpen(!isOpen)
   }
+
   return (
     <>
       <div className="fixed w-screen z-20">
         <nav
-          className={`${isScrolled ? 'md:bg-gray-200' : 'bg-transparant'} ${
+          className={`${isScrolled ? 'md:bg-gray-100' : 'bg-transparant'} ${
             isOpen ? ' block' : ' block'
           } transition-colors duration-500 ease-in-out `}
         >
@@ -44,12 +45,20 @@ const Nav = () => {
               </div>
               <div className="hidden md:block">
                 <div className="ml-10 flex items-baseline space-x-4">
-                  <Link href="/">
+                  <Link
+                    href="/"
+                    className={`${routerPath === '/' ? 'text-blue-700' : ''}`}
+                  >
                     <p className=" hover:text-lavender-300 px-3 py-2 rounded-md text-sm font-medium">
                       Home
                     </p>
                   </Link>
-                  <Link href="/about">
+                  <Link
+                    href="/about"
+                    className={`${
+                      routerPath === '/about' ? 'text-blue-700' : ''
+                    }`}
+                  >
                     <p className=" hover:text-lavender-300 px-3 py-2 rounded-md text-sm  font-medium">
                       About
                     </p>
