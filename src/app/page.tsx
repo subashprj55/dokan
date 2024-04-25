@@ -11,13 +11,13 @@ import { Autoplay } from 'swiper/modules'
 import { useEffect } from 'react'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
+import FaqsSection from './components/accordian'
 
 export default function Home() {
   useEffect(() => {
-    // Initialize AOS
     AOS.init({
-      duration: 1000, // Animation duration
-      easing: 'ease-in-out', // Easing option
+      duration: 1000,
+      easing: 'ease-in-out',
     })
   }, [])
 
@@ -342,53 +342,6 @@ const PricingPlansSection = () => {
             price={'999.9'}
             bgColor={'yellow'}
           />
-        </div>
-      </div>
-    </section>
-  )
-}
-
-const FaqsSection = () => {
-  return (
-    <section className="bg-gray-100 py-16 md:mt-20">
-      <div className="container mx-auto px-4">
-        <h2 className="text-3xl font-semibold text-center mb-8">
-          Frequently Asked Questions
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div>
-            <h3 className="text-xl font-semibold mb-4">
-              How do I sign up for the system?
-            </h3>
-            <p className="text-lg mb-6">
-              Signing up is easy! Just click on the "Sign Up" button at the top
-              of the page and follow the instructions to create your account.
-            </p>
-            <h3 className="text-xl font-semibold mb-4">
-              What payment methods do you accept?
-            </h3>
-            <p className="text-lg mb-6">
-              We accept all major credit cards, including Visa, Mastercard, and
-              American Express. You can also pay using PayPal.
-            </p>
-          </div>
-          <div>
-            <h3 className="text-xl font-semibold mb-4">
-              Is there a free trial available?
-            </h3>
-            <p className="text-lg mb-6">
-              Yes, we offer a 14-day free trial for new users. You can explore
-              all the features of our system with no obligation.
-            </p>
-            <h3 className="text-xl font-semibold mb-4">
-              Can I cancel my subscription at any time?
-            </h3>
-            <p className="text-lg mb-6">
-              Absolutely! You can cancel your subscription at any time with no
-              questions asked. Your account will remain active until the end of
-              your billing cycle.
-            </p>
-          </div>
         </div>
       </div>
     </section>
