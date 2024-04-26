@@ -72,8 +72,8 @@ const VerticalNav = () => {
                     button
                     className={`${
                       pathName === link
-                        ? 'bg-yellow-300 hover:bg-yellow-300 '
-                        : 'hover:bg-yellow-300'
+                        ? 'bg-green-500 hover:bg-green-500 text-white'
+                        : 'hover:bg-green-500 hover:text-white'
                     }`}
                   >
                     <ListItemText className=" capitalize" primary={name} />

@@ -1,11 +1,11 @@
 'use client'
-import { Modal } from '@mui/base'
-import { Button, TextField } from '@mui/material'
-import React, { useState } from 'react'
+import { Button } from '@mui/material'
+import React from 'react'
 import Container from '../components/container'
 import NavContainer from '../components/navContainer'
 import ModalPopup from '../components/popUpModel'
-import ProductTable from '../components/Table'
+import ProductTable from '../components/table'
+
 import { products } from './data'
 
 const PurchaseItem = () => {
