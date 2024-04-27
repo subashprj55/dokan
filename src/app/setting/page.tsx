@@ -13,6 +13,7 @@ const page = () => {
           <NotificationSettings />
           <StoreSettings />
           <TaxSettings />
+          <ProfileSettingsForm />
         </Container>
       </NavContainer>
     </>
@@ -188,6 +189,79 @@ const TaxSettings = () => {
           Save
         </Button>
       </div>
+    </div>
+  )
+}
+
+const ProfileSettingsForm = () => {
+  const [fullName, setFullName] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
+  const handleSubmit = (e: any) => {
+    e.preventDefault()
+    // Add logic to update user profile/settings
+    console.log('Profile updated:', { fullName, email, password })
+  }
+
+  return (
+    <div className="bg-white p-6 rounded-lg shadow-md mt-20">
+      <h2 className="text-2xl font-semibold mb-6">Profile Settings</h2>
+      <form onSubmit={handleSubmit}>
+        <div className="mb-4">
+          <label
+            htmlFor="fullName"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Full Name
+          </label>
+          <input
+            type="text"
+            id="fullName"
+            value={fullName}
+            onChange={(e) => setFullName(e.target.value)}
+            className="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:ring focus:ring-blue-200 focus:border-blue-500"
+          />
+        </div>
+        <div className="mb-4">
+          <label
+            htmlFor="email"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Email
+          </label>
+          <input
+            type="email"
+            id="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:ring focus:ring-blue-200 focus:border-blue-500"
+          />
+        </div>
+        <div className="mb-6">
+          <label
+            htmlFor="password"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Password
+          </label>
+          <input
+            type="password"
+            id="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:ring focus:ring-blue-200 focus:border-blue-500"
+          />
+        </div>
+        <div className="flex justify-center">
+          <button
+            type="submit"
+            className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-200 focus:border-blue-500"
+          >
+            Save Changes
+          </button>
+        </div>
+      </form>
     </div>
   )
 }

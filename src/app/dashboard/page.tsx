@@ -1,12 +1,22 @@
 'use client'
 import React, { useEffect, useState } from 'react'
-import ActivityFeed from '../components/activity'
-import Chart from '../components/chart'
 import Container from '../components/container'
-import DataTable from '../components/dataTable'
 import Footer from '../components/footer'
 import NavContainer from '../components/navContainer'
-import { chartData, columns, data, notifications, products } from './data'
+import ProductTable from '../components/table'
+import { products } from '../purchase/data'
+import { PieChart, Pie, Cell } from 'recharts'
+import { Tooltip, Legend, ResponsiveContainer } from 'recharts'
+import {
+  Typography,
+  List,
+  ListItem,
+  ListItemText,
+  ListItemIcon,
+  Divider,
+} from '@mui/material'
+import { FaCheckCircle } from 'react-icons/fa'
+import PiChart from '../components/PiChart'
 
 const Dashboard = () => {
   return (
@@ -14,16 +24,13 @@ const Dashboard = () => {
       <NavContainer>
         <Container>
           <SummaryWidgets />
+          <RecentActivity />
+          <ProductTable products={products} />
+          <PieChartSection />
           <InventoryOverview />
-          <ProductListing />
-          <SearchFilterSection />
-          <DashboardDataTables />
-          <DashboardCharts />
-          <DashboardActivityFeed />
-          <ProfileSettingsForm />
           <HelpSupportSection />
-          <Footer />
         </Container>
+        <Footer />
       </NavContainer>
     </>
   )
@@ -33,122 +40,33 @@ export default Dashboard
 
 const SummaryWidgets = () => {
   // Example data for summary widgets
-  const [totalUsers, setTotalUsers] = useState(1000)
-  const [totalOrders, setTotalOrders] = useState(500)
-  const [totalRevenue, setTotalRevenue] = useState(10000)
+  const [totalCustomer, setTotalCostomer] = useState(324)
+  const [totalUsers, setTotalUsers] = useState(10000)
+  const [totalOrders, setTotalOrders] = useState(8000)
+  const [totalRevenue, setTotalRevenue] = useState(2000)
 
-  return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 py-32">
-      <div className="bg-white rounded-lg p-6 shadow-md">
-        <h3 className="text-lg font-semibold mb-2">Total Users</h3>
-        <p className="text-3xl font-bold text-blue-500">{totalUsers}</p>
-      </div>
-      <div className="bg-white rounded-lg p-6 shadow-md">
-        <h3 className="text-lg font-semibold mb-2">Total Orders</h3>
-        <p className="text-3xl font-bold text-green-500">{totalOrders}</p>
-      </div>
-      <div className="bg-white rounded-lg p-6 shadow-md">
-        <h3 className="text-lg font-semibold mb-2">Total Revenue</h3>
-        <p className="text-3xl font-bold text-yellow-500">${totalRevenue}</p>
-      </div>
-    </div>
-  )
-}
-
-const DashboardDataTables = () => {
   return (
     <>
-      <DataTable columns={columns} data={data} />
+      <h2 className="text-2xl font-semibold mb-6 pt-28">Today's Transation</h2>
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-20">
+        <div className="bg-white rounded-lg p-6 shadow-md">
+          <h3 className="text-lg font-semibold mb-2">Total Customers</h3>
+          <p className="text-3xl font-bold text-blue-500"> {totalCustomer}</p>
+        </div>
+        <div className="bg-white rounded-lg p-6 shadow-md">
+          <h3 className="text-lg font-semibold mb-2">Total Transation</h3>
+          <p className="text-3xl font-bold text-yellow-500">Rs {totalUsers}</p>
+        </div>
+        <div className="bg-white rounded-lg p-6 shadow-md">
+          <h3 className="text-lg font-semibold mb-2">Cash Transation</h3>
+          <p className="text-3xl font-bold text-green-500">Rs {totalOrders}</p>
+        </div>
+        <div className="bg-white rounded-lg p-6 shadow-md">
+          <h3 className="text-lg font-semibold mb-2">Credit Transation</h3>
+          <p className="text-3xl font-bold text-red-500">Rs {totalRevenue}</p>
+        </div>
+      </div>
     </>
-  )
-}
-
-const DashboardCharts = () => {
-  return (
-    <div className="mt-20  -ml-5">
-      <Chart data={chartData} />
-    </div>
-  )
-}
-
-const DashboardActivityFeed = () => {
-  return (
-    <div className="mt-20 ">
-      <ActivityFeed notifications={notifications} />
-    </div>
-  )
-}
-
-const ProfileSettingsForm = () => {
-  const [fullName, setFullName] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-
-  const handleSubmit = (e: any) => {
-    e.preventDefault()
-    // Add logic to update user profile/settings
-    console.log('Profile updated:', { fullName, email, password })
-  }
-
-  return (
-    <div className="bg-white p-6 rounded-lg shadow-md mt-20">
-      <h2 className="text-2xl font-semibold mb-6">Profile Settings</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="mb-4">
-          <label
-            htmlFor="fullName"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Full Name
-          </label>
-          <input
-            type="text"
-            id="fullName"
-            value={fullName}
-            onChange={(e) => setFullName(e.target.value)}
-            className="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:ring focus:ring-blue-200 focus:border-blue-500"
-          />
-        </div>
-        <div className="mb-4">
-          <label
-            htmlFor="email"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Email
-          </label>
-          <input
-            type="email"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:ring focus:ring-blue-200 focus:border-blue-500"
-          />
-        </div>
-        <div className="mb-6">
-          <label
-            htmlFor="password"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Password
-          </label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:ring focus:ring-blue-200 focus:border-blue-500"
-          />
-        </div>
-        <div className="flex justify-center">
-          <button
-            type="submit"
-            className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-200 focus:border-blue-500"
-          >
-            Save Changes
-          </button>
-        </div>
-      </form>
-    </div>
   )
 }
 
@@ -182,8 +100,8 @@ const InventoryOverview = () => {
   // Sample inventory data (replace with actual data)
   const [inventory, setInventory] = useState([
     { id: 1, name: 'Apples', quantity: 100, category: 'Fruits' },
-    { id: 2, name: 'Bananas', quantity: 80, category: 'Fruits' },
-    { id: 3, name: 'Milk', quantity: 50, category: 'Dairy' },
+    { id: 2, name: 'Bananas', quantity: 8, category: 'Fruits' },
+    { id: 3, name: 'Milk', quantity: 9, category: 'Dairy' },
     // Add more products as needed
   ])
 
@@ -207,18 +125,18 @@ const InventoryOverview = () => {
   }, []) // Empty dependency array ensures useEffect only runs once on component mount
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-md">
+    <div className="bg-white p-6 rounded-lg shadow-md mt-20">
       <h2 className="text-2xl font-semibold mb-4">Inventory Overview</h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="border p-4 rounded-lg bg-blue-100">
+        <div className="border p-4 rounded-lg bg-blue-200">
           <h3 className="text-lg font-semibold mb-2">Total Products</h3>
           <p className="text-3xl font-bold">{totalProducts}</p>
         </div>
-        <div className="border p-4 rounded-lg bg-green-100">
+        <div className="border p-4 rounded-lg bg-green-200">
           <h3 className="text-lg font-semibold mb-2">Total Quantity</h3>
           <p className="text-3xl font-bold">{totalQuantity}</p>
         </div>
-        <div className="border p-4 rounded-lg bg-yellow-100">
+        <div className="border p-4 rounded-lg bg-red-300">
           <h3 className="text-lg font-semibold mb-2">Low-Stock Products</h3>
           <p className="text-3xl font-bold">{lowStockProducts}</p>
         </div>
@@ -227,110 +145,63 @@ const InventoryOverview = () => {
   )
 }
 
-const ProductListing = () => {
-  // Sample product data
-
+const PieChartSection = () => {
   return (
-    <div className="bg-white p-6 rounded-lg shadow-md my-20">
-      <h2 className="text-2xl font-semibold mb-4">Product Listing</h2>
-      <div className="overflow-x-auto">
-        <table className="min-w-full divide-y divide-gray-200">
-          <thead className="bg-gray-50">
-            <tr>
-              <th
-                scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-              >
-                Name
-              </th>
-              <th
-                scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-              >
-                Quantity
-              </th>
-              <th
-                scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-              >
-                Category
-              </th>
-            </tr>
-          </thead>
-          <tbody className="bg-white divide-y divide-gray-200">
-            {products.map((product) => (
-              <tr key={product.id}>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm font-medium text-gray-900">
-                    {product.name}
-                  </div>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm text-gray-500">
-                    {product.quantity}
-                  </div>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm text-gray-500">
-                    {product.category}
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+    <div className="bg-white p-6 rounded-lg shadow-lg mt-20">
+      <h2 className="text-2xl font-semibold mb-4">
+        Sales Distribution by Category
+      </h2>
+      <PiChart />
     </div>
   )
 }
 
-const SearchFilterSection = () => {
-  // Sample product data
-  const products = [
-    { id: 1, name: 'Apples', category: 'Fruits' },
-    { id: 2, name: 'Bananas', category: 'Fruits' },
-    { id: 3, name: 'Milk', category: 'Dairy' },
-    // Add more products as needed
-  ]
-
-  const [searchTerm, setSearchTerm] = useState('')
-  const [filteredProducts, setFilteredProducts] = useState(products)
-
-  const handleSearch = (e: any) => {
-    const term = e.target.value
-    setSearchTerm(term)
-    const filtered = products.filter((product) =>
-      product.name.toLowerCase().includes(term.toLowerCase())
-    )
-    setFilteredProducts(filtered)
-  }
-
+const RecentActivity = () => {
   return (
-    <div className="bg-white p-6 rounded-lg shadow-md my-20">
-      <h2 className="text-2xl font-semibold mb-4">Search and Filter</h2>
-      <div className="mb-4">
-        <input
-          type="text"
-          placeholder="Search by product name"
-          value={searchTerm}
-          onChange={handleSearch}
-          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-        />
-      </div>
-      <div>
-        <h3 className="text-lg font-semibold mb-2">Filtered Products</h3>
-        {filteredProducts.length === 0 ? (
-          <p className="text-gray-500">No products found</p>
-        ) : (
-          <ul className="divide-y divide-gray-200">
-            {filteredProducts.map((product) => (
-              <li key={product.id} className="py-2">
-                {product.name} - {product.category}
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
+    <div className="bg-white p-6 rounded-lg shadow-lg my-20">
+      <Typography variant="h6" gutterBottom>
+        Recent Activity
+      </Typography>
+      <Divider />
+      <List>
+        <ListItem>
+          <ListItemIcon>
+            <FaCheckCircle className="text-blue-500" />
+          </ListItemIcon>
+          <ListItemText
+            primary="Sunita Gautam On Credit Rs 1500"
+            secondary="2024-04-15 10:30 AM"
+          />
+        </ListItem>
+        <ListItem>
+          <ListItemIcon>
+            <FaCheckCircle className="text-green-500" />
+          </ListItemIcon>
+          <ListItemText
+            primary="Suresh Dahal On Cash Rs 300"
+            secondary="2024-04-15 10:30 AM"
+          />
+        </ListItem>
+        <ListItem>
+          <ListItemIcon>
+            <FaCheckCircle className="text-green-500" />
+          </ListItemIcon>
+          <ListItemText
+            primary="Ram Lamichhane On Cash Rs 3500"
+            secondary="2024-04-15 10:30 AM"
+          />
+        </ListItem>
+        <ListItem>
+          <ListItemIcon>
+            <FaCheckCircle className="text-blue-500" />
+          </ListItemIcon>
+          <ListItemText
+            primary="Hari Gautam On Credit Rs 200"
+            secondary="2024-04-15 10:30 AM"
+          />
+        </ListItem>
+        {/* Add more list items as needed */}
+      </List>
     </div>
   )
 }
