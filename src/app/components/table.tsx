@@ -15,7 +15,7 @@ const ProductTable = ({ products }: any) => {
       component={Paper}
       className="rounded-lg overflow-hidden shadow-lg"
     >
-      <Table className="min-w-max">
+      <Table className="min-w-full">
         <TableHead className="bg-gray-50">
           <TableRow>
             <TableCell className="px-4 py-3 text-left text-gray-600 font-semibold">
@@ -32,18 +32,24 @@ const ProductTable = ({ products }: any) => {
             </TableCell>
           </TableRow>
         </TableHead>
-        <TableBody className="bg-white divide-y divide-gray-200 ">
-          {products.map((product: any) => (
+        <TableBody className="bg-white divide-y divide-gray-200">
+          {products.map((product: any, index: any) => (
             <TableRow
-              key={product.id}
+              key={index}
               className="cursor-pointer md:hover:bg-gray-100"
             >
-              <TableCell className="px-4 py-3">{product.name}</TableCell>
-              <TableCell className="px-4 py-3">{product.quantity}</TableCell>
-              <TableCell className="px-4 py-3">
+              <TableCell className="px-4 py-3 md:w-1/4">
+                {product.name}
+              </TableCell>
+              <TableCell className="px-4 py-3 md:w-1/4">
+                {product.quantity}
+              </TableCell>
+              <TableCell className="px-4 py-3 md:w-1/4">
                 ${product.price.toFixed(2)}
               </TableCell>
-              <TableCell className="px-4 py-2">{product.expireDate}</TableCell>
+              <TableCell className="px-4 py-3 md:w-1/4">
+                {product.expireDate}
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>

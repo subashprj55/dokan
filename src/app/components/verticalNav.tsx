@@ -14,12 +14,12 @@ const VerticalLinks = [
   },
   {
     id: 1,
-    name: 'Quick Sell',
-    link: '/quickSell',
+    name: 'Quick Sales',
+    link: '/quickSales',
   },
   {
     id: 2,
-    name: 'Sell',
+    name: 'Sales',
     link: '/',
   },
   {
@@ -30,11 +30,11 @@ const VerticalLinks = [
   {
     id: 4,
     name: 'Analysis',
-    link: '/',
+    link: '/analysis',
   },
   {
     id: 5,
-    name: 'Creadit',
+    name: 'Credit',
     link: '/',
   },
   {
