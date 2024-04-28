@@ -15,6 +15,17 @@ import {
 } from '@mui/material'
 import { FaCheckCircle } from 'react-icons/fa'
 import PiChart from '@/components/PiChart'
+import Chart from '@/components/chart'
+import { chartData } from './data'
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+} from '@mui/material'
 
 const Dashboard = () => {
   return (
@@ -23,6 +34,8 @@ const Dashboard = () => {
         <Container>
           <SummaryWidgets />
           <RecentActivity />
+          <LowStockTable />
+          <DashboardCharts />
           <ProductTable products={products} />
           <PieChartSection />
           <InventoryOverview />
@@ -201,5 +214,62 @@ const RecentActivity = () => {
         {/* Add more list items as needed */}
       </List>
     </div>
+  )
+}
+
+const DashboardCharts = () => {
+  return (
+    <div className="my-20  md:-ml-5">
+      <Chart data={chartData} />
+    </div>
+  )
+}
+
+const LowStockTable = () => {
+  // Sample data for demonstration
+  const products = [
+    { id: 1, name: 'Product 1', stock: 5 },
+    { id: 2, name: 'Product 2', stock: 10 },
+    { id: 3, name: 'Product 3', stock: 3 },
+    // Add more products as needed
+  ]
+
+  return (
+    <TableContainer component={Paper} className="min-w-full overflow-x-auto">
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              ID
+            </TableCell>
+            <TableCell className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Product Name
+            </TableCell>
+            <TableCell className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Stock
+            </TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {products.map((product) => (
+            <TableRow key={product.id}>
+              <TableCell className="px-6 py-4 whitespace-nowrap">
+                {product.id}
+              </TableCell>
+              <TableCell className="px-6 py-4 whitespace-nowrap">
+                {product.name}
+              </TableCell>
+              <TableCell
+                className={`px-6 py-4 whitespace-nowrap ${
+                  product.stock <= 5 ? 'text-red-500' : ''
+                }`}
+              >
+                {product.stock}
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
   )
 }

@@ -3,8 +3,6 @@ import Link from 'next/link'
 import { List, ListItem, ListItemText } from '@mui/material'
 import Divider from '@mui/material/Divider'
 import { usePathname } from 'next/navigation'
-import Aos from 'aos'
-import 'aos/dist/aos.css'
 
 const VerticalLinks = [
   {
@@ -20,7 +18,7 @@ const VerticalLinks = [
   {
     id: 2,
     name: 'Sales',
-    link: '/',
+    link: '/sales',
   },
   {
     id: 3,
@@ -35,7 +33,7 @@ const VerticalLinks = [
   {
     id: 5,
     name: 'Credit',
-    link: '/',
+    link: '/credit',
   },
   {
     id: 6,
@@ -45,22 +43,15 @@ const VerticalLinks = [
   {
     id: 7,
     name: 'Feedback',
-    link: '/',
+    link: '/feedback',
   },
 ]
 
 const VerticalNav = () => {
-  useEffect(() => {
-    Aos.init({
-      duration: 500,
-      easing: 'ease-in-out',
-    })
-  }, [])
-
   const pathName = usePathname()
   return (
     <div className="fixed left-0 top-0 pt-14 h-full bg-white w-[inherit] overflow-y-auto ">
-      <nav className="border-r border-gray-200 h-full" data-aos="fade-right">
+      <nav className="border-r border-gray-200 h-full">
         <List className="pt-0">
           {VerticalLinks.map(({ id, name, link }) => {
             return (

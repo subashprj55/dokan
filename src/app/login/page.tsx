@@ -3,8 +3,30 @@ import { useEffect, useState } from 'react'
 import { FaGoogle, FaApple } from 'react-icons/fa'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
+import Nav from '@/components/nav'
+import { Container } from '@mui/material'
+import Footer from '@/components/footer'
 
 const LoginPage = () => {
+  useEffect(() => {
+    AOS.init({
+      duration: 1000,
+      easing: 'ease-in-out',
+    })
+  }, [])
+
+  return (
+    <>
+      <Nav />
+      <LoginSection />
+      <Footer />
+    </>
+  )
+}
+
+export default LoginPage
+
+const LoginSection = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [rememberMe, setRememberMe] = useState(false)
@@ -13,13 +35,6 @@ const LoginPage = () => {
     // Perform login logic here
     console.log('Logging in...')
   }
-
-  useEffect(() => {
-    AOS.init({
-      duration: 1000,
-      easing: 'ease-in-out',
-    })
-  }, [])
 
   return (
     <div className="bg-gray-200 min-h-screen flex flex-col justify-center items-center">
@@ -96,5 +111,3 @@ const LoginPage = () => {
     </div>
   )
 }
-
-export default LoginPage

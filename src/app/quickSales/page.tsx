@@ -5,6 +5,7 @@ import Container from '@/components/container'
 import NavContainer from '@/components/navContainer'
 import ProductTable from '@/components/table'
 import { products } from '@/app/purchase/data'
+import Footer from '@/components/footer'
 
 const page = () => {
   return (
@@ -13,6 +14,7 @@ const page = () => {
         <Container>
           <QuickSell />
         </Container>
+        <Footer />
       </NavContainer>
     </>
   )

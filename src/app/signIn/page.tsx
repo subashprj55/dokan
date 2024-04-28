@@ -4,8 +4,20 @@ import { useEffect, useState } from 'react'
 import { FaGoogle, FaApple } from 'react-icons/fa'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
+import Nav from '@/components/nav'
+import Footer from '@/components/footer'
 
 const SignInPage = () => {
+  return (
+    <>
+      <Nav />
+      <SignInSection />
+      <Footer />
+    </>
+  )
+}
+
+const SignInSection = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')

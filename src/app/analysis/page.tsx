@@ -11,25 +11,25 @@ import {
   YAxis,
 } from 'recharts'
 import Chart from '@/components/chart'
-import { chartData, data } from './data'
+import { data } from './data'
+import NavContainer from '@/components/navContainer'
+import Container from '@/components/container'
+import Footer from '@/components/footer'
 
 const page = () => {
   return (
     <>
-      <DashboardCharts />
+      <NavContainer>
+        <Container>
+          <ChartsAndGraphs />
+        </Container>
+        <Footer />
+      </NavContainer>
     </>
   )
 }
 
 export default page
-
-const DashboardCharts = () => {
-  return (
-    <div className="mt-20  -ml-5">
-      <Chart data={chartData} />
-    </div>
-  )
-}
 
 const ChartsAndGraphs = () => {
   return (
