@@ -54,9 +54,9 @@ const Nav = () => {
                     </p>
                   </Link>
                   <Link
-                    href="/about"
+                    href="/aboutUs"
                     className={`${
-                      routerPath === '/about' ? 'text-blue-700' : ''
+                      routerPath === '/aboutUs' ? 'text-blue-700' : ''
                     }`}
                   >
                     <p className=" hover:text-lavender-300 px-3 py-2 rounded-md text-sm  font-medium">
@@ -65,14 +65,22 @@ const Nav = () => {
                   </Link>
                   <Link
                     href="/signIn"
-                    className=" border border-yellow-200 rounded-xl duration-300 hover:border-yellow-600"
+                    className={`${
+                      routerPath === '/signIn' ? 'bg-yellow-200' : ''
+                    } border border-yellow-200 rounded-xl duration-300 hover:border-yellow-600`}
                   >
                     <p className="px-3 py-2 rounded-md text-sm  font-medium">
                       Sign In
                     </p>
                   </Link>
                   <Link href="/login">
-                    <p className="px-3 py-2 text-sm font-medium rounded-xl text-blue-700 hover:text-blue-800 border hover:border-blue-800 duration-300">
+                    <p
+                      className={`${
+                        routerPath === '/login'
+                          ? 'bg-blue-600 text-white hover:text-white '
+                          : 'hover:text-blue-800 '
+                      } px-3 py-2 text-sm font-medium rounded-xl text-blue-700 border hover:border-blue-800 duration-300`}
+                    >
                       Login
                     </p>
                   </Link>

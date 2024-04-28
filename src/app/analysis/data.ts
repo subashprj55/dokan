@@ -1,14 +1,3 @@
-export const chartData = [
-  { name: 'Jan', value: 400 },
-  { name: 'Feb', value: 300 },
-  { name: 'Mar', value: 600 },
-  { name: 'Apr', value: 500 },
-  { name: 'May', value: 800 },
-  { name: 'Jun', value: 700 },
-  { name: 'Aug', value: 900 },
-  { name: 'sep', value: 200 },
-]
-
 export const data = [
   { name: 'Jan', sales: 4000, purchases: 2400 },
   { name: 'Feb', sales: 3000, purchases: 1398 },
