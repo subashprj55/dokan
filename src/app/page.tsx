@@ -1,17 +1,17 @@
 'use client'
 import Image from 'next/image'
 import Link from 'next/link'
-import Container from './components/container'
-import Footer from './components/footer'
-import Nav from './components/nav'
-import PriceDetails from './components/price'
+import Container from '@/components/container'
+import Footer from '@/components/footer'
+import Nav from '@/components/nav'
+import PriceDetails from '@/components/price'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
 import { Autoplay } from 'swiper/modules'
 import { useEffect } from 'react'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
-import FaqsSection from './components/accordian'
+import FaqsSection from '@/components/accordian'
 
 export default function Home() {
   useEffect(() => {

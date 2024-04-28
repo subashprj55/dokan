@@ -1,12 +1,10 @@
 'use client'
 import React, { useEffect, useState } from 'react'
-import Container from '../components/container'
-import Footer from '../components/footer'
-import NavContainer from '../components/navContainer'
-import ProductTable from '../components/table'
-import { products } from '../purchase/data'
-import { PieChart, Pie, Cell } from 'recharts'
-import { Tooltip, Legend, ResponsiveContainer } from 'recharts'
+import Container from '@/components/container'
+import Footer from '@/components/footer'
+import NavContainer from '@/components/navContainer'
+import ProductTable from '@/components/table'
+import { products } from '@/app/purchase/data'
 import {
   Typography,
   List,
@@ -16,7 +14,7 @@ import {
   Divider,
 } from '@mui/material'
 import { FaCheckCircle } from 'react-icons/fa'
-import PiChart from '../components/PiChart'
+import PiChart from '@/components/PiChart'
 
 const Dashboard = () => {
   return (
