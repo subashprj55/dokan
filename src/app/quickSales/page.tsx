@@ -1,10 +1,10 @@
 'use client'
 import { Button } from '@mui/material'
 import React from 'react'
-import Container from '../components/container'
-import NavContainer from '../components/navContainer'
-import ProductTable from '../components/table'
-import { products } from '../purchase/data'
+import Container from '@/components/container'
+import NavContainer from '@/components/navContainer'
+import ProductTable from '@/components/table'
+import { products } from '@/app/purchase/data'
 
 const page = () => {
   return (

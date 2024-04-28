@@ -15,7 +15,7 @@ const FaqData = [
       '  Signing up is easy! Just click on the "Sign Up" button at the top of the page and follow the instructions to create your account.',
   },
   {
-    id: 1,
+    id: 4,
     question: 'What payment methods do you accept?',
     answer:
       '  We accept all major credit cards, including Visa, Mastercard, and American Express. You can also pay using PayPal.',

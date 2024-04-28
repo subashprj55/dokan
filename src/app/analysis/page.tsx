@@ -10,7 +10,7 @@ import {
   XAxis,
   YAxis,
 } from 'recharts'
-import Chart from '../components/chart'
+import Chart from '@/components/chart'
 import { chartData, data } from './data'
 
 const page = () => {
