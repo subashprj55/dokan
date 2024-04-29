@@ -10,7 +10,6 @@ import {
   XAxis,
   YAxis,
 } from 'recharts'
-import Chart from '@/components/chart'
 import { data } from './data'
 import NavContainer from '@/components/navContainer'
 import Container from '@/components/container'
