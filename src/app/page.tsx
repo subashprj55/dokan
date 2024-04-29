@@ -12,6 +12,7 @@ import { Autoplay } from 'swiper/modules'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
 import FaqsSection from '@/components/accordian'
+import FeatureSection from '@/components/feature/page'
 
 export default function Home() {
   useEffect(() => {
@@ -26,8 +27,9 @@ export default function Home() {
       <Nav />
       <Container>
         <Intro />
-        <AboutUsSection />
+        <FeaturesSection />
         <HowItWorksSection />
+        <AboutUsSection />
         <TestimonialsSection />
         <PricingPlansSection />
         <FaqsSection />
@@ -73,7 +75,14 @@ const Intro = () => {
   )
 }
 
-// Define your images and descriptions
+const FeaturesSection = () => {
+  return (
+    <div className="mt-20 w-full overflow-hidden">
+      <h2 className="text-4xl font-medium md:font-semibold">Our Features :-</h2>
+      <FeatureSection />
+    </div>
+  )
+}
 
 const TestimonialsSection = () => {
   const customerData = [
