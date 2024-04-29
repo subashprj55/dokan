@@ -4,7 +4,6 @@ import { FaGoogle, FaApple } from 'react-icons/fa'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
 import Nav from '@/components/nav'
-import { Container } from '@mui/material'
 import Footer from '@/components/footer'
 
 const LoginPage = () => {
