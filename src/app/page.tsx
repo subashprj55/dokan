@@ -26,7 +26,6 @@ export default function Home() {
       <Nav />
       <Container>
         <Intro />
-        <Futures />
         <AboutUsSection />
         <HowItWorksSection />
         <TestimonialsSection />
@@ -76,102 +75,76 @@ const Intro = () => {
 
 // Define your images and descriptions
 
-const Futures = () => {
-  const imagesData = [
+const TestimonialsSection = () => {
+  const customerData = [
     {
       id: 0,
-      imageSrc: '/images/Inventory.jpeg',
-      imageDescription: 'Inventory Management',
-    },
-    {
-      id: 1,
-      imageSrc: '/images/Sales.webp',
-      imageDescription: 'Sales Tracking',
+      description:
+        "I'm amazed by how easy it is to manage my store with this system. It has everything I need to stay organized and serve my customers better.",
+      customerName: 'Emily Johnson, Owner of Fresh Mart',
     },
     {
       id: 2,
-      imageSrc: '/images/Order.avif',
-      imageDescription: 'Order Processing',
+      description:
+        "Switching to this management system was one of the best decisions I've made for my business. It's efficient, reliable, and has helped me increase my sales.",
+      customerName: 'Emily Johnson, Owner of Fresh Mart',
     },
     {
       id: 3,
-      imageSrc: '/images/Emplyee.jpeg',
-      imageDescription: 'Employee Scheduling',
+      description:
+        "The support team behind this system is outstanding. They're always available to help me with any questions or issues I encounter, which gives me peace of mind.",
+      customerName: 'Emily Johnson, Owner of Fresh Mart',
     },
     {
       id: 4,
-      imageSrc: '/images/customer.jpeg',
-      imageDescription: 'Customer Management',
+      description:
+        "Switching to this management system was one of the best decisions I've made for my business. It's efficient, reliable, and has helped me increase my sales.",
+      customerName: 'Emily Johnson, Owner of Fresh Mart',
+    },
+    {
+      id: 5,
+      description:
+        "I'm amazed by how easy it is to manage my store with this system. It has everything I need to stay organized and serve my customers better.",
+      customerName: 'Emily Johnson, Owner of Fresh Mart',
     },
   ]
 
   return (
     <div className="mt-20 md:my-20">
-      <h1 className="text-2xl text-center md:text-start mb-5 md:overflow-hidden">
-        Our grocery store management system offers:-
-      </h1>
+      <h2 className="text-3xl font-semibold text-center mb-8">
+        Happy Customers
+      </h2>
       {/* image slide for tab and laptop */}
       <div className=" hidden md:block">
         <Swiper
           spaceBetween={50}
           modules={[Autoplay]}
           autoplay={{ delay: 2000, disableOnInteraction: false }}
-          slidesPerView={4}
+          slidesPerView={3}
           navigation
           pagination={{ clickable: true }}
           scrollbar={{ draggable: true }}
           loop
           speed={1700}
         >
-          {imagesData.map(({ id, imageSrc, imageDescription }) => {
+          {customerData.map(({ id, description, customerName }) => {
             return (
-              <SwiperSlide key={id} className="cursor-pointer">
+              <SwiperSlide key={id} className="cursor-pointer pb-10">
                 {/* image */}
-                <div className="w-auto h-[200px]">
-                  <Image
-                    className=" rounded-lg"
-                    alt={imageDescription}
-                    src={imageSrc}
-                    width={0}
-                    height={0}
-                    sizes="100vw"
-                    style={{ width: '100%', height: '100%' }}
-                  />
+                <div className="w-auto h-auto">
+                  <div className="bg-white rounded-lg shadow-lg p-6">
+                    <p className="text-lg mb-4">
+                      <span className="text-2xl text-gray-400">&#8220; </span>
+                      {description}
+                      <span className="text-2xl text-gray-400"> &#8221;</span>
+                    </p>
+                    <p className="text-gray-500">{`- ${customerName}`}</p>
+                  </div>
                 </div>
-                {/* descrition */}
-                <p className="mb-2 text-center text-lg my-5">
-                  {imageDescription}
-                </p>
               </SwiperSlide>
             )
           })}
         </Swiper>
-      </div>
-      {/* image for mobile */}
-      <div>
-        <div className="flex flex-wrap md:hidden justify-center gap-4">
-          {imagesData.map(({ id, imageSrc, imageDescription }) => {
-            return (
-              <div key={id}>
-                {/* image */}
-                <div className="w-[300px] h-[200px]">
-                  <Image
-                    alt={imageDescription}
-                    src={imageSrc}
-                    width={0}
-                    height={0}
-                    sizes="100vw"
-                    style={{ width: '100%', height: '100%' }}
-                  />
-                </div>
-                {/* descrition */}
-                <p className="mb-2 text-center text-lg my-5">
-                  {imageDescription}
-                </p>
-              </div>
-            )
-          })}
-        </div>
       </div>
     </div>
   )
@@ -255,54 +228,6 @@ const HowItWorksSection = () => {
               Once your store is set up, you can start selling your products to
               customers both online and offline. Manage orders, track sales, and
               grow your business effectively.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-  )
-}
-
-const TestimonialsSection = () => {
-  return (
-    <section className="bg-gray-100 mx-[-8%] md:mx-0 py-16 md:mt-20">
-      <div className="container mx-auto px-4">
-        <h2 className="text-3xl font-semibold text-center mb-8">
-          Happy Customers
-        </h2>
-        <div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-          data-aos="fade-up"
-          data-aos-anchor-placement="center-bottom"
-        >
-          <div className="bg-white rounded-lg shadow-lg p-6">
-            <p className="text-lg mb-4">
-              "I'm amazed by how easy it is to manage my store with this system.
-              It has everything I need to stay organized and serve my customers
-              better."
-            </p>
-            <p className="text-gray-500">
-              - Emily Johnson, Owner of Fresh Mart
-            </p>
-          </div>
-          <div className="bg-white rounded-lg shadow-lg p-6">
-            <p className="text-lg mb-4">
-              "Switching to this management system was one of the best decisions
-              I've made for my business. It's efficient, reliable, and has
-              helped me increase my sales."
-            </p>
-            <p className="text-gray-500">
-              - Mark Rodriguez, CEO of Super Grocers
-            </p>
-          </div>
-          <div className="bg-white rounded-lg shadow-lg p-6">
-            <p className="text-lg mb-4">
-              "The support team behind this system is outstanding. They're
-              always available to help me with any questions or issues I
-              encounter, which gives me peace of mind."
-            </p>
-            <p className="text-gray-500">
-              - Sarah Thompson, Manager of Corner Market
             </p>
           </div>
         </div>
