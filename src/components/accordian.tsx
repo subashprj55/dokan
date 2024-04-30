@@ -44,7 +44,7 @@ const FaqsSection = () => {
   return (
     <section className="bg-gray-100 py-16 md:mt-20">
       <div className="container mx-auto px-4">
-        <h2 className="text-3xl font-semibold text-center mb-8">
+        <h2 className="text-2xl md:text-4xl font-semibold text-center mb-8">
           Frequently Asked Questions
         </h2>
 

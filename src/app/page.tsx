@@ -124,7 +124,7 @@ const TestimonialsSection = () => {
 
   return (
     <div className="mt-20 md:my-20">
-      <h2 className="text-3xl font-semibold text-center mb-8">
+      <h2 className="text-2xl md:text-4xl font-semibold text-center mb-8">
         Happy Customers
       </h2>
       {/* image slide for tab and laptop */}
@@ -165,9 +165,11 @@ const TestimonialsSection = () => {
 
 const AboutUsSection = () => {
   return (
-    <section className="bg-gray-100 mt-10 py-10 md:py-16 md:mx-0 overflow-hidden">
+    <section className="bg-gray-100 mt-20 md:mt-32 py-10 md:mx-0 overflow-hidden">
       <div className="container mx-auto px-4">
-        <h2 className="text-3xl font-semibold text-center mb-8">About Us</h2>
+        <h2 className="text-2xl md:text-4xl font-semibold text-center mb-5 md:mb-10">
+          About Us
+        </h2>
         <div className="grid items-center grid-cols-1 md:grid-cols-2 gap-8 ">
           <div data-aos="fade-right">
             <Image
@@ -180,14 +182,14 @@ const AboutUsSection = () => {
             />
           </div>
           <div className="max-w-lg" data-aos="fade-left">
-            <p className="text-lg mb-4">
+            <p className="md:text-lg mb-4">
               At Dokan, we are dedicated to revolutionizing the way grocery
               stores manage their operations. With a focus on innovation and
               excellence, we strive to provide cutting-edge solutions that
               streamline inventory management, enhance sales tracking, and
               improve customer satisfaction.
             </p>
-            <p className="text-lg">
+            <p className="md:text-lg">
               Our team consists of passionate professionals who are committed to
               delivering exceptional results and exceeding our customers'
               expectations. With a deep understanding of the challenges faced by
@@ -203,9 +205,9 @@ const AboutUsSection = () => {
 
 const HowItWorksSection = () => {
   return (
-    <section className="bg-white py-16 md:mt-20 overflow-hidden">
+    <section className="bg-white mt-10 md:mt-20 overflow-hidden">
       <div className="container mx-auto px-4">
-        <h2 className="text-3xl font-semibold text-center mb-8">
+        <h2 className="text-2xl md:text-4xl font-semibold text-center mb-5 md:mb-10">
           How It Works
         </h2>
         <div
@@ -217,7 +219,7 @@ const HowItWorksSection = () => {
               <span className="text-2xl font-bold">1</span>
             </div>
             <h3 className="text-xl font-semibold mb-4">Sign Up</h3>
-            <p className="text-lg">
+            <p className="md:text-lg">
               Sign up for our grocery store management system by providing your
               basic information. It's quick, easy, and free!
             </p>
@@ -227,7 +229,7 @@ const HowItWorksSection = () => {
               <span className="text-2xl font-bold">2</span>
             </div>
             <h3 className="text-xl font-semibold mb-4">Set Up Your Store</h3>
-            <p className="text-lg">
+            <p className="md:text-lg">
               Customize and set up your store according to your preferences. Add
               products, categories, and manage inventory effortlessly.
             </p>
@@ -237,7 +239,7 @@ const HowItWorksSection = () => {
               <span className="text-2xl font-bold">3</span>
             </div>
             <h3 className="text-xl font-semibold mb-4">Start Selling</h3>
-            <p className="text-lg">
+            <p className="md:text-lg">
               Once your store is set up, you can start selling your products to
               customers both online and offline. Manage orders, track sales, and
               grow your business effectively.
@@ -253,7 +255,7 @@ const PricingPlansSection = () => {
   return (
     <section className="bg-white py-16 md:mt-20">
       <div className="container mx-auto px-4">
-        <h2 className="text-3xl font-semibold text-center mb-8">
+        <h2 className="text-2xl md:text-4xl  font-semibold text-center mb-8">
           Choose best plan for your Business
         </h2>
         <div

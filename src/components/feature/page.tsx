@@ -81,7 +81,7 @@ const FeatureSection = () => {
                 isEven ? 'md:text-right' : ''
               }`}
             >
-              <h2 className="text-2xl md:text-3xl font-semibold mb-1">
+              <h2 className="text-xl md:text-3xl font-semibold mb-1">
                 {title}
               </h2>
               <p className="md:text-lg">{description}</p>
