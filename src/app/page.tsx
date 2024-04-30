@@ -123,42 +123,50 @@ const TestimonialsSection = () => {
   ]
 
   return (
-    <div className="mt-20 md:my-20">
-      <h2 className="text-2xl md:text-4xl font-semibold text-center mb-8">
-        Happy Customers
-      </h2>
-      {/* image slide for tab and laptop */}
-      <div className=" hidden md:block">
-        <Swiper
-          spaceBetween={50}
-          modules={[Autoplay]}
-          autoplay={{ delay: 5000, disableOnInteraction: false }}
-          slidesPerView={3}
-          navigation
-          pagination={{ clickable: true }}
-          scrollbar={{ draggable: true }}
-          loop
-          speed={1700}
-        >
-          {customerData.map(({ id, description, customerName }) => {
-            return (
-              <SwiperSlide key={id} className="cursor-pointer pb-10">
-                {/* image */}
-                <div className="w-auto h-auto">
-                  <div className="bg-white rounded-lg shadow-lg p-6">
-                    <p className="text-lg mb-4">
-                      <span className="text-2xl text-gray-400">&#8220; </span>
-                      {description}
-                      <span className="text-2xl text-gray-400"> &#8221;</span>
-                    </p>
-                    <p className="text-gray-500">{`- ${customerName}`}</p>
+    <div className="mt-20 md:mt-32 overflow-hidden ">
+      <Container>
+        <h2 className="text-2xl md:text-4xl font-semibold text-center mb-8">
+          Happy Customers
+        </h2>
+        {/* image slide for tab and laptop */}
+        <div className="">
+          <Swiper
+            spaceBetween={50}
+            modules={[Autoplay]}
+            autoplay={{ delay: 5000, disableOnInteraction: false }}
+            slidesPerView={1}
+            navigation
+            pagination={{ clickable: true }}
+            scrollbar={{ draggable: true }}
+            loop
+            speed={1700}
+            breakpoints={{
+              640: { slidesPerView: 1 },
+              768: { slidesPerView: 2 },
+              1024: { slidesPerView: 3 },
+              1250: { slidesPerView: 3 },
+            }}
+          >
+            {customerData.map(({ id, description, customerName }) => {
+              return (
+                <SwiperSlide key={id} className="cursor-pointer pb-10">
+                  {/* image */}
+                  <div className="w-auto h-auto flex justify-center">
+                    <div className="bg-white rounded-lg shadow-lg p-6 w-[350px] md:w-auto ">
+                      <p className="md:text-lg mb-4">
+                        <span className="text-2xl text-gray-400">&#8220; </span>
+                        {description}
+                        <span className="text-2xl text-gray-400"> &#8221;</span>
+                      </p>
+                      <p className="text-gray-500">{`- ${customerName}`}</p>
+                    </div>
                   </div>
-                </div>
-              </SwiperSlide>
-            )
-          })}
-        </Swiper>
-      </div>
+                </SwiperSlide>
+              )
+            })}
+          </Swiper>
+        </div>
+      </Container>
     </div>
   )
 }
