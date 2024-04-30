@@ -25,16 +25,14 @@ export default function Home() {
   return (
     <>
       <Nav />
-      <Container>
-        <Intro />
-        <FeaturesSection />
-        <HowItWorksSection />
-        <AboutUsSection />
-        <TestimonialsSection />
-        <PricingPlansSection />
-        <FaqsSection />
-        <Footer />
-      </Container>
+      <Intro />
+      <FeaturesSection />
+      <HowItWorksSection />
+      <AboutUsSection />
+      <TestimonialsSection />
+      <PricingPlansSection />
+      <FaqsSection />
+      <Footer />
     </>
   )
 }
@@ -51,36 +49,42 @@ const Intro = () => {
       </div>
 
       {/* body contant  start form here*/}
-      <div className="pt-48">
-        <h1 className="text-3xl md:text-7xl text-center font-bold text-gray-800 mb-4">
-          Welcome to Your Grocery Store Management System
-        </h1>
-        <br />
-        <h1 className="text-5xl md:text-8xl text-center font-bold text-gray-600 mb-4">
-          DOKAN
-        </h1>
-        <p className=" text-gray-600 text-center mb-5 text-2xl mt-5 md:mt-14">
-          Manage your grocery store efficiently with our user-friendly system.
-        </p>
-        <div className="flex justify-center gap-3 pt-5">
-          <Link
-            href={'/dashboard'}
-            className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg text-sm font-semibold transition-colors duration-300"
-          >
-            Let's Start
-          </Link>
+      <Container>
+        <div className="pt-48">
+          <h1 className="text-3xl md:text-7xl text-center font-bold text-gray-800 mb-4">
+            Welcome to Your Grocery Store Management System
+          </h1>
+          <br />
+          <h1 className="text-5xl md:text-8xl text-center font-bold text-gray-600 mb-4">
+            DOKAN
+          </h1>
+          <p className=" text-gray-600 text-center mb-5 text-2xl mt-5 md:mt-14">
+            Manage your grocery store efficiently with our user-friendly system.
+          </p>
+          <div className="flex justify-center gap-3 pt-5">
+            <Link
+              href={'/dashboard'}
+              className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg text-sm font-semibold transition-colors duration-300"
+            >
+              Let's Start
+            </Link>
+          </div>
         </div>
-      </div>
+      </Container>
     </div>
   )
 }
 
 const FeaturesSection = () => {
   return (
-    <div className="mt-20 w-full overflow-hidden">
-      <h2 className="text-4xl font-medium md:font-semibold">Our Features :-</h2>
-      <FeatureSection />
-    </div>
+    <Container>
+      <div className="mt-20 w-full overflow-hidden">
+        <h2 className="text-2xl px-2 md:4xl font-medium md:font-semibold">
+          Explore the Benefits of DOKAN Features
+        </h2>
+        <FeatureSection />
+      </div>
+    </Container>
   )
 }
 
