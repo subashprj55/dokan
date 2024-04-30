@@ -55,7 +55,7 @@ const FeatureSection = () => {
   }, [])
 
   return (
-    <div className="py-10">
+    <div className="pt-5 md:pt-10">
       {featureData.map(({ id, imgPath, alt, title, description }) => {
         const isEven = id % 2 === 0 ? true : false
 
@@ -63,7 +63,7 @@ const FeatureSection = () => {
           <div
             className={`flex ${
               isEven ? '' : 'flex-row-reverse'
-            } flex-wrap md:flex-nowrap items-center justify-between p-8 mb-10 bg-gray-100`}
+            } flex-wrap md:flex-nowrap items-center justify-between p-5 md:p-8 mb-5 md:mb-10 bg-gray-50`}
             data-aos={`fade-${isEven ? 'left' : 'right'}`}
             key={id}
           >
@@ -81,8 +81,10 @@ const FeatureSection = () => {
                 isEven ? 'md:text-right' : ''
               }`}
             >
-              <h2 className="text-3xl font-semibold mb-1">{title}</h2>
-              <p className="text-lg">{description}</p>
+              <h2 className="text-2xl md:text-3xl font-semibold mb-1">
+                {title}
+              </h2>
+              <p className="md:text-lg">{description}</p>
             </div>
           </div>
         )
