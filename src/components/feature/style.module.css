@@ -1,0 +1,17 @@
+.image3dleft {
+  transform: perspective(800px) rotateY(20deg);
+}
+
+.image3dright {
+  transform: perspective(900px) rotateY(-20deg);
+}
+
+@media screen and (width < 768px) {
+  .image3dleft {
+    transform: none;
+  }
+
+  .image3dright {
+    transform: none;
+  }
+}

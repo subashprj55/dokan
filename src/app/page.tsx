@@ -12,6 +12,7 @@ import { Autoplay } from 'swiper/modules'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
 import FaqsSection from '@/components/accordian'
+import FeatureSection from '@/components/feature/page'
 
 export default function Home() {
   useEffect(() => {
@@ -26,8 +27,9 @@ export default function Home() {
       <Nav />
       <Container>
         <Intro />
-        <AboutUsSection />
+        <FeaturesSection />
         <HowItWorksSection />
+        <AboutUsSection />
         <TestimonialsSection />
         <PricingPlansSection />
         <FaqsSection />
@@ -73,7 +75,14 @@ const Intro = () => {
   )
 }
 
-// Define your images and descriptions
+const FeaturesSection = () => {
+  return (
+    <div className="mt-20 w-full overflow-hidden">
+      <h2 className="text-4xl font-medium md:font-semibold">Our Features :-</h2>
+      <FeatureSection />
+    </div>
+  )
+}
 
 const TestimonialsSection = () => {
   const customerData = [
@@ -119,7 +128,7 @@ const TestimonialsSection = () => {
         <Swiper
           spaceBetween={50}
           modules={[Autoplay]}
-          autoplay={{ delay: 2000, disableOnInteraction: false }}
+          autoplay={{ delay: 5000, disableOnInteraction: false }}
           slidesPerView={3}
           navigation
           pagination={{ clickable: true }}
@@ -152,7 +161,7 @@ const TestimonialsSection = () => {
 
 const AboutUsSection = () => {
   return (
-    <section className="bg-gray-100 mt-10 py-10 md:py-16 mx-[-8%] md:mx-0">
+    <section className="bg-gray-100 mt-10 py-10 md:py-16 md:mx-0 overflow-hidden">
       <div className="container mx-auto px-4">
         <h2 className="text-3xl font-semibold text-center mb-8">About Us</h2>
         <div className="grid items-center grid-cols-1 md:grid-cols-2 gap-8 ">
@@ -190,7 +199,7 @@ const AboutUsSection = () => {
 
 const HowItWorksSection = () => {
   return (
-    <section className="bg-white py-16 md:mt-20">
+    <section className="bg-white py-16 md:mt-20 overflow-hidden">
       <div className="container mx-auto px-4">
         <h2 className="text-3xl font-semibold text-center mb-8">
           How It Works
