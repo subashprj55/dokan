@@ -3,7 +3,7 @@
 }
 
 .image3dright {
-  transform: perspective(800px) rotateY(-20deg);
+  transform: perspective(900px) rotateY(-20deg);
 }
 
 @media screen and (width < 768px) {
