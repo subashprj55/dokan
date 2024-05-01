@@ -11,7 +11,7 @@ import 'swiper/css'
 import { Autoplay } from 'swiper/modules'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
-import FaqsSection from '@/components/accordian'
+import Accordian from '@/components/accordian'
 import FeatureSection from '@/components/feature/page'
 import PricePlanDetails from '@/components/PricePlanDetails/page'
 
@@ -32,7 +32,7 @@ export default function Home() {
       <AboutUsSection />
       <TestimonialsSection />
       <PricingPlansSection />
-      <FaqsSection />
+      <FaqSection />
       <Footer />
     </>
   )
@@ -296,6 +296,21 @@ const PricingPlansSection = () => {
           />
         </div>
       </div>
+    </section>
+  )
+}
+
+const FaqSection = () => {
+  return (
+    <section className="bg-gray-100 py-10 mt-20 ">
+      <Container>
+        <div className="container mx-auto px-4">
+          <h2 className="text-2xl md:text-4xl font-semibold text-center mb-8">
+            Frequently Asked Questions
+          </h2>
+          <Accordian />
+        </div>
+      </Container>
     </section>
   )
 }
