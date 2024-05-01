@@ -34,7 +34,7 @@ const FaqData = [
   },
 ]
 
-const FaqsSection = () => {
+const Accordian = () => {
   const [expanded, setExpanded] = useState('panel1')
 
   const handleChange = (panel: any) => (event: any, newExpanded: any) => {
@@ -42,35 +42,29 @@ const FaqsSection = () => {
   }
 
   return (
-    <section className="bg-gray-100 py-16 md:mt-20">
-      <div className="container mx-auto px-4">
-        <h2 className="text-2xl md:text-4xl font-semibold text-center mb-8">
-          Frequently Asked Questions
-        </h2>
-
-        {FaqData.map(({ id, question, answer }) => {
-          return (
-            <Accordion
-              key={id}
-              expanded={expanded === `panel${id}`}
-              onChange={handleChange(`panel${id}`)}
+    <>
+      {FaqData.map(({ id, question, answer }) => {
+        return (
+          <Accordion
+            key={id}
+            expanded={expanded === `panel${id}`}
+            onChange={handleChange(`panel${id}`)}
+          >
+            <AccordionSummary
+              expandIcon={<FaChevronDown />}
+              aria-controls="panel1d-content"
+              id="panel1d-header"
             >
-              <AccordionSummary
-                expandIcon={<FaChevronDown />}
-                aria-controls="panel1d-content"
-                id="panel1d-header"
-              >
-                <Typography className="">{question}</Typography>
-              </AccordionSummary>
-              <AccordionDetails>
-                <Typography variant="body1">{answer}</Typography>
-              </AccordionDetails>
-            </Accordion>
-          )
-        })}
-      </div>
-    </section>
+              <Typography className="md:text-lg">{question}</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Typography className=" md:text-base">{answer}</Typography>
+            </AccordionDetails>
+          </Accordion>
+        )
+      })}
+    </>
   )
 }
 
-export default FaqsSection
+export default Accordian
