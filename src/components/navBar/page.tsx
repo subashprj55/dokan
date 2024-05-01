@@ -3,6 +3,7 @@ import React, { useEffect } from 'react'
 import Link from 'next/link'
 import { useState } from 'react'
 import { usePathname } from 'next/navigation'
+import { VerticalLinks } from '../verticalNav/data'
 
 const Nav = () => {
   const [isOpen, setIsOpen] = useState(false)
@@ -66,8 +67,10 @@ const Nav = () => {
                   <Link
                     href="/signIn"
                     className={`${
-                      routerPath === '/signIn' ? 'bg-yellow-200' : ''
-                    } border border-yellow-200 rounded-xl duration-300 hover:border-yellow-600`}
+                      routerPath === '/signIn'
+                        ? 'bg-pink-500 text-white'
+                        : 'text-pink-700'
+                    } border border-pink-200 rounded-xl duration-300 hover:border-pink-600 `}
                   >
                     <p className="px-3 py-2 rounded-md text-sm  font-medium">
                       Sign In
@@ -77,7 +80,7 @@ const Nav = () => {
                     <p
                       className={`${
                         routerPath === '/login'
-                          ? 'bg-blue-600 text-white hover:text-white '
+                          ? 'bg-blue-600 text-white'
                           : 'hover:text-blue-800 '
                       } px-3 py-2 text-sm font-medium rounded-xl text-blue-700 border hover:border-blue-800 duration-300`}
                     >
@@ -138,30 +141,58 @@ const Nav = () => {
       <div
         className={`${
           isOpen ? 'translate-x-0' : 'translate-x-full'
-        } md:hidden duration-500 w-full h-screen bg-slate-200 fixed z-10 top-[50px]`}
+        } md:hidden duration-500 w-full h-screen bg-white fixed z-10 top-[50px]`}
       >
-        <div className="px-2 pt-2 pb-3 space-y-1 ">
+        <div className="px-2 pb-3 space-y-1 bg-gray-100 pt-3 mx-2 h-screen overflow-auto">
           <Link href="/">
-            <p className=" hover:text-lavender-300 block px-3 py-2 rounded-md text-base font-medium">
+            <p
+              className={` hover:text-lavender-300 block px-3 py-2 rounded-md text-lg ${
+                routerPath === '/' ? 'bg-blue-500 text-white' : ''
+              }`}
+            >
               Home
             </p>
           </Link>
-          <Link href="/about">
-            <p className=" hover:text-lavender-300 block px-3 py-2 rounded-md text-base font-medium">
+          <Link href="/aboutUs">
+            <p
+              className={` hover:text-lavender-300 block px-3 py-2 rounded-md text-lg ${
+                routerPath === '/aboutUs' ? 'bg-blue-500 text-white' : ''
+              }`}
+            >
               About
             </p>
           </Link>
           <Link href="/signIn">
-            <p className=" hover:text-lavender-300 px-3 py-2 rounded-md text-sm  font-medium">
+            <p
+              className={` hover:text-lavender-300 block px-3 py-2 rounded-md text-lg ${
+                routerPath === '/signIn' ? 'bg-blue-500 text-white' : ''
+              }`}
+            >
               Sign In
             </p>
           </Link>
           <Link href="/login">
-            <p className=" hover:text-lavender-300 px-3 py-2 rounded-md text-sm  font-medium">
+            <p
+              className={` hover:text-lavender-300 block px-3 py-2 rounded-md text-lg ${
+                routerPath === '/login' ? 'bg-blue-500 text-white' : ''
+              }`}
+            >
               Login
             </p>
           </Link>
-          {/* Add more navigation links as needed */}
+          {VerticalLinks.map(({ id, name, link }) => {
+            return (
+              <p
+                className={` hover:text-lavender-300 block px-3 py-2 rounded-md text-lg ${
+                  routerPath === link ? 'bg-blue-500 text-white' : ''
+                }`}
+              >
+                <Link href={link} key={id}>
+                  {name}
+                </Link>
+              </p>
+            )
+          })}
         </div>
       </div>
     </>
