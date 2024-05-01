@@ -269,7 +269,6 @@ const PricingPlansSection = () => {
         </h2>
         <div
           className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center "
-          data-aos="fade-up"
           data-aos-offset="300"
           data-aos-easing="ease-in-sine"
         >
@@ -308,7 +307,9 @@ const FaqSection = () => {
           <h2 className="text-2xl md:text-4xl font-semibold text-center mb-8">
             Frequently Asked Questions
           </h2>
-          <Accordian />
+          <div data-aos="fade-up">
+            <Accordian />
+          </div>
         </div>
       </Container>
     </section>

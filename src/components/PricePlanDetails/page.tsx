@@ -11,6 +11,7 @@ const PricePlanDetails = ({
   return (
     <>
       <div
+        data-aos="fade-up"
         className={`${bgCol} rounded-lg p-6 lg:hover:scale-105 duration-300 cursor-pointer relative group`}
       >
         <h3 className="text-xl font-semibold mb-4">For {time}</h3>
