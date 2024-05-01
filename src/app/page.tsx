@@ -89,89 +89,6 @@ const FeaturesSection = () => {
   )
 }
 
-const TestimonialsSection = () => {
-  const customerData = [
-    {
-      id: 0,
-      description:
-        "I'm amazed by how easy it is to manage my store with this system. It has everything I need to stay organized and serve my customers better.",
-      customerName: 'Emily Johnson, Owner of Fresh Mart',
-    },
-    {
-      id: 2,
-      description:
-        "Switching to this management system was one of the best decisions I've made for my business. It's efficient, reliable, and has helped me increase my sales.",
-      customerName: 'Emily Johnson, Owner of Fresh Mart',
-    },
-    {
-      id: 3,
-      description:
-        "The support team behind this system is outstanding. They're always available to help me with any questions or issues I encounter, which gives me peace of mind.",
-      customerName: 'Emily Johnson, Owner of Fresh Mart',
-    },
-    {
-      id: 4,
-      description:
-        "Switching to this management system was one of the best decisions I've made for my business. It's efficient, reliable, and has helped me increase my sales.",
-      customerName: 'Emily Johnson, Owner of Fresh Mart',
-    },
-    {
-      id: 5,
-      description:
-        "I'm amazed by how easy it is to manage my store with this system. It has everything I need to stay organized and serve my customers better.",
-      customerName: 'Emily Johnson, Owner of Fresh Mart',
-    },
-  ]
-
-  return (
-    <div className="mt-20 md:mt-32 overflow-hidden ">
-      <Container>
-        <h2 className="text-2xl md:text-4xl font-semibold text-center mb-8">
-          Happy Customers
-        </h2>
-        {/* image slide for tab and laptop */}
-        <div className="">
-          <Swiper
-            spaceBetween={50}
-            modules={[Autoplay]}
-            autoplay={{ delay: 5000, disableOnInteraction: false }}
-            slidesPerView={1}
-            navigation
-            pagination={{ clickable: true }}
-            scrollbar={{ draggable: true }}
-            loop
-            speed={1700}
-            breakpoints={{
-              640: { slidesPerView: 1 },
-              768: { slidesPerView: 2 },
-              1024: { slidesPerView: 3 },
-              1250: { slidesPerView: 3 },
-            }}
-          >
-            {customerData.map(({ id, description, customerName }) => {
-              return (
-                <SwiperSlide key={id} className="cursor-pointer pb-10">
-                  {/* image */}
-                  <div className="w-auto h-auto flex justify-center">
-                    <div className="bg-white rounded-lg shadow-lg p-6 w-[350px] md:w-auto ">
-                      <p className="md:text-lg mb-4">
-                        <span className="text-2xl text-gray-400">&#8220; </span>
-                        {description}
-                        <span className="text-2xl text-gray-400"> &#8221;</span>
-                      </p>
-                      <p className="text-gray-500">{`- ${customerName}`}</p>
-                    </div>
-                  </div>
-                </SwiperSlide>
-              )
-            })}
-          </Swiper>
-        </div>
-      </Container>
-    </div>
-  )
-}
-
 const AboutUsSection = () => {
   return (
     <section className="bg-gray-100 mt-20 md:mt-32 py-10 md:mx-0 overflow-hidden">
@@ -257,6 +174,89 @@ const HowItWorksSection = () => {
         </div>
       </div>
     </section>
+  )
+}
+
+const TestimonialsSection = () => {
+  const customerData = [
+    {
+      id: 0,
+      description:
+        "I'm amazed by how easy it is to manage my store with this system. It has everything I need to stay organized and serve my customers better.",
+      customerName: 'Emily Johnson, Owner of Fresh Mart',
+    },
+    {
+      id: 2,
+      description:
+        "Switching to this management system was one of the best decisions I've made for my business. It's efficient, reliable, and has helped me increase my sales.",
+      customerName: 'Emily Johnson, Owner of Fresh Mart',
+    },
+    {
+      id: 3,
+      description:
+        "The support team behind this system is outstanding. They're always available to help me with any questions or issues I encounter, which gives me peace of mind.",
+      customerName: 'Emily Johnson, Owner of Fresh Mart',
+    },
+    {
+      id: 4,
+      description:
+        "Switching to this management system was one of the best decisions I've made for my business. It's efficient, reliable, and has helped me increase my sales.",
+      customerName: 'Emily Johnson, Owner of Fresh Mart',
+    },
+    {
+      id: 5,
+      description:
+        "I'm amazed by how easy it is to manage my store with this system. It has everything I need to stay organized and serve my customers better.",
+      customerName: 'Emily Johnson, Owner of Fresh Mart',
+    },
+  ]
+
+  return (
+    <div className="mt-20 md:mt-32 overflow-hidden ">
+      <Container>
+        <h2 className="text-2xl md:text-4xl font-semibold text-center mb-8">
+          Happy Customers
+        </h2>
+        {/* image slide for tab and laptop */}
+        <div className="">
+          <Swiper
+            spaceBetween={50}
+            modules={[Autoplay]}
+            autoplay={{ delay: 5000, disableOnInteraction: false }}
+            slidesPerView={1}
+            navigation
+            pagination={{ clickable: true }}
+            scrollbar={{ draggable: true }}
+            loop
+            speed={1700}
+            breakpoints={{
+              640: { slidesPerView: 1 },
+              768: { slidesPerView: 2 },
+              1024: { slidesPerView: 3 },
+              1250: { slidesPerView: 3 },
+            }}
+          >
+            {customerData.map(({ id, description, customerName }) => {
+              return (
+                <SwiperSlide key={id} className="cursor-pointer pb-10">
+                  {/* image */}
+                  <div className="w-auto h-auto flex justify-center">
+                    <div className="bg-white rounded-lg shadow-lg p-6 w-[350px] md:w-auto ">
+                      <p className="md:text-lg mb-4">
+                        <span className="text-2xl text-gray-400">&#8220; </span>
+                        {description}
+                        <span className="text-2xl text-gray-400"> &#8221;</span>
+                      </p>
+                      <p className="text-gray-500">{`- ${customerName}`}</p>
+                    </div>
+                  </div>
+                </SwiperSlide>
+              )
+            })}
+          </Swiper>
+        </div>
+      </Container>
+    </div>
   )
 }
 
