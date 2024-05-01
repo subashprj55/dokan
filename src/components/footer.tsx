@@ -10,8 +10,12 @@ const Footer = () => {
           {/* First Column */}
           <Grid item xs={12} md={4}>
             <div className="flex items-center">
-              {/* <img src="/logo.svg" alt="Logo" className="h-8 mr-2" /> */}
-              <Typography variant="h6">Dokan</Typography>
+              <img
+                src="/images/logoFooter.png"
+                alt="Logo"
+                className="w-28 mr-2"
+              />
+              {/* <Typography variant="h6">Dokan</Typography> */}
             </div>
             <Typography variant="body2" className="mt-2">
               We are a leading provider of innovative solutions in the tech
@@ -24,7 +28,7 @@ const Footer = () => {
           <Grid item xs={12} md={4}>
             <div className="lg:flex justify-center">
               <div>
-                <Typography variant="h6" gutterBottom>
+                <Typography variant="h6" className="text-xl" gutterBottom>
                   Connect With Us
                 </Typography>
                 <div className="flex space-x-4 -ml-2">
