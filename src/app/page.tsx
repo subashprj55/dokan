@@ -5,7 +5,7 @@ import Link from 'next/link'
 import Container from '@/components/container'
 import Footer from '@/components/footer'
 import Nav from '@/components/nav'
-import PriceDetails from '@/components/price'
+import PriceDetails from '@/components/PricePlanDetails/page'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
 import { Autoplay } from 'swiper/modules'
@@ -13,6 +13,7 @@ import AOS from 'aos'
 import 'aos/dist/aos.css'
 import FaqsSection from '@/components/accordian'
 import FeatureSection from '@/components/feature/page'
+import PricePlanDetails from '@/components/PricePlanDetails/page'
 
 export default function Home() {
   useEffect(() => {
@@ -261,34 +262,37 @@ const HowItWorksSection = () => {
 
 const PricingPlansSection = () => {
   return (
-    <section className="bg-white py-16 md:mt-20">
+    <section className="bg-white mt-10 md:mt-20">
       <div className="container mx-auto px-4">
         <h2 className="text-2xl md:text-4xl  font-semibold text-center mb-8">
           Choose best plan for your Business
         </h2>
         <div
           className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center "
-          data-aos="fade-right"
+          data-aos="fade-up"
           data-aos-offset="300"
           data-aos-easing="ease-in-sine"
         >
-          <PriceDetails
+          <PricePlanDetails
             time={'1 Month'}
-            color={'blue'}
-            price={'99.99'}
-            bgColor={'red'}
+            color={'bg-yellow-300'}
+            hoverBg={'bg-yellow-300'}
+            price={99.99}
+            bgCol={'bg-sky-200'}
           />
           <PriceDetails
             time={'6 Month'}
-            color={'yellow'}
-            price={'449.9'}
-            bgColor={'blue'}
+            color={'bg-green-300'}
+            hoverBg={'bg-green-300'}
+            price={449.9}
+            bgCol={'bg-yellow-100'}
           />
           <PriceDetails
             time={'1 Years'}
-            color={'red'}
-            price={'999.9'}
-            bgColor={'yellow'}
+            color={'bg-pink-300'}
+            hoverBg={'bg-pink-300'}
+            price={999.9}
+            bgCol={'bg-green-200'}
           />
         </div>
       </div>
