@@ -1,6 +1,6 @@
 import React from 'react'
-import Nav from './nav'
-import VerticalNav from './verticalNav'
+import Nav from './navBar/page'
+import VerticalNav from './verticalNav/page'
 
 const NavContainer = ({ children }: any) => {
   return (

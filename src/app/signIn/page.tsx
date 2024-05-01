@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { FaGoogle, FaApple } from 'react-icons/fa'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
-import Nav from '@/components/nav'
+import Nav from '@/components/navBar/page'
 import Footer from '@/components/footer'
 
 const SignInPage = () => {

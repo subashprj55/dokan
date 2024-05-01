@@ -2,7 +2,7 @@
 import React from 'react'
 import Container from '@/components/container'
 import Footer from '@/components/footer'
-import Nav from '@/components/nav'
+import Nav from '@/components/navBar/page'
 
 const page = () => {
   return (
