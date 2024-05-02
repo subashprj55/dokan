@@ -14,6 +14,7 @@ import 'aos/dist/aos.css'
 import Accordian from '@/components/accordian'
 import FeatureSection from '@/components/feature/page'
 import PricePlanDetails from '@/components/PricePlanDetails/page'
+import { aboutUsData, customerData, howItWorkData } from './homePageData'
 
 export default function Home() {
   useEffect(() => {
@@ -40,7 +41,7 @@ export default function Home() {
 
 const Intro = () => {
   return (
-    <div className="bg-white" data-aos="fade-up">
+    <div className="bg-white">
       <div>
         <title>Your Grocery Store Management</title>
         <meta
@@ -52,14 +53,23 @@ const Intro = () => {
       {/* body contant  start form here*/}
       <Container>
         <div className="pt-48">
-          <h1 className="text-3xl md:text-7xl text-center font-bold text-gray-800 mb-4">
+          <h1
+            className="text-3xl md:text-7xl text-center font-bold text-gray-800 mb-4"
+            data-aos="fade-right"
+          >
             Welcome to Your Grocery Store Management System
           </h1>
           <br />
-          <h1 className="text-5xl md:text-8xl text-center font-bold text-gray-600 mb-4">
+          <h1
+            className="text-5xl md:text-8xl text-center font-bold text-gray-600 mb-4"
+            data-aos="fade-left"
+          >
             DOKAN
           </h1>
-          <p className=" text-gray-600 text-center mb-5 text-2xl mt-5 md:mt-14">
+          <p
+            className=" text-gray-600 text-center mb-5 text-2xl mt-5 md:mt-14"
+            data-aos="fade-left"
+          >
             Manage your grocery store efficiently with our user-friendly system.
           </p>
           <div className="flex justify-center gap-3 pt-5">
@@ -99,29 +109,19 @@ const AboutUsSection = () => {
         <div className="grid items-center grid-cols-1 md:grid-cols-2 gap-8 ">
           <div data-aos="fade-right">
             <Image
-              alt={'image'}
-              src={'/images/Sales.webp'}
+              className="lg:max-h-[550px;]"
+              alt={aboutUsData.alt}
+              src={aboutUsData.photo}
               width={0}
               height={0}
               sizes="100vw"
-              style={{ width: '100%', height: 'auto' }}
+              style={{ width: '100%' }}
             />
           </div>
           <div className="max-w-lg" data-aos="fade-left">
-            <p className="md:text-lg mb-4">
-              At Dokan, we are dedicated to revolutionizing the way grocery
-              stores manage their operations. With a focus on innovation and
-              excellence, we strive to provide cutting-edge solutions that
-              streamline inventory management, enhance sales tracking, and
-              improve customer satisfaction.
-            </p>
-            <p className="md:text-lg">
-              Our team consists of passionate professionals who are committed to
-              delivering exceptional results and exceeding our customers'
-              expectations. With a deep understanding of the challenges faced by
-              grocery store owners, we work tirelessly to develop and implement
-              solutions that drive success and growth.
-            </p>
+            {aboutUsData.text.map((text) => {
+              return <p className="md:text-lg mb-4">{text}</p>
+            })}
           </div>
         </div>
       </div>
@@ -136,41 +136,18 @@ const HowItWorksSection = () => {
         <h2 className="text-2xl md:text-4xl font-semibold text-center mb-5 md:mb-10">
           How It Works
         </h2>
-        <div
-          className="grid grid-cols-1 md:grid-cols-3 gap-12"
-          data-aos="zoom-out-up"
-        >
-          <div className="text-center">
-            <div className="rounded-full bg-blue-500 text-white w-16 h-16 flex items-center justify-center mb-4 mx-auto">
-              <span className="text-2xl font-bold">1</span>
-            </div>
-            <h3 className="text-xl font-semibold mb-4">Sign Up</h3>
-            <p className="md:text-lg">
-              Sign up for our grocery store management system by providing your
-              basic information. It's quick, easy, and free!
-            </p>
-          </div>
-          <div className="text-center">
-            <div className="rounded-full bg-blue-500 text-white w-16 h-16 flex items-center justify-center mb-4 mx-auto">
-              <span className="text-2xl font-bold">2</span>
-            </div>
-            <h3 className="text-xl font-semibold mb-4">Set Up Your Store</h3>
-            <p className="md:text-lg">
-              Customize and set up your store according to your preferences. Add
-              products, categories, and manage inventory effortlessly.
-            </p>
-          </div>
-          <div className="text-center">
-            <div className="rounded-full bg-blue-500 text-white w-16 h-16 flex items-center justify-center mb-4 mx-auto">
-              <span className="text-2xl font-bold">3</span>
-            </div>
-            <h3 className="text-xl font-semibold mb-4">Start Selling</h3>
-            <p className="md:text-lg">
-              Once your store is set up, you can start selling your products to
-              customers both online and offline. Manage orders, track sales, and
-              grow your business effectively.
-            </p>
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+          {howItWorkData.map(({ id, title, description }) => {
+            return (
+              <div className="text-center" key={id} data-aos="zoom-out-up">
+                <div className="rounded-full bg-blue-500 text-white w-16 h-16 flex items-center justify-center mb-4 mx-auto">
+                  <span className="text-2xl font-bold">{id}</span>
+                </div>
+                <h3 className="text-xl font-semibold mb-4">{title}</h3>
+                <p className="md:text-lg">{description}</p>
+              </div>
+            )
+          })}
         </div>
       </div>
     </section>
@@ -178,39 +155,6 @@ const HowItWorksSection = () => {
 }
 
 const TestimonialsSection = () => {
-  const customerData = [
-    {
-      id: 0,
-      description:
-        "I'm amazed by how easy it is to manage my store with this system. It has everything I need to stay organized and serve my customers better.",
-      customerName: 'Emily Johnson, Owner of Fresh Mart',
-    },
-    {
-      id: 2,
-      description:
-        "Switching to this management system was one of the best decisions I've made for my business. It's efficient, reliable, and has helped me increase my sales.",
-      customerName: 'Emily Johnson, Owner of Fresh Mart',
-    },
-    {
-      id: 3,
-      description:
-        "The support team behind this system is outstanding. They're always available to help me with any questions or issues I encounter, which gives me peace of mind.",
-      customerName: 'Emily Johnson, Owner of Fresh Mart',
-    },
-    {
-      id: 4,
-      description:
-        "Switching to this management system was one of the best decisions I've made for my business. It's efficient, reliable, and has helped me increase my sales.",
-      customerName: 'Emily Johnson, Owner of Fresh Mart',
-    },
-    {
-      id: 5,
-      description:
-        "I'm amazed by how easy it is to manage my store with this system. It has everything I need to stay organized and serve my customers better.",
-      customerName: 'Emily Johnson, Owner of Fresh Mart',
-    },
-  ]
-
   return (
     <div className="mt-20 md:mt-32 overflow-hidden ">
       <Container>

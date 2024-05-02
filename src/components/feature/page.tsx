@@ -9,40 +9,51 @@ const featureData = [
     imgPath: '/images/analysis.jpeg',
     alt: 'analysis image',
     title: 'Business Analysis',
-    description:
-      ' Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.',
+    description: ` Gain valuable insights into your grocery store's performance with advanced analytics and reporting tools. Track sales trends, monitor inventory turnover rates, and identify opportunities for growth.`,
   },
   {
     id: 2,
     imgPath: '/images/Emplyee.jpeg',
     alt: 'analysis image',
-    title: 'Sales Monitoring',
-    description:
-      ' Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.',
+    title: 'Record Daily Transactions',
+    description: ` Easily record and track all daily transactions within your grocery store, including sales, purchases, refunds, and expenses. Keep accurate records for better financial management and decision-making.`,
   },
   {
     id: 3,
     imgPath: '/images/Inventory.jpeg',
     alt: 'analysis image',
-    title: 'Inventory Info',
-    description:
-      ' Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.',
+    title: 'Inventory Information',
+    description: `
+    Gain insight into inventory details, including product info and stock levels. Track categories, suppliers, and purchase history. Stay organized with reports for informed decision-making.`,
   },
   {
     id: 4,
-    imgPath: '/images/Order.avif',
+    imgPath: '/images/credit-record.jpeg',
     alt: 'analysis image',
-    title: 'Tax Management',
-    description:
-      ' Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.',
+    title: 'Credits Record',
+    description: `Manage customer credits efficiently by recording and tracking credit transactions. Keep track of credit limits, outstanding balances, and payment schedules to ensure smooth credit management processes.`,
   },
   {
     id: 5,
+    imgPath: '/images/quickSale.jpeg',
+    alt: 'analysis image',
+    title: 'Quick Sale',
+    description: `Streamline the sales process with a quick sale feature that allows cashiers to process transactions rapidly. Access commonly sold items with shortcuts, apply discounts or promotions, and complete sales quickly to enhance customer satisfaction.`,
+  },
+  {
+    id: 6,
+    imgPath: '/images/lowStock.jpeg',
+    alt: 'analysis image',
+    title: 'Inform Low Stock Products:',
+    description: ` Receive real-time notifications or alerts when products reach low stock levels. Stay informed about inventory levels to prevent stockouts, optimize ordering processes, and ensure that popular items are always available to customers.`,
+  },
+  {
+    id: 7,
     imgPath: '/images/Sales.webp',
     alt: 'sales',
     title: 'Easy to use',
-    description:
-      ' Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.',
+    description: `
+    Experience seamless navigation and powerful features with our user-friendly interface. Manage inventory, transactions, and business performance effortlessly for efficient grocery store management.`,
   },
 ]
 
@@ -71,7 +82,7 @@ const FeatureSection = () => {
               <img
                 src={imgPath}
                 alt={alt}
-                className={`w-full h-[300px] ${
+                className={`md:min-w-[250px] lg:min-w-[390px] h-[300px] ${
                   isEven ? styles.image3dleft : styles.image3dright
                 } `}
               />
