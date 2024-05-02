@@ -56,7 +56,7 @@ const Footer = () => {
 
           {/* Third Column */}
           <Grid item xs={12} md={4}>
-            <div className="ld:flex justify-center">
+            <div className="lg:flex justify-center">
               <div>
                 <Typography variant="h6" gutterBottom>
                   Quick Links
