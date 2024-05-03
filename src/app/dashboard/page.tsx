@@ -196,7 +196,7 @@ const LowStockProducts = () => {
               <ListItemText
                 primary={name}
                 secondary={
-                  <div>
+                  <>
                     <Typography
                       component="span"
                       variant="body2"
@@ -214,7 +214,7 @@ const LowStockProducts = () => {
                       Supplier: {supplier} | Last Purchase Date:{' '}
                       {lastPurchaseDate}
                     </Typography>
-                  </div>
+                  </>
                 }
               />
             </ListItem>

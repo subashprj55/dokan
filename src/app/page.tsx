@@ -120,7 +120,11 @@ const AboutUsSection = () => {
           </div>
           <div className="max-w-lg" data-aos="fade-left">
             {aboutUsData.text.map((text) => {
-              return <p className="md:text-lg mb-4">{text}</p>
+              return (
+                <p className="md:text-lg mb-4" key={text}>
+                  {text}
+                </p>
+              )
             })}
           </div>
         </div>
