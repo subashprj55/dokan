@@ -109,7 +109,7 @@ const AboutUsSection = () => {
         <div className="grid items-center grid-cols-1 md:grid-cols-2 gap-8 ">
           <div data-aos="fade-right">
             <Image
-              className="lg:max-h-[550px;]"
+              className="lg:max-h-[550px;] rounded-md"
               alt={aboutUsData.alt}
               src={aboutUsData.photo}
               width={0}

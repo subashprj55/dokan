@@ -41,11 +41,13 @@ const Nav = () => {
           <div className="max-w-7xl mx-auto px-4 py-2 sm:px-6 flex justify-between lg:px-8 md:block bg-gray-200 md:bg-transparent">
             <div className="flex justify-between items-center">
               <div className="flex-shrink-0">
-                <img
-                  className="w-[100px;]  md:w-[150px;] "
-                  src="/images/logo.png"
-                  alt="Logo"
-                />
+                <Link href={'/'}>
+                  <img
+                    className="w-[100px;]  md:w-[150px;] cursor-pointer"
+                    src="/images/logo.png"
+                    alt="Logo"
+                  />
+                </Link>
               </div>
               <div className="hidden md:block">
                 <div className="ml-10 flex items-baseline space-x-4">
