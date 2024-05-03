@@ -148,7 +148,7 @@ const Nav = () => {
           isOpen ? 'translate-x-0' : 'translate-x-full'
         } md:hidden duration-500 w-full h-screen bg-white fixed z-10 top-[50px]`}
       >
-        <div className="px-2 pb-3 space-y-1 bg-gray-100 pt-3 mx-2 h-screen overflow-auto">
+        <div className="px-2 pb-3 space-y-1 bg-gray-100 pt-3 h-screen overflow-auto">
           <Link href="/">
             <p
               className={` hover:text-lavender-300 block px-3 py-2 rounded-md text-lg ${
