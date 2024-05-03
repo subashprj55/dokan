@@ -50,7 +50,7 @@ export const howItWorkData = [
 ]
 
 export const aboutUsData = {
-  photo: '/images/dokan.jpeg',
+  photo: '/images/dokan.png',
   alt: 'photo of about us',
   text: [
     `At Dokan, we are dedicated to revolutionizing the way grocery

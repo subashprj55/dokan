@@ -109,7 +109,7 @@ const AboutUsSection = () => {
         <div className="grid items-center grid-cols-1 md:grid-cols-2 gap-8 ">
           <div data-aos="fade-right">
             <Image
-              className="lg:max-h-[550px;]"
+              className="lg:max-h-[550px;] rounded-md"
               alt={aboutUsData.alt}
               src={aboutUsData.photo}
               width={0}
@@ -120,7 +120,11 @@ const AboutUsSection = () => {
           </div>
           <div className="max-w-lg" data-aos="fade-left">
             {aboutUsData.text.map((text) => {
-              return <p className="md:text-lg mb-4">{text}</p>
+              return (
+                <p className="md:text-lg mb-4" key={text}>
+                  {text}
+                </p>
+              )
             })}
           </div>
         </div>
