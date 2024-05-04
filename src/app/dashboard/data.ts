@@ -7,19 +7,19 @@ export const todayData = [
   },
   {
     id: 1,
-    title: 'Total Transations',
+    title: 'Total Transactions',
     value: 10000,
     textColor: 'text-yellow-500',
   },
   {
     id: 2,
-    title: 'Cash Transations',
+    title: 'Cash Transactions',
     value: 8000,
     textColor: 'text-green-500',
   },
   {
     id: 3,
-    title: 'credit Transations',
+    title: 'credit Transactions',
     value: 8000,
     textColor: 'text-red-500',
   },
