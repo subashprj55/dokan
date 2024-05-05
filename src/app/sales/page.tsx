@@ -20,6 +20,7 @@ import {
 } from '@mui/material'
 import ProductTable from '@/components/table'
 import { products } from '@/app/purchase/data'
+import TransactionTable from '@/components/transactionTable'
 
 const page = () => {
   return (
@@ -30,6 +31,7 @@ const page = () => {
           <ProductSection />
           <PaymentMethodSelection />
           <ProductInfoTable />
+          <TransactionTable />
         </Container>
         <Footer />
       </NavContainer>
