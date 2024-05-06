@@ -84,25 +84,6 @@ export const recentActivityData = [
   },
 ]
 
-export const notifications = [
-  { timestamp: '2024-04-15 10:30 AM', message: 'New order received' },
-  {
-    timestamp: '2024-04-14 3:45 PM',
-    message: 'Payment processed successfully',
-  },
-  { timestamp: '2024-04-15 10:30 AM', message: 'New order received' },
-  {
-    timestamp: '2024-04-14 3:45 PM',
-    message: 'Payment processed successfully',
-  },
-  { timestamp: '2024-04-15 10:30 AM', message: 'New order received' },
-  {
-    timestamp: '2024-04-14 3:45 PM',
-    message: 'Payment processed successfully',
-  },
-  // Add more notifications as needed
-]
-
 export const chartData = [
   { name: '6 AM', value: 400 },
   { name: '7 AM', value: 300 },
@@ -119,4 +100,80 @@ export const chartData = [
   { name: '6 PM', value: 200 },
   { name: '7 PM', value: 800 },
   { name: '8 PM ', value: 700 },
+]
+
+export const lowStockProducts = [
+  {
+    id: 1,
+    name: 'Organic Whole Milk',
+    currentStockLevel: 5,
+    reorderLevel: 10,
+    supplier: 'Fresh Farms Dairy',
+    lastPurchaseDate: '2024-04-10',
+  },
+  {
+    id: 2,
+    name: 'Whole Grain Bread',
+    currentStockLevel: 3,
+    reorderLevel: 10,
+    supplier: `Baker's Delight`,
+    lastPurchaseDate: '2024-04-05',
+  },
+  {
+    id: 3,
+    name: 'Free-Range Eggs (Dozen)',
+    currentStockLevel: 2,
+    reorderLevel: 10,
+    supplier: 'Happy Hen Farms',
+    lastPurchaseDate: '2024-03-28',
+  },
+  {
+    id: 4,
+    name: 'Fresh Organic Spinach',
+    currentStockLevel: 0,
+    reorderLevel: 10,
+    supplier: 'Green Leaf Produce',
+    lastPurchaseDate: '2024-04-10',
+  },
+  {
+    id: 5,
+    name: 'Handcrafted Artisanal Cheese',
+    currentStockLevel: 3,
+    reorderLevel: 10,
+    supplier: 'Cheese Cave Creamery',
+    lastPurchaseDate: '2024-04-05',
+  },
+  {
+    id: 6,
+    name: 'Grass-Fed Beef Steaks ',
+    currentStockLevel: 0,
+    reorderLevel: 10,
+    supplier: 'Pasture Prime Meats',
+    lastPurchaseDate: '2024-03-28',
+  },
+  {
+    id: 7,
+    name: 'Organic Whole Milk',
+    currentStockLevel: 5,
+    reorderLevel: 10,
+    supplier: 'Fresh Farms Dairy',
+    lastPurchaseDate: '2024-04-10',
+  },
+  {
+    id: 8,
+    name: 'Whole Grain Bread',
+    currentStockLevel: 3,
+    reorderLevel: 10,
+    supplier: `Baker's Delight`,
+    lastPurchaseDate: '2024-04-05',
+  },
+  {
+    id: 9,
+    name: 'Free-Range Eggs (Dozen)',
+    currentStockLevel: 2,
+    reorderLevel: 10,
+    supplier: 'Happy Hen Farms',
+    lastPurchaseDate: '2024-03-28',
+  },
+  // Add more products as needed
 ]
