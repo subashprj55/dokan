@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import Container from '@/components/container'
 import Footer from '@/components/footer'
 import NavContainer from '@/components/navContainer'
-import ProductTable from '@/components/table'
+import ProductTable from '@/components/allProductsTable'
 import { products } from '@/app/purchase/data'
 import {
   Typography,
@@ -14,8 +14,10 @@ import {
   Divider,
   Card,
   CardContent,
+  TextField,
+  InputAdornment,
 } from '@mui/material'
-import { FaCheckCircle, FaExclamationCircle } from 'react-icons/fa'
+import { FaCheckCircle, FaExclamationCircle, FaSearch } from 'react-icons/fa'
 import Chart from '@/components/chart'
 import {
   chartData,
@@ -24,6 +26,8 @@ import {
   todayData,
 } from './data'
 import Box from '@/components/box/page'
+import AllStockTable from '@/components/allProductsTable'
+import SearchInput from '@/components/searchInputBox'
 
 const Dashboard = () => {
   return (
@@ -107,7 +111,10 @@ const DashboardCharts = () => {
 const LowStockProducts = () => {
   return (
     <div className="mt-20">
-      <Typography className="text-xl md:text-2xl pb-5" gutterBottom>
+      <Typography
+        className="text-xl md:text-2xl font-semibold pb-5"
+        gutterBottom
+      >
         Low Stock Products
       </Typography>
       <div className="pb-5 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 max-h-[500px] overflow-y-auto">
@@ -159,12 +166,29 @@ const LowStockProducts = () => {
 }
 
 const AllStockTalbe = () => {
+  const [searchTerm, setSearchTerm] = useState('')
+
+  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(event.target.value)
+  }
+
+  const filteredProducts = products.filter((product) =>
+    Object.values(product).some(
+      (value) =>
+        typeof value === 'string' &&
+        value.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+  )
+
   return (
     <div className="mt-20">
-      <h2 className="text-xl md:text-2xl font-semibold mb-6">
-        All Products Information
-      </h2>
-      <ProductTable products={products} />
+      <div className="flex justify-between items-center mb-6">
+        <h2 className="text-xl md:text-2xl font-semibold">
+          All Products Information
+        </h2>
+        <SearchInput searchTerm={searchTerm} handleSearch={handleSearch} />
+      </div>
+      <AllStockTable filteredProducts={filteredProducts} />
     </div>
   )
 }
