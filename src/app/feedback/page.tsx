@@ -31,6 +31,7 @@ const page = () => {
           <FeedbackForm />
           <FeedbackHistory />
           <AnalyticsSection />
+          <HelpSupportSection />
         </Container>
         <Footer />
       </NavContainer>
@@ -222,6 +223,31 @@ const AnalyticsSection = () => {
         </Typography>
         {/* Add your Forecasting chart here */}
       </Paper>
+    </div>
+  )
+}
+
+const HelpSupportSection = () => {
+  return (
+    <div className="bg-white p-6 rounded-lg shadow-md mt-20">
+      <h2 className="text-2xl font-semibold mb-6">Help & Support</h2>
+      <ul className="space-y-2">
+        <li>
+          <a href="/faq" className="text-blue-500 hover:underline">
+            FAQ
+          </a>
+        </li>
+        <li>
+          <a href="/contact" className="text-blue-500 hover:underline">
+            Contact Us
+          </a>
+        </li>
+        <li>
+          <a href="/docs" className="text-blue-500 hover:underline">
+            Documentation
+          </a>
+        </li>
+      </ul>
     </div>
   )
 }

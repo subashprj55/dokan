@@ -12,18 +12,17 @@ import {
   ListItemText,
   ListItemIcon,
   Divider,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
+  Card,
+  CardContent,
 } from '@mui/material'
 import { FaCheckCircle, FaExclamationCircle } from 'react-icons/fa'
-import PiChart from '@/components/PiChart'
 import Chart from '@/components/chart'
-import { chartData, recentActivityData, todayData } from './data'
+import {
+  chartData,
+  lowStockProducts,
+  recentActivityData,
+  todayData,
+} from './data'
 import Box from '@/components/box/page'
 
 const Dashboard = () => {
@@ -35,11 +34,8 @@ const Dashboard = () => {
           <DashboardCharts />
           <RecentActivity />
           <LowStockProducts />
-          <LowStockTable />
           <AllStockTalbe />
-          <PieChartSection />
           {/* <InventoryOverview /> */}
-          <HelpSupportSection />
         </Container>
         <Footer />
       </NavContainer>
@@ -64,45 +60,9 @@ const SummaryWidgets = () => {
   )
 }
 
-const HelpSupportSection = () => {
-  return (
-    <div className="bg-white p-6 rounded-lg shadow-md mt-20">
-      <h2 className="text-2xl font-semibold mb-6">Help & Support</h2>
-      <ul className="space-y-2">
-        <li>
-          <a href="/faq" className="text-blue-500 hover:underline">
-            FAQ
-          </a>
-        </li>
-        <li>
-          <a href="/contact" className="text-blue-500 hover:underline">
-            Contact Us
-          </a>
-        </li>
-        <li>
-          <a href="/docs" className="text-blue-500 hover:underline">
-            Documentation
-          </a>
-        </li>
-      </ul>
-    </div>
-  )
-}
-
-const PieChartSection = () => {
-  return (
-    <div className="bg-white p-6 rounded-lg shadow-lg mt-20">
-      <h2 className="text-2xl font-semibold mb-4">
-        Sales Distribution by Category
-      </h2>
-      <PiChart />
-    </div>
-  )
-}
-
 const RecentActivity = () => {
   return (
-    <div className="bg-white p-6 rounded-lg shadow-lg my-20">
+    <div className="bg-white p-6 rounded-lg shadow-lg mt-20">
       <Typography className="text-2xl md:text-2xl" gutterBottom>
         Recent Activity
       </Typography>
@@ -138,48 +98,19 @@ const RecentActivity = () => {
 
 const DashboardCharts = () => {
   return (
-    <div className="my-20  md:-ml-5">
+    <div className="mt-20  md:-ml-5">
       <Chart data={chartData} />
     </div>
   )
 }
 
-const lowStockProducts = [
-  {
-    id: 1,
-    name: 'Product A',
-    currentStockLevel: 5,
-    reorderLevel: 10,
-    supplier: 'Supplier X',
-    lastPurchaseDate: '2024-04-10',
-  },
-  {
-    id: 2,
-    name: 'Product B',
-    currentStockLevel: 3,
-    reorderLevel: 10,
-    supplier: 'Supplier Y',
-    lastPurchaseDate: '2024-04-05',
-  },
-  {
-    id: 3,
-    name: 'Product C',
-    currentStockLevel: 2,
-    reorderLevel: 10,
-    supplier: 'Supplier Z',
-    lastPurchaseDate: '2024-03-28',
-  },
-  // Add more products as needed
-]
-
 const LowStockProducts = () => {
   return (
-    <div className="bg-white p-6 rounded-lg shadow-lg my-20">
-      <Typography className="text-2xl md:text-2xl" gutterBottom>
+    <div className="mt-20">
+      <Typography className="text-xl md:text-2xl pb-5" gutterBottom>
         Low Stock Products
       </Typography>
-      <Divider />
-      <List>
+      <div className="pb-5 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 max-h-[500px] overflow-y-auto">
         {lowStockProducts.map(
           ({
             id,
@@ -189,96 +120,41 @@ const LowStockProducts = () => {
             supplier,
             lastPurchaseDate,
           }) => (
-            <ListItem key={id}>
-              <ListItemIcon>
-                <FaExclamationCircle className="text-yellow-500" />
-              </ListItemIcon>
-              <ListItemText
-                primary={name}
-                secondary={
-                  <>
-                    <Typography
-                      component="span"
-                      variant="body2"
-                      className="text-gray-600"
-                    >
-                      Current Stock Level: {currentStockLevel} | Reorder Level:{' '}
-                      {reorderLevel}
-                    </Typography>
-                    <br />
-                    <Typography
-                      component="span"
-                      variant="body2"
-                      className="text-gray-600"
-                    >
-                      Supplier: {supplier} | Last Purchase Date:{' '}
-                      {lastPurchaseDate}
-                    </Typography>
-                  </>
-                }
-              />
-            </ListItem>
+            <Card key={id} className="shadow-lg md:hover:shadow-2xl">
+              <CardContent>
+                <div className="flex items-center mb-2">
+                  <FaExclamationCircle
+                    className={`${
+                      currentStockLevel === 0
+                        ? 'text-red-500 '
+                        : 'text-yellow-500 '
+                    }mr-2`}
+                  />
+                  <Typography variant="h6">{name}</Typography>
+                </div>
+                <Divider className="my-2" />
+                <Typography
+                  variant="body1"
+                  className={`${
+                    currentStockLevel === 0 ? 'text-red-600 ' : ''
+                  }`}
+                >
+                  {' '}
+                  Current Stock Level: {currentStockLevel}
+                </Typography>
+                <Typography variant="body1">
+                  Reorder Level: {reorderLevel}
+                </Typography>
+                <Typography variant="body1">Supplier: {supplier}</Typography>
+                <Typography variant="body1">
+                  Last Purchase Date: {lastPurchaseDate}
+                </Typography>
+              </CardContent>
+            </Card>
           )
         )}
-      </List>
+      </div>
     </div>
-  )
-}
-
-const LowStockTable = () => {
-  return (
-    <>
-      <Typography className="text-xl md:text-2xl" gutterBottom>
-        Low Stock Products
-      </Typography>
-
-      <TableContainer
-        component={Paper}
-        className="rounded-lg overflow-hidden shadow-lg"
-      >
-        <Table>
-          <TableHead className="bg-gray-50">
-            <TableRow>
-              <TableCell className="px-4 py-3 text-left text-gray-600 font-semibold">
-                Product Name
-              </TableCell>
-              <TableCell className="px-4 py-3 text-left text-gray-600 font-semibold">
-                Current Stock Level
-              </TableCell>
-              <TableCell className="px-4 py-3 text-left text-gray-600 font-semibold">
-                Reorder Level
-              </TableCell>
-              <TableCell className="px-4 py-3 text-left text-gray-600 font-semibold">
-                Supplier Information
-              </TableCell>
-              <TableCell className="px-4 py-3 text-left text-gray-600 font-semibold">
-                Last Purchase Date
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody className="bg-white divide-y divide-gray-200">
-            {lowStockProducts.map((product) => (
-              <TableRow
-                key={product.id}
-                className="cursor-pointer hover:bg-gray-100"
-              >
-                <TableCell className="px-4 py-3">{product.name}</TableCell>
-                <TableCell className="px-4 py-3 text-red-400">
-                  {product.currentStockLevel}
-                </TableCell>
-                <TableCell className="px-4 py-3">
-                  {product.reorderLevel}
-                </TableCell>
-                <TableCell className="px-4 py-3">{product.supplier}</TableCell>
-                <TableCell className="px-4 py-3">
-                  {product.lastPurchaseDate}
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </>
   )
 }
 
