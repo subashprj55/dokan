@@ -165,8 +165,7 @@ const TestimonialsSection = () => {
         <h2 className="text-2xl md:text-4xl font-semibold text-center mb-8">
           Happy Customers
         </h2>
-        {/* image slide for tab and laptop */}
-        <div className="">
+        <div data-aos="fade-up">
           <Swiper
             spaceBetween={50}
             modules={[Autoplay]}
@@ -187,7 +186,6 @@ const TestimonialsSection = () => {
             {customerData.map(({ id, description, customerName }) => {
               return (
                 <SwiperSlide key={id} className="cursor-pointer pb-10">
-                  {/* image */}
                   <div className="w-auto h-auto flex justify-center">
                     <div className="bg-white rounded-lg shadow-lg p-6 w-[350px] md:w-auto ">
                       <p className="md:text-lg mb-4">
@@ -222,22 +220,22 @@ const PricingPlansSection = () => {
         >
           <PricePlanDetails
             time={'1 Month'}
-            color={'bg-yellow-300'}
-            hoverBg={'bg-yellow-300'}
+            color={'bg-yellow-500'}
+            hoverBg={'md:group-hover:bg-yellow-500'}
             price={99.99}
             bgCol={'bg-sky-200'}
           />
           <PriceDetails
             time={'6 Month'}
-            color={'bg-green-300'}
-            hoverBg={'bg-green-300'}
+            color={'bg-green-500'}
+            hoverBg={'md:group-hover:bg-green-500'}
             price={449.9}
             bgCol={'bg-yellow-100'}
           />
           <PriceDetails
             time={'1 Years'}
-            color={'bg-pink-300'}
-            hoverBg={'bg-pink-300'}
+            color={'bg-pink-500'}
+            hoverBg={'md:group-hover:bg-pink-500'}
             price={999.9}
             bgCol={'bg-green-200'}
           />
