@@ -220,22 +220,22 @@ const PricingPlansSection = () => {
         >
           <PricePlanDetails
             time={'1 Month'}
-            color={'bg-yellow-300'}
-            hoverBg={'md:group-hover:bg-yellow-300'}
+            color={'bg-yellow-500'}
+            hoverBg={'md:group-hover:bg-yellow-500'}
             price={99.99}
             bgCol={'bg-sky-200'}
           />
           <PriceDetails
             time={'6 Month'}
-            color={'bg-green-300'}
-            hoverBg={'md:group-hover:bg-green-300'}
+            color={'bg-green-500'}
+            hoverBg={'md:group-hover:bg-green-500'}
             price={449.9}
             bgCol={'bg-yellow-100'}
           />
           <PriceDetails
             time={'1 Years'}
-            color={'bg-pink-300'}
-            hoverBg={'md:group-hover:bg-pink-300'}
+            color={'bg-pink-500'}
+            hoverBg={'md:group-hover:bg-pink-500'}
             price={999.9}
             bgCol={'bg-green-200'}
           />
