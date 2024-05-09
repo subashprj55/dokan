@@ -16,25 +16,46 @@ import { IProduct, ITransationTableProps } from './types'
 
 const TransactionTable = ({ productsData }: ITransationTableProps) => {
   const [products, setProducts] = useState<IProduct[]>([
-    { name: '', quantity: 0, price: 0, total: 0 },
+    { name: '', remaining: 0, quantity: 0, price: 0, total: 0 },
   ])
 
   const allProductName = productsData.map((pro: any) => {
     return pro.name
   })
 
-  console.log(products)
-
-  ////////////////////////////////////////////////////////////////
-
-  const handleChange = (value: any, index: number) => {
-    const selectedProduct = products.find((product) => product.name === value)
+  const handleChange = (value: string, index: number) => {
     const updatedProducts = [...products]
     updatedProducts[index].name = value
-    updatedProducts[index].price = selectedProduct ? selectedProduct.price : 0
+    updatedProducts[index].quantity = 1
+
+    // Find the selected product's quantity from productsData array
+    const selectedProductData = productsData.find(
+      (product) => product.name === value
+    )
+    if (selectedProductData) {
+      updatedProducts[index].remaining = selectedProductData.quantity
+      updatedProducts[index].price = selectedProductData.price
+    }
+    updatedProducts[index].total =
+      updatedProducts[index].price * updatedProducts[index].quantity
+
+    setProducts(updatedProducts)
+  }
+
+  const handleTextFieldChange = (
+    name: string,
+    value: number | string,
+    index: number
+  ) => {
+    const updatedProducts = [...products]
+    updatedProducts[index][name] = value
     updatedProducts[index].total =
       updatedProducts[index].price * updatedProducts[index].quantity
     setProducts(updatedProducts)
+  }
+
+  const findRowTotal = (quantity: number, price: number) => {
+    return (quantity * price).toFixed(2)
   }
 
   ////////////////////////////////////////////////////////////////
@@ -43,6 +64,7 @@ const TransactionTable = ({ productsData }: ITransationTableProps) => {
       ...products,
       {
         name: '',
+        remaining: 0,
         quantity: 0,
         price: 0,
         total: 0,
@@ -79,6 +101,7 @@ const TransactionTable = ({ productsData }: ITransationTableProps) => {
           <TableBody>
             {products.map((product, index) => (
               <TableRow key={index}>
+                {/* Product Name */}
                 <TableCell>
                   <Autocomplete
                     disableClearable
@@ -90,7 +113,7 @@ const TransactionTable = ({ productsData }: ITransationTableProps) => {
                       <TextField
                         {...params}
                         placeholder="Search Products"
-                        className="w-[130px] lg:w-[200px]"
+                        className="w-[130px] lg:w-[180px]"
                         sx={{
                           '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline':
                             {
@@ -101,25 +124,44 @@ const TransactionTable = ({ productsData }: ITransationTableProps) => {
                     )}
                   />
                 </TableCell>
-                <TableCell>0</TableCell>
+                {/*Remaining Product */}
+                <TableCell className="text-gray-500 text-base">
+                  {product.remaining}
+                </TableCell>
+                {/* quantity */}
                 <TableCell>
                   <TextField
                     type="number"
                     value={product.quantity}
-                    className="w-[130px] lg:w-[200px]"
+                    onChange={(event) =>
+                      handleTextFieldChange(
+                        'quantity',
+                        event.target.value,
+                        index
+                      )
+                    }
+                    className="w-[130px] lg:w-[180px] "
                     sx={{
                       '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline':
                         {
                           border: '1px solid gray',
                         },
+                      '& .css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root': {
+                        color:
+                          product.remaining < product.quantity ? 'red' : '',
+                      },
                     }}
                   />
                 </TableCell>
+                {/* price */}
                 <TableCell>
                   <TextField
                     type="number"
                     value={product.price}
-                    className="w-[130px] lg:w-[200px]"
+                    onChange={(event) =>
+                      handleTextFieldChange('price', event.target.value, index)
+                    }
+                    className="w-[130px] lg:w-[180px]"
                     sx={{
                       '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline':
                         {
@@ -128,7 +170,10 @@ const TransactionTable = ({ productsData }: ITransationTableProps) => {
                     }}
                   />
                 </TableCell>
-                <TableCell>${product.total.toFixed(2)}</TableCell>
+                {/* row total price */}
+                <TableCell>
+                  Rs {findRowTotal(product.price, product.quantity)}
+                </TableCell>
                 <TableCell>
                   <Button onClick={() => handleRemoveRow(index)}>
                     <FaTrash className="text-pink-500" />
