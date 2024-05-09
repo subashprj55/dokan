@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import {
+  Autocomplete,
   Button,
   Paper,
   Table,
@@ -8,42 +9,50 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  TextField,
 } from '@mui/material'
 import { FaTrash } from 'react-icons/fa'
+import { IProduct, ITransationTableProps } from './types'
 
-interface Product {
-  name: string
-  quantity: number
-  price: number
-  total: number
-  [key: string]: string | number
-}
-
-const TransactionTable = () => {
-  const [products, setProducts] = useState<Product[]>([
+const TransactionTable = ({ productsData }: ITransationTableProps) => {
+  const [products, setProducts] = useState<IProduct[]>([
     { name: '', quantity: 0, price: 0, total: 0 },
   ])
 
+  const allProductName = productsData.map((pro: any) => {
+    return pro.name
+  })
+
+  console.log(products)
+
+  ////////////////////////////////////////////////////////////////
+
+  const handleChange = (value: any, index: number) => {
+    const selectedProduct = products.find((product) => product.name === value)
+    const updatedProducts = [...products]
+    updatedProducts[index].name = value
+    updatedProducts[index].price = selectedProduct ? selectedProduct.price : 0
+    updatedProducts[index].total =
+      updatedProducts[index].price * updatedProducts[index].quantity
+    setProducts(updatedProducts)
+  }
+
+  ////////////////////////////////////////////////////////////////
   const handleAddRow = () => {
-    setProducts([...products, { name: '', quantity: 0, price: 0, total: 0 }])
+    setProducts([
+      ...products,
+      {
+        name: '',
+        quantity: 0,
+        price: 0,
+        total: 0,
+      },
+    ])
   }
 
   const handleRemoveRow = (index: number) => {
     const updatedProducts = [...products]
     updatedProducts.splice(index, 1)
-    setProducts(updatedProducts)
-  }
-
-  const handleChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-    index: number
-  ) => {
-    const { name, value } = event.target
-    const updatedProducts = [...products]
-    updatedProducts[index][name] = value
-    updatedProducts[index].total =
-      Number(updatedProducts[index].quantity) *
-      Number(updatedProducts[index].price)
     setProducts(updatedProducts)
   }
 
@@ -54,12 +63,13 @@ const TransactionTable = () => {
   }
 
   return (
-    <div style={{ overflowX: 'auto' }}>
-      <TableContainer component={Paper}>
+    <div className="overflow-auto">
+      <TableContainer component={Paper} className="min-w-full">
         <Table>
           <TableHead>
             <TableRow>
               <TableCell>Name</TableCell>
+              <TableCell>Remaining</TableCell>
               <TableCell>Quantity</TableCell>
               <TableCell>Price</TableCell>
               <TableCell>Total</TableCell>
@@ -70,47 +80,69 @@ const TransactionTable = () => {
             {products.map((product, index) => (
               <TableRow key={index}>
                 <TableCell>
-                  <input
-                    type="text"
-                    name="name"
+                  <Autocomplete
+                    disableClearable
+                    freeSolo
+                    options={allProductName}
                     value={product.name}
-                    onChange={(event) => handleChange(event, index)}
-                    className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none"
+                    onChange={(event, value) => handleChange(value, index)}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        placeholder="Search Products"
+                        className="w-[130px] lg:w-[200px]"
+                        sx={{
+                          '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline':
+                            {
+                              border: '1px solid gray',
+                            },
+                        }}
+                      />
+                    )}
                   />
                 </TableCell>
+                <TableCell>0</TableCell>
                 <TableCell>
-                  <input
+                  <TextField
                     type="number"
-                    name="quantity"
                     value={product.quantity}
-                    onChange={(event) => handleChange(event, index)}
-                    className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none"
+                    className="w-[130px] lg:w-[200px]"
+                    sx={{
+                      '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline':
+                        {
+                          border: '1px solid gray',
+                        },
+                    }}
                   />
                 </TableCell>
                 <TableCell>
-                  <input
+                  <TextField
                     type="number"
-                    name="price"
                     value={product.price}
-                    onChange={(event) => handleChange(event, index)}
-                    className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none"
+                    className="w-[130px] lg:w-[200px]"
+                    sx={{
+                      '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline':
+                        {
+                          border: '1px solid gray',
+                        },
+                    }}
                   />
                 </TableCell>
                 <TableCell>${product.total.toFixed(2)}</TableCell>
                 <TableCell>
                   <Button onClick={() => handleRemoveRow(index)}>
-                    <FaTrash />
+                    <FaTrash className="text-pink-500" />
                   </Button>
                 </TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
-        <div className="mt-4 flex justify-end">
-          <Button onClick={handleAddRow}>Add Row</Button>
-        </div>
-        <div className="mt-4 flex justify-end">
-          <p>Total: ${getTotal().toFixed(2)}</p>
+        <div className="mt-3 px-3 flex justify-between items-center">
+          <Button className="text-blue-600 " onClick={handleAddRow}>
+            Add Row
+          </Button>
+          <p>Total: Rs {getTotal().toFixed(2)}</p>
         </div>
       </TableContainer>
     </div>
