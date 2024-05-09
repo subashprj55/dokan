@@ -1,9 +1,8 @@
 'use client'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import Container from '@/components/container'
 import Footer from '@/components/footer'
 import NavContainer from '@/components/navContainer'
-import ProductTable from '@/components/allProductsTable'
 import { products } from '@/app/purchase/data'
 import {
   Typography,
@@ -14,10 +13,8 @@ import {
   Divider,
   Card,
   CardContent,
-  TextField,
-  InputAdornment,
 } from '@mui/material'
-import { FaCheckCircle, FaExclamationCircle, FaSearch } from 'react-icons/fa'
+import { FaCheckCircle, FaExclamationCircle } from 'react-icons/fa'
 import Chart from '@/components/chart'
 import {
   chartData,
@@ -67,7 +64,7 @@ const SummaryWidgets = () => {
 const RecentActivity = () => {
   return (
     <div className="bg-white p-6 rounded-lg shadow-lg mt-20">
-      <Typography className="text-2xl md:text-2xl" gutterBottom>
+      <Typography className="text-xl md:text-2xl" gutterBottom>
         Recent Activity
       </Typography>
       <Divider />

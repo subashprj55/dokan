@@ -4,10 +4,6 @@ import {
   TextField,
   Grid,
   Button,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
   TableContainer,
   Table,
   TableHead,
@@ -20,13 +16,14 @@ import NavContainer from '@/components/navContainer'
 import ProductTable from '@/components/table'
 import { products } from '@/app/purchase/data'
 import Footer from '@/components/footer'
+import TransactionTable from '@/components/transactionTable'
 
 const page = () => {
   return (
     <>
       <NavContainer>
         <Container>
-          <QuickSell />
+          <ProductsInfoSection />
           <CustomerInformationForm />
           <ProductSection />
           <PaymentMethodSelection />
@@ -39,32 +36,12 @@ const page = () => {
 
 export default page
 
-const QuickSell = () => {
-  const handleOpenModal = () => {
-    //    .....
-  }
-
-  return (
-    <div className="container mx-auto px-4 py-20 min-h-screen">
-      <h1 className="text-2xl font-semibold mb-4">Quck Sell Page</h1>
-      <div className="flex justify-end mb-4">
-        <Button
-          className="capitalize"
-          variant="contained"
-          onClick={() => handleOpenModal()}
-        >
-          Sell
-        </Button>
-      </div>
-      <ProductTable products={products} />
-    </div>
-  )
-}
-
 const CustomerInformationForm = () => {
   return (
-    <div className="bg-white p-6 rounded-lg shadow-md">
-      <h2 className="text-lg font-semibold mb-4">Customer Information</h2>
+    <div className="mt-10">
+      <h2 className="text-xl md:text-2xl font-medium mb-5">
+        Customer Information
+      </h2>
       <Grid container spacing={2}>
         <Grid item xs={12} sm={6}>
           <TextField
@@ -82,7 +59,7 @@ const CustomerInformationForm = () => {
             fullWidth
           />
         </Grid>
-        <Grid item xs={12} sm={6}>
+        {/* <Grid item xs={12} sm={6}>
           <FormControl fullWidth variant="outlined">
             <InputLabel id="payment-method-label">Payment Method</InputLabel>
             <Select
@@ -100,8 +77,19 @@ const CustomerInformationForm = () => {
           <Button variant="contained" color="primary">
             Submit
           </Button>
-        </Grid>
+        </Grid> */}
       </Grid>
+    </div>
+  )
+}
+
+const ProductsInfoSection = () => {
+  return (
+    <div className="mt-20">
+      <h2 className="text-xl md:text-2xl font-medium mb-5">
+        Products Transaction
+      </h2>
+      <TransactionTable productsData={products} />
     </div>
   )
 }
@@ -111,13 +99,6 @@ const ProductSection = () => {
     { id: 1, name: '', price: '', quantity: '' },
   ])
 
-  const handleAddProduct = () => {
-    setProducts([
-      ...products,
-      { id: products.length + 1, name: '', price: '', quantity: '' },
-    ])
-  }
-
   const handleProductChange = (id: any, field: any, value: any) => {
     const updatedProducts = products.map((product) => {
       if (product.id === id) {
@@ -126,6 +107,14 @@ const ProductSection = () => {
       return product
     })
     setProducts(updatedProducts)
+  }
+
+  ////////////////////////////////////////////////////////////////
+  const handleAddProduct = () => {
+    setProducts([
+      ...products,
+      { id: products.length + 1, name: '', price: '', quantity: '' },
+    ])
   }
 
   const calculateTotalPrice = (price: any, quantity: any) => {
