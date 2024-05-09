@@ -31,7 +31,7 @@ const page = () => {
           <ProductSection />
           <PaymentMethodSelection />
           <ProductInfoTable />
-          <TransactionTable />
+          <TransactionTable productsData={products} />
         </Container>
         <Footer />
       </NavContainer>
