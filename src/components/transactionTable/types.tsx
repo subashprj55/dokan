@@ -1,5 +1,6 @@
 export interface IProduct {
   name: string
+  remaining: number
   quantity: number
   price: number
   total: number

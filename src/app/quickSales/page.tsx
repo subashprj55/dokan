@@ -39,7 +39,7 @@ export default page
 const CustomerInformationForm = () => {
   return (
     <div className="mt-10">
-      <h2 className="text-xl md:text-2xl font-medium mb-5">
+      <h2 className="text-lg md:text-xl font-medium mb-5">
         Customer Information
       </h2>
       <Grid container spacing={2}>
