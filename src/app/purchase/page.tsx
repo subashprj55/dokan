@@ -17,7 +17,7 @@ const PurchaseItem = () => {
           <PurchasePage />
           <ModalPopup />
           <SupplierInformation />
-          <TransactionTable />
+          <TransactionTable productsData={products} />
           <OrderSummary />
           <ConfirmationSection />
           <PurchaseHistory />
