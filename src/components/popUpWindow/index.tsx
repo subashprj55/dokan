@@ -3,8 +3,13 @@ import React from 'react'
 import { Modal, Button } from '@mui/material'
 import { Box } from '@mui/system'
 import { MdClose } from 'react-icons/md'
+import { IPopUpWindown } from './types'
 
-const ModalPopup = ({ children, popUpModel, setPopUpModel }: any) => {
+const PopupWindow = ({
+  children,
+  popUpModel,
+  setPopUpModel,
+}: IPopUpWindown) => {
   const handleClose = () => {
     // Check if the click event target is the close button or the submit button
     setPopUpModel(false)
@@ -40,4 +45,4 @@ const ModalPopup = ({ children, popUpModel, setPopUpModel }: any) => {
   )
 }
 
-export default ModalPopup
+export default PopupWindow
