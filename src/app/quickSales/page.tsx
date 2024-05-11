@@ -3,20 +3,20 @@ import React, { useState } from 'react'
 import {
   TextField,
   Grid,
-  Button,
+  TableCell,
+  TableBody,
+  TableRow,
   TableContainer,
+  Paper,
   Table,
   TableHead,
-  TableCell,
-  TableRow,
-  TableBody,
 } from '@mui/material'
 import Container from '@/components/container'
 import NavContainer from '@/components/navContainer'
-import ProductTable from '@/components/table'
 import { products } from '@/app/purchase/data'
 import Footer from '@/components/footer'
 import TransactionTable from '@/components/transactionTable'
+import ModalPopup from '@/components/popUpModel'
 
 const page = () => {
   return (
@@ -25,7 +25,6 @@ const page = () => {
         <Container>
           <ProductsInfoSection />
           <CustomerInformationForm />
-          <ProductSection />
           <PaymentMethodSelection />
         </Container>
         <Footer />
@@ -46,38 +45,31 @@ const CustomerInformationForm = () => {
         <Grid item xs={12} sm={6}>
           <TextField
             id="customer-name"
-            label="Customer Name"
+            placeholder="Customer Name"
             variant="outlined"
             fullWidth
+            sx={{
+              '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline':
+                {
+                  border: '1px solid gray',
+                },
+            }}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
             id="customer-phone"
-            label="Phone Number"
+            placeholder="Phone Number"
             variant="outlined"
             fullWidth
+            sx={{
+              '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline':
+                {
+                  border: '1px solid gray',
+                },
+            }}
           />
         </Grid>
-        {/* <Grid item xs={12} sm={6}>
-          <FormControl fullWidth variant="outlined">
-            <InputLabel id="payment-method-label">Payment Method</InputLabel>
-            <Select
-              labelId="payment-method-label"
-              id="payment-method"
-              label="Payment Method"
-              defaultValue=""
-            >
-              <MenuItem value="cash">Cash</MenuItem>
-              <MenuItem value="credit">Credit</MenuItem>
-            </Select>
-          </FormControl>
-        </Grid>
-        <Grid item xs={12}>
-          <Button variant="contained" color="primary">
-            Submit
-          </Button>
-        </Grid> */}
       </Grid>
     </div>
   )
@@ -94,104 +86,21 @@ const ProductsInfoSection = () => {
   )
 }
 
-const ProductSection = () => {
-  const [products, setProducts] = useState([
-    { id: 1, name: '', price: '', quantity: '' },
-  ])
-
-  const handleProductChange = (id: any, field: any, value: any) => {
-    const updatedProducts = products.map((product) => {
-      if (product.id === id) {
-        return { ...product, [field]: value }
-      }
-      return product
-    })
-    setProducts(updatedProducts)
-  }
-
-  ////////////////////////////////////////////////////////////////
-  const handleAddProduct = () => {
-    setProducts([
-      ...products,
-      { id: products.length + 1, name: '', price: '', quantity: '' },
-    ])
-  }
-
-  const calculateTotalPrice = (price: any, quantity: any) => {
-    if (!price || !quantity) return ''
-    return (parseFloat(price) * parseFloat(quantity)).toFixed(2)
-  }
-
-  return (
-    <div>
-      <TableContainer>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Product Name</TableCell>
-              <TableCell>Price</TableCell>
-              <TableCell>Quantity</TableCell>
-              <TableCell>Total Price</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {products.map((product) => (
-              <TableRow key={product.id}>
-                <TableCell>
-                  <TextField
-                    value={product.name}
-                    onChange={(e) =>
-                      handleProductChange(product.id, 'name', e.target.value)
-                    }
-                  />
-                </TableCell>
-                <TableCell>
-                  <TextField
-                    value={product.price}
-                    onChange={(e) =>
-                      handleProductChange(product.id, 'price', e.target.value)
-                    }
-                  />
-                </TableCell>
-                <TableCell>
-                  <TextField
-                    value={product.quantity}
-                    onChange={(e) =>
-                      handleProductChange(
-                        product.id,
-                        'quantity',
-                        e.target.value
-                      )
-                    }
-                  />
-                </TableCell>
-                <TableCell>
-                  {calculateTotalPrice(product.price, product.quantity)}
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <Button onClick={handleAddProduct}>Add Product</Button>
-    </div>
-  )
-}
-
 const PaymentMethodSelection = () => {
   const [paymentMethod, setPaymentMethod] = useState('')
+  const [popUpModel, setPopUpModel] = useState(false)
 
   const handlePaymentMethodChange = (event: any) => {
     setPaymentMethod(event.target.value)
   }
 
   const handleSubmit = () => {
-    // Handle submission logic here
+    setPopUpModel(true)
     console.log('Selected Payment Method:', paymentMethod)
   }
 
   return (
-    <div className="bg-white p-4 rounded-lg shadow-md">
+    <div className="bg-white mt-10">
       <h2 className="text-lg font-semibold mb-2">Select Payment Method</h2>
       <div className="flex items-center space-x-4">
         <input
@@ -221,12 +130,63 @@ const PaymentMethodSelection = () => {
           Credit
         </label>
       </div>
-      <button
-        onClick={handleSubmit}
-        className="mt-4 bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded"
-      >
-        Submit
-      </button>
+      <div className="mt-5">
+        <button
+          onClick={handleSubmit}
+          className="mt-4 bg-teal-600 hover:bg-teal-700 text-white text-base py-2 px-4 rounded"
+        >
+          Submit
+        </button>
+      </div>
+      <ModalPopup popUpModel={popUpModel} setPopUpModel={setPopUpModel}>
+        <QuickSalesSubmitSection />
+      </ModalPopup>
+    </div>
+  )
+}
+
+const QuickSalesSubmitSection = () => {
+  return (
+    <div className="p-2 md:p-4 w-full m-2 md:min-w-[500px;]">
+      <h1>
+        <span className="text-xl font-semibold">Customer Name </span>: Suresh
+        Dahal
+      </h1>
+      <h2>
+        <span className="text-lg">Phone Number </span>: 9842322232
+      </h2>
+      <h1 className="text-xl font-semibold mt-5">Products Info</h1>
+      <div>
+        <TableContainer component={Paper} className="min-w-full mt-4">
+          <Table>
+            <TableHead>
+              <TableRow className="bg-gray-100">
+                <TableCell>Name</TableCell>
+                <TableCell>Quantity</TableCell>
+                <TableCell>Price</TableCell>
+                <TableCell>Total</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              <TableRow>
+                <TableCell>patato</TableCell>
+                <TableCell>12</TableCell>
+                <TableCell>100</TableCell>
+                <TableCell>1200</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Rice</TableCell>
+                <TableCell>1</TableCell>
+                <TableCell>600</TableCell>
+                <TableCell>600</TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <div className="mt-5">
+          <p className="capitalize text-lg">Transaction on cash</p>
+        </div>
+      </div>
     </div>
   )
 }

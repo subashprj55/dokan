@@ -1,81 +1,36 @@
 // ModalPopup.js
-import React, { useState } from 'react'
-import { Modal, Typography, Button, TextField } from '@mui/material'
+import React from 'react'
+import { Modal, Button } from '@mui/material'
 import { Box } from '@mui/system'
 import { MdClose } from 'react-icons/md'
 
-const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 'auto',
-  bgcolor: 'white',
-  border: '2px solid #000',
-  boxShadow: 24,
-  p: 4,
-}
-
-const ModalPopup = () => {
-  const [open, setOpen] = React.useState(false)
-  const [name, setName] = useState('')
-  const [quantity, setQuantity] = useState('')
-  const [price, setPrice] = useState('')
-  const [expireDate, setExpireDate] = useState('')
-
-  const handleOpen = () => setOpen(true)
-  const handleClose = (event: any) => {
+const ModalPopup = ({ children, popUpModel, setPopUpModel }: any) => {
+  const handleClose = () => {
     // Check if the click event target is the close button or the submit button
-
-    setOpen(false)
+    setPopUpModel(false)
   }
 
   const handleSubmit = () => {
-    setOpen(false)
+    setPopUpModel(false)
   }
 
   return (
     <div>
-      <Button onClick={handleOpen}>Open modal</Button>
-      <Modal open={open} className="border-0">
-        <Box sx={style} className="border-0">
+      <Modal open={popUpModel}>
+        <Box className="md:px-8 md:py-5  absolute top-1/2 left-1/2 w-[95%;] md:w-auto bg-white -translate-x-1/2 -translate-y-1/2">
           <Button
             onClick={handleClose}
-            sx={{ position: 'absolute', top: 0, right: 0 }}
+            className="absolute top-0 md:top-5 -right-2 md:right-5"
           >
-            <MdClose className="text-2xl text-black " />
+            <MdClose className="text-3xl text-gray-500 " />
           </Button>
-          <h2 className="text-2xl font-semibold mb-4">Add New Item</h2>
-          <TextField
-            label="Name"
-            variant="outlined"
-            className="mb-4 w-full"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-          <TextField
-            label="Quantity"
-            variant="outlined"
-            className="mb-4 w-full"
-            value={quantity}
-            onChange={(e) => setQuantity(e.target.value)}
-          />
-          <TextField
-            label="Price"
-            variant="outlined"
-            className="mb-4 w-full"
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
-          />
-          <TextField
-            label="Expire Date"
-            variant="outlined"
-            className="mb-4 w-full"
-            value={expireDate}
-            onChange={(e) => setExpireDate(e.target.value)}
-          />
+          {children}
           <div className="flex justify-end">
-            <Button variant="contained" color="primary" onClick={handleSubmit}>
+            <Button
+              variant="contained"
+              className="my-5 md:mb-0 mr-3 md:mr-0"
+              onClick={handleSubmit}
+            >
               Submit
             </Button>
           </div>
