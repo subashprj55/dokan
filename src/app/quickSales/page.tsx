@@ -11,7 +11,7 @@ import {
   Table,
   TableHead,
 } from '@mui/material'
-import Container from '@/components/container'
+import Container from '@/components/containder/container'
 import NavContainer from '@/components/navContainer'
 import { products } from '@/app/purchase/data'
 import Footer from '@/components/footer'

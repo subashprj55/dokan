@@ -14,7 +14,7 @@ import {
 } from 'recharts'
 import { data } from './data'
 import NavContainer from '@/components/navContainer'
-import Container from '@/components/container'
+import Container from '@/components/containder/container'
 import Footer from '@/components/footer'
 import {
   Paper,

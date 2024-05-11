@@ -2,7 +2,7 @@
 import { useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import Container from '@/components/container'
+import Container from '@/components/containder/container'
 import Footer from '@/components/footer'
 import Nav from '@/components/navBar/page'
 import PriceDetails from '@/components/PricePlanDetails/page'

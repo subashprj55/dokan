@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
 import { Button, List, ListItem, ListItemText } from '@mui/material'
-import Container from '@/components/container'
+import Container from '@/components/containder/container'
 import NavContainer from '@/components/navContainer'
 import ModalPopup from '@/components/popUpWindow/popUpModel'
 import ProductTable from '@/components/table'
