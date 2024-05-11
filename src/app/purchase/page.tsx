@@ -3,7 +3,7 @@ import React from 'react'
 import { Button, List, ListItem, ListItemText } from '@mui/material'
 import Container from '@/components/container'
 import NavContainer from '@/components/navContainer'
-import ModalPopup from '@/components/popUpModel'
+import ModalPopup from '@/components/popUpWindow/popUpModel'
 import ProductTable from '@/components/table'
 import { products } from './data'
 import { Paper, Typography, Grid, TextField } from '@mui/material'
@@ -15,7 +15,7 @@ const PurchaseItem = () => {
       <NavContainer>
         <Container>
           <PurchasePage />
-          <ModalPopup />
+          {/* <ModalPopup /> */}
           <SupplierInformation />
           <TransactionTable productsData={products} />
           <OrderSummary />

@@ -16,7 +16,7 @@ import NavContainer from '@/components/navContainer'
 import { products } from '@/app/purchase/data'
 import Footer from '@/components/footer'
 import TransactionTable from '@/components/transactionTable'
-import ModalPopup from '@/components/popUpModel'
+import PopupWindow from '@/components/popUpWindow/popUpModel'
 
 const page = () => {
   return (
@@ -138,9 +138,9 @@ const PaymentMethodSelection = () => {
           Submit
         </button>
       </div>
-      <ModalPopup popUpModel={popUpModel} setPopUpModel={setPopUpModel}>
+      <PopupWindow popUpModel={popUpModel} setPopUpModel={setPopUpModel}>
         <QuickSalesSubmitSection />
-      </ModalPopup>
+      </PopupWindow>
     </div>
   )
 }
