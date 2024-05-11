@@ -11,12 +11,12 @@ import {
   Table,
   TableHead,
 } from '@mui/material'
-import Container from '@/components/containder/container'
+import Container from '@/components/containder'
 import NavContainer from '@/components/navContainer'
 import { products } from '@/app/purchase/data'
 import Footer from '@/components/footer'
 import TransactionTable from '@/components/transactionTable'
-import PopupWindow from '@/components/popUpWindow/popUpModel'
+import PopupWindow from '@/components/popUpWindow'
 
 const page = () => {
   return (

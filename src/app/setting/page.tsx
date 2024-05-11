@@ -1,6 +1,6 @@
 'use client'
 import React, { useState } from 'react'
-import Container from '@/components/containder/container'
+import Container from '@/components/containder'
 import NavContainer from '@/components/navContainer'
 import { TextField, Switch, FormControlLabel, Button } from '@mui/material'
 

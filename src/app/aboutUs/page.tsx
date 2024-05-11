@@ -1,6 +1,6 @@
 'use client'
 import React from 'react'
-import Container from '@/components/containder/container'
+import Container from '@/components/containder'
 import Footer from '@/components/footer'
 import Nav from '@/components/navBar/page'
 
