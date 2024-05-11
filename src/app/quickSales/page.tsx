@@ -77,11 +77,13 @@ const CustomerInformationForm = () => {
 
 const ProductsInfoSection = () => {
   return (
-    <div className="mt-20">
+    <div className="mt-20 ">
       <h2 className="text-xl md:text-2xl font-medium mb-5">
         Products Transaction
       </h2>
-      <TransactionTable productsData={products} />
+      <div className="max-h-[600px] overflow-y-auto">
+        <TransactionTable productsData={products} />
+      </div>
     </div>
   )
 }
@@ -89,14 +91,32 @@ const ProductsInfoSection = () => {
 const PaymentMethodSelection = () => {
   const [paymentMethod, setPaymentMethod] = useState('')
   const [popUpModel, setPopUpModel] = useState(false)
+  const [error, setError] = useState(false)
 
   const handlePaymentMethodChange = (event: any) => {
     setPaymentMethod(event.target.value)
   }
 
   const handleSubmit = () => {
+    if (paymentMethod === 'credit') {
+      setError(true)
+      return
+    }
+    setError(false)
     setPopUpModel(true)
-    console.log('Selected Payment Method:', paymentMethod)
+  }
+
+  const renderContent = () => {
+    if (error) {
+      return (
+        <div className="mt-5">
+          <p className="text-red-500">
+            Credit Transaction need Customer Phone Number
+          </p>
+        </div>
+      )
+    }
+    return <></>
   }
 
   return (
@@ -130,7 +150,8 @@ const PaymentMethodSelection = () => {
           Credit
         </label>
       </div>
-      <div className="mt-5">
+      {renderContent()}
+      <div className="">
         <button
           onClick={handleSubmit}
           className="mt-4 bg-teal-600 hover:bg-teal-700 text-white text-base py-2 px-4 rounded"
@@ -156,8 +177,8 @@ const QuickSalesSubmitSection = () => {
         <span className="text-lg">Phone Number </span>: 9842322232
       </h2>
       <h1 className="text-xl font-semibold mt-5">Products Info</h1>
-      <div>
-        <TableContainer component={Paper} className="min-w-full mt-4">
+      <div className="mt-4 ">
+        <TableContainer component={Paper} className="min-w-full -ml-2 md:ml-0">
           <Table>
             <TableHead>
               <TableRow className="bg-gray-100">
@@ -184,7 +205,9 @@ const QuickSalesSubmitSection = () => {
           </Table>
         </TableContainer>
         <div className="mt-5">
-          <p className="capitalize text-lg">Transaction on cash</p>
+          <p className="capitalize text-lg text-gray-500">
+            Transaction on cash
+          </p>
         </div>
       </div>
     </div>

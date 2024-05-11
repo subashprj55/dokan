@@ -22,7 +22,7 @@ const PopupWindow = ({
   return (
     <div>
       <Modal open={popUpModel}>
-        <Box className="md:px-8 md:py-5  absolute top-1/2 left-1/2 w-[95%;] md:w-auto bg-white -translate-x-1/2 -translate-y-1/2">
+        <Box className="md:px-8 md:py-5  absolute top-1/2 left-1/2 w-[95%;] md:w-auto bg-white -translate-x-1/2 -translate-y-1/2 rounded-md">
           <Button
             onClick={handleClose}
             className="absolute top-0 md:top-5 -right-2 md:right-5"
