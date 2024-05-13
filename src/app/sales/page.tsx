@@ -44,33 +44,57 @@ const CustomerInformationForm = () => {
         <Grid item xs={12} sm={6}>
           <TextField
             id="customer-name"
-            label="Customer Name"
+            placeholder="Customer Name"
             variant="outlined"
             fullWidth
+            sx={{
+              '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline':
+                {
+                  border: '1px solid gray',
+                },
+            }}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
-            id="customer-number"
-            label="Customer Number"
+            id="customer-name"
+            placeholder="Customer Number"
             variant="outlined"
             fullWidth
+            sx={{
+              '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline':
+                {
+                  border: '1px solid gray',
+                },
+            }}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
-            id="customer-gmail"
-            label="Gmail"
+            id="customer-name"
+            placeholder="Gmail"
             variant="outlined"
             fullWidth
+            sx={{
+              '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline':
+                {
+                  border: '1px solid gray',
+                },
+            }}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
-            id="customer-address"
-            label="Customer Address"
+            id="customer-name"
+            placeholder="Customer Address"
             variant="outlined"
             fullWidth
+            sx={{
+              '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline':
+                {
+                  border: '1px solid gray',
+                },
+            }}
           />
         </Grid>
       </Grid>
