@@ -1,25 +1,32 @@
 'use client'
-import React from 'react'
-import { Button, List, ListItem, ListItemText } from '@mui/material'
+import React, { useState } from 'react'
+import {
+  Box,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+} from '@mui/material'
 import Container from '@/components/containder'
 import NavContainer from '@/components/navContainer'
-import ModalPopup from '@/components/popUpWindow'
-import ProductTable from '@/components/table'
 import { products } from './data'
-import { Paper, Typography, Grid, TextField } from '@mui/material'
+import { Paper, Grid, TextField } from '@mui/material'
 import TransactionTable from '@/components/transactionTable'
+import SearchInput from '@/components/searchInputBox'
+import AllStockTable from '@/components/allProductsTable'
+import PopupWindow from '@/components/popUpWindow'
 
 const PurchaseItem = () => {
   return (
     <>
       <NavContainer>
         <Container>
-          <PurchasePage />
-          {/* <ModalPopup /> */}
+          <AllStockTalbe />
           <SupplierInformation />
-          <TransactionTable productsData={products} />
-          <OrderSummary />
-          <ConfirmationSection />
+          <NewProductsInfo />
+          <PaymentMethodSelection />
           <PurchaseHistory />
         </Container>
       </NavContainer>
@@ -29,31 +36,39 @@ const PurchaseItem = () => {
 
 export default PurchaseItem
 
-const PurchasePage: React.FC = () => {
-  const handleOpenModal = () => {
-    //    .....
+const AllStockTalbe = () => {
+  const [searchTerm, setSearchTerm] = useState('')
+
+  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(event.target.value)
   }
 
+  const filteredProducts = products.filter((product) =>
+    Object.values(product).some(
+      (value) =>
+        typeof value === 'string' &&
+        value.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+  )
+
   return (
-    <div className="container mx-auto px-4 py-20 min-h-screen">
-      <h1 className="text-2xl font-semibold mb-4">Purchase Page</h1>
-      <div className="flex justify-end mb-4">
-        <Button variant="contained" onClick={() => handleOpenModal()}>
-          Add Item
-        </Button>
+    <div className="mt-20">
+      <div className="flex justify-between items-center mb-2">
+        <h2 className="text-lg font-semibold mb-2">Products</h2>
+        <SearchInput searchTerm={searchTerm} handleSearch={handleSearch} />
       </div>
-      <ProductTable products={products} />
+      <div className="max-h-[500px;] overflow-y-auto shadow-md">
+        <AllStockTable filteredProducts={filteredProducts} />
+      </div>
     </div>
   )
 }
 
 const SupplierInformation = () => {
   return (
-    <Paper elevation={3} className="p-6 rounded-lg">
-      <Typography variant="h6" gutterBottom>
-        Supplier Information
-      </Typography>
-      <Grid container spacing={2}>
+    <Box className="mt-10 md:mt-20 p-6 rounded-lg">
+      <h2 className="text-lg font-semibold mb-2">Supplier Information</h2>
+      <Grid container spacing={2} className="mt-2">
         <Grid item xs={12} sm={6}>
           <TextField
             id="supplierName"
@@ -76,8 +91,6 @@ const SupplierInformation = () => {
             label="Address"
             variant="outlined"
             fullWidth
-            multiline
-            rows={3}
           />
         </Grid>
         <Grid item xs={12}>
@@ -91,97 +104,147 @@ const SupplierInformation = () => {
           />
         </Grid>
       </Grid>
-    </Paper>
+    </Box>
   )
 }
 
-const sampleProducts = [
-  { id: 1, name: 'Product A', price: 10.99, quantity: 2 },
-  { id: 2, name: 'Product B', price: 15.99, quantity: 1 },
-  { id: 3, name: 'Product C', price: 8.49, quantity: 3 },
-  // Add more products as needed
-]
-
-const OrderSummary = () => {
-  // Calculate total price
-  const totalPrice = sampleProducts.reduce(
-    (total, product) => total + product.price * product.quantity,
-    0
+const NewProductsInfo = () => {
+  return (
+    <div className="p-6 pb-0">
+      <h2 className="text-lg font-semibold mb-2">New Products Info</h2>
+      <div>
+        <TransactionTable productsData={products} />
+      </div>
+    </div>
   )
+}
+
+const PaymentMethodSelection = () => {
+  const [paymentMethod, setPaymentMethod] = useState('')
+  const [popUpModel, setPopUpModel] = useState(false)
+  const [error, setError] = useState(false)
+
+  const handlePaymentMethodChange = (event: any) => {
+    setPaymentMethod(event.target.value)
+  }
+
+  const handleSubmit = () => {
+    if (!paymentMethod) return
+    if (paymentMethod === 'credit') {
+      setError(true)
+      return
+    }
+    setError(false)
+    setPopUpModel(true)
+  }
+
+  const renderContent = () => {
+    if (error) {
+      return (
+        <div className="mt-5 ">
+          <p className="text-red-500">
+            Credit Transaction need Customer Phone Number
+          </p>
+        </div>
+      )
+    }
+    return <></>
+  }
 
   return (
-    <Paper elevation={3} className="p-6 rounded-lg mt-4">
-      <Typography variant="h6" gutterBottom>
-        Order Summary
-      </Typography>
-      <List>
-        {products.map((product, index) => (
-          <ListItem key={index}>
-            <ListItemText
-              primary={`${product.name} x ${product.quantity}`}
-              secondary={`$${(product.price * product.quantity).toFixed(2)}`}
-            />
-          </ListItem>
-        ))}
-      </List>
-      <Typography variant="subtitle1" className="mt-4">
-        Total Price: ${totalPrice.toFixed(2)}
-      </Typography>
-    </Paper>
+    <div className="bg-white p-6">
+      <h2 className="text-lg font-semibold mb-2">Select Payment Method</h2>
+      <div className="flex items-center space-x-4">
+        <input
+          type="radio"
+          id="cash"
+          name="payment-method"
+          value="cash"
+          checked={paymentMethod === 'cash'}
+          onChange={handlePaymentMethodChange}
+          className="form-radio h-5 w-5 text-blue-600"
+        />
+        <label htmlFor="cash" className="text-lg text-gray-700">
+          Cash
+        </label>
+      </div>
+      <div className="flex items-center space-x-4">
+        <input
+          type="radio"
+          id="credit"
+          name="payment-method"
+          value="credit"
+          checked={paymentMethod === 'credit'}
+          onChange={handlePaymentMethodChange}
+          className="form-radio h-5 w-5 text-blue-600"
+        />
+        <label htmlFor="credit" className="text-lg text-gray-700">
+          Credit
+        </label>
+      </div>
+      {renderContent()}
+      <div className="">
+        <button
+          onClick={handleSubmit}
+          className="mt-4 bg-teal-600 hover:bg-teal-700 text-white text-base py-2 px-4 rounded"
+        >
+          Submit
+        </button>
+      </div>
+      <PopupWindow popUpModel={popUpModel} setPopUpModel={setPopUpModel}>
+        <QuickSalesSubmitSection />
+      </PopupWindow>
+    </div>
   )
 }
 
-const customerInfo = {
-  name: 'John Doe',
-  address: '123 Main Street',
-  contactNumber: '+1234567890',
-}
-
-const sampleProds = [
-  { id: 1, name: 'Product 1', price: 10.99, quantity: 2 },
-  { id: 2, name: 'Product 2', price: 15.99, quantity: 1 },
-  { id: 3, name: 'Product 3', price: 5.99, quantity: 3 },
-]
-
-const paymentMethod = 'Credit Card'
-
-const calculateTotalAmount = (products: any) => {
-  return products.reduce((total: any, product: any) => {
-    return total + product.price * product.quantity
-  }, 0)
-}
-
-const totalAmount = calculateTotalAmount(sampleProds)
-
-const ConfirmationSection = () => {
+const QuickSalesSubmitSection = () => {
   return (
-    <div>
-      <h2>Confirmation</h2>
-      <div>
-        <h3>Customer Information</h3>
-        <p>Name: {customerInfo.name}</p>
-        <p>Address: {customerInfo.address}</p>
-        <p>Contact Number: {customerInfo.contactNumber}</p>
+    <div className="p-2 md:p-4 w-full m-2 md:min-w-[500px;]">
+      <h1 className="text-xl font-medium mb-1">Customer Name : Ram Sharma</h1>
+      <h2>
+        <span className="text-lg">Phone Number </span>: 9842322232
+      </h2>
+      <h2>
+        <span className="text-lg">Gmail </span>: MeroDokan123@gmail.com
+      </h2>
+      <h2>
+        <span className="text-lg capitalize">Adress </span>: Chitwan, Nepal
+      </h2>
+      <h1 className="text-xl font-semibold mt-5">Products Info</h1>
+      <div className="mt-4 ">
+        <TableContainer component={Paper} className="min-w-full -ml-2 md:ml-0">
+          <Table>
+            <TableHead>
+              <TableRow className="bg-gray-100">
+                <TableCell>Name</TableCell>
+                <TableCell>Quantity</TableCell>
+                <TableCell>Price</TableCell>
+                <TableCell>Total</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              <TableRow>
+                <TableCell>patato</TableCell>
+                <TableCell>12</TableCell>
+                <TableCell>100</TableCell>
+                <TableCell>1200</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Rice</TableCell>
+                <TableCell>1</TableCell>
+                <TableCell>600</TableCell>
+                <TableCell>600</TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <div className="mt-5">
+          <p className="capitalize text-lg text-gray-500">
+            Transaction on cash
+          </p>
+        </div>
       </div>
-      <div>
-        <h3>Products</h3>
-        <ul>
-          {products.map((product) => (
-            <li key={product.id}>
-              {product.name} - ${product.price} - Quantity: {product.quantity}
-            </li>
-          ))}
-        </ul>
-      </div>
-      <div>
-        <h3>Payment Method</h3>
-        <p>{paymentMethod}</p>
-      </div>
-      <div>
-        <h3>Total Amount</h3>
-        <p>${totalAmount}</p>
-      </div>
-      {/* Add any other relevant information or actions here */}
     </div>
   )
 }
