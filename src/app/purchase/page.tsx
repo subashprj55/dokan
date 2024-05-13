@@ -71,36 +71,60 @@ const SupplierInformation = () => {
       <Grid container spacing={2} className="mt-2">
         <Grid item xs={12} sm={6}>
           <TextField
-            id="supplierName"
-            label="Supplier Name"
+            id="customer-name"
+            placeholder="Supplier Name"
             variant="outlined"
             fullWidth
+            sx={{
+              '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline':
+                {
+                  border: '1px solid gray',
+                },
+            }}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
-            id="contactNumber"
-            label="Contact Number"
+            id="customer-name"
+            placeholder="Contact Number"
             variant="outlined"
             fullWidth
+            sx={{
+              '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline':
+                {
+                  border: '1px solid gray',
+                },
+            }}
           />
         </Grid>
         <Grid item xs={12}>
           <TextField
-            id="address"
-            label="Address"
+            id="customer-name"
+            placeholder="Address"
             variant="outlined"
             fullWidth
+            sx={{
+              '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline':
+                {
+                  border: '1px solid gray',
+                },
+            }}
           />
         </Grid>
         <Grid item xs={12}>
           <TextField
-            id="notes"
-            label="Notes"
+            id="customer-name"
+            placeholder="Notes"
             variant="outlined"
             fullWidth
             multiline
             rows={3}
+            sx={{
+              '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline':
+                {
+                  border: '1px solid gray',
+                },
+            }}
           />
         </Grid>
       </Grid>
