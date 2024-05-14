@@ -1,8 +1,6 @@
 'use client'
 import React from 'react'
 import {
-  Area,
-  AreaChart,
   CartesianGrid,
   Legend,
   Line,
@@ -25,6 +23,9 @@ import {
   TableRow,
   TableCell,
   Typography,
+  Button,
+  TextField,
+  Toolbar,
 } from '@mui/material'
 
 const page = () => {
@@ -32,6 +33,7 @@ const page = () => {
     <>
       <NavContainer>
         <Container>
+          <AnalysisPage />
           <ChartsAndGraphs />
           <ProfitabilityAnalysis />
           <SupplierPerformance />
@@ -86,12 +88,12 @@ const ProfitabilityAnalysis = () => {
   ]
 
   return (
-    <div className="py-8">
+    <div className="py-8 mt-20">
       <h2 className="text-2xl font-semibold mb-4">Profitability Analysis</h2>
       <TableContainer component={Paper}>
-        <Table>
+        <Table className="cursor-pointer">
           <TableHead>
-            <TableRow>
+            <TableRow className="bg-gray-100">
               <TableCell>Month</TableCell>
               <TableCell>Revenue ($)</TableCell>
               <TableCell>Expenses ($)</TableCell>
@@ -100,7 +102,7 @@ const ProfitabilityAnalysis = () => {
           </TableHead>
           <TableBody>
             {profitabilityData.map((data, index) => (
-              <TableRow key={index}>
+              <TableRow className="md:hover:bg-gray-50" key={index}>
                 <TableCell>{data.month}</TableCell>
                 <TableCell>{data.revenue}</TableCell>
                 <TableCell>{data.expenses}</TableCell>
@@ -127,9 +129,9 @@ const SupplierPerformance = () => {
     <div className="py-8">
       <h2 className="text-2xl font-semibold mb-4">Supplier Performance</h2>
       <TableContainer component={Paper}>
-        <Table>
+        <Table className="cursor-pointer">
           <TableHead>
-            <TableRow>
+            <TableRow className="bg-gray-100">
               <TableCell>Supplier</TableCell>
               <TableCell>Total Orders</TableCell>
               <TableCell>Total Amount ($)</TableCell>
@@ -137,7 +139,7 @@ const SupplierPerformance = () => {
           </TableHead>
           <TableBody>
             {supplierPerformanceData.map((data, index) => (
-              <TableRow key={index}>
+              <TableRow className="md:hover:bg-gray-50" key={index}>
                 <TableCell>{data.supplier}</TableCell>
                 <TableCell>{data.totalOrders}</TableCell>
                 <TableCell>{data.totalAmount}</TableCell>
@@ -162,43 +164,61 @@ const sampleData = [
 const ForecastingAndPredictiveAnalytics = () => {
   return (
     <div className="py-8">
-      <h2 className="text-2xl font-semibold mb-4">
-        Forecasting and Predictive Analytics
-      </h2>
       <Paper elevation={3} className="p-6">
-        <Typography variant="body1">
-          This section provides insights into future sales trends and patterns
-          using advanced analytics and predictive modeling techniques. Utilize
-          historical sales data to forecast future demand, identify potential
-          risks or opportunities, and make data-driven decisions to optimize
-          inventory management and maximize profitability.
-        </Typography>
-
+        <h2 className="text-2xl font-semibold mb-4">
+          Forecasting and Predictive Analytics
+        </h2>
         <div className="mt-8">
-          <Typography variant="h6" gutterBottom>
-            Predicted vs Actual Sales
-          </Typography>
-          <LineChart width={600} height={300} data={sampleData}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Line
-              type="monotone"
-              dataKey="sales"
-              name="Actual Sales"
-              stroke="#8884d8"
-            />
-            <Line
-              type="monotone"
-              dataKey="predictedSales"
-              name="Predicted Sales"
-              stroke="#82ca9d"
-            />
-          </LineChart>
+          <div className="w-full h-80">
+            <ResponsiveContainer>
+              <LineChart
+                margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+                data={sampleData}
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Line
+                  type="monotone"
+                  dataKey="sales"
+                  name="Actual Sales"
+                  stroke="#8884d8"
+                  activeDot={{ r: 8 }}
+                />
+                <Line
+                  type="monotone"
+                  dataKey="predictedSales"
+                  name="Predicted Sales"
+                  stroke="#82ca9d"
+                />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
         </div>
       </Paper>
+    </div>
+  )
+}
+import { FiCalendar } from 'react-icons/fi'
+
+const AnalysisPage = () => {
+  return (
+    <div className="mt-20">
+      <Toolbar>
+        <div className="flex items-center justify-end space-x-4 w-full">
+          <button className="capitalize border px-2 py-1 borde border-gray-200 rounded-lg hover:bg-gray-100">
+            Today
+          </button>
+          <button className="capitalize border px-2 py-1 borde border-gray-200 rounded-lg hover:bg-gray-100">
+            This month
+          </button>
+          <button className="capitalize flex items-center gap-2 border px-2 py-1 borde border-gray-200 rounded-lg hover:bg-gray-100">
+            Date Picker <FiCalendar />
+          </button>
+        </div>
+      </Toolbar>
     </div>
   )
 }
