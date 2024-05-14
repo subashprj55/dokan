@@ -49,11 +49,9 @@ export default page
 
 const ChartsAndGraphs = () => {
   return (
-    <div className="bg-white p-6 rounded-lg shadow-lg">
-      <h2 className="text-2xl font-semibold mb-6">
-        Sales and Purchases Trends
-      </h2>
-      <div className="w-full h-80">
+    <div className="bg-white rounded-lg">
+      <h2 className="text-2xl font-medium mb-6">Sales and Purchases Trends</h2>
+      <div className="w-full p-6 h-80  shadow-lg">
         <ResponsiveContainer>
           <LineChart
             data={data}
@@ -88,8 +86,8 @@ const ProfitabilityAnalysis = () => {
   ]
 
   return (
-    <div className="py-8 mt-20">
-      <h2 className="text-2xl font-semibold mb-4">Profitability Analysis</h2>
+    <div className="py-8 mt-10 md:mt-20">
+      <h2 className="text-2xl font-medium mb-4">Profitability Analysis</h2>
       <TableContainer component={Paper}>
         <Table className="cursor-pointer">
           <TableHead>
@@ -127,7 +125,7 @@ const SupplierPerformance = () => {
 
   return (
     <div className="py-8">
-      <h2 className="text-2xl font-semibold mb-4">Supplier Performance</h2>
+      <h2 className="text-2xl font-medium mb-4">Supplier Performance</h2>
       <TableContainer component={Paper}>
         <Table className="cursor-pointer">
           <TableHead>
@@ -165,7 +163,7 @@ const ForecastingAndPredictiveAnalytics = () => {
   return (
     <div className="py-8">
       <Paper elevation={3} className="p-6">
-        <h2 className="text-2xl font-semibold mb-4">
+        <h2 className="text-2xl font-medium mb-4">
           Forecasting and Predictive Analytics
         </h2>
         <div className="mt-8">
