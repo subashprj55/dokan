@@ -1,7 +1,6 @@
 'use client'
 import { useEffect } from 'react'
 import Image from 'next/image'
-import Link from 'next/link'
 import Container from '@/components/containder'
 import Footer from '@/components/footer'
 import Nav from '@/components/navBar/page'
@@ -45,7 +44,7 @@ const Intro = () => {
     <Container>
       <div className="flex flex-col-reverse md:flex-row items-center justify-center pt-20  md:pt-32">
         <div
-          className="md:w-1/2 mt-8 md:mt-0 md:mb-0 md:mr-4"
+          className="md:w-1/2 mt-4 md:mt-0 md:mb-0 md:mr-4"
           data-aos="fade-right"
         >
           <div className="mx-auto text-center md:text-left">
@@ -73,7 +72,10 @@ const Intro = () => {
             </div>
           </div>
         </div>
-        <div className="md:w-1/2 lg:flex justify-end" data-aos="fade-left">
+        <div
+          className="md:w-1/2 mt-2 md:mt-0 lg:flex justify-end"
+          data-aos="fade-left"
+        >
           <img
             src="/images/intro.png "
             alt="Grocery Image"
