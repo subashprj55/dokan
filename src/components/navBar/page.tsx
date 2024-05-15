@@ -185,16 +185,19 @@ const Nav = () => {
               Login
             </p>
           </Link>
-          {VerticalLinks.map(({ id, name, link }) => {
+          {VerticalLinks.map(({ id, name, link, icon: Icon }) => {
             return (
-              <p
+              <div
                 key={id}
-                className={` hover:text-lavender-300 block px-3 py-2 rounded-md text-lg ${
+                className={`flex items-center hover:text-lavender-300 md:block px-3 py-2 rounded-md text-lg ${
                   routerPath === link ? 'bg-blue-500 text-white' : ''
                 }`}
               >
-                <Link href={link}>{name}</Link>
-              </p>
+                <Icon className="text-xl mr-2" />
+                <p>
+                  <Link href={link}>{name}</Link>
+                </p>
+              </div>
             )
           })}
         </div>
