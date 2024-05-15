@@ -9,11 +9,10 @@ const page = () => {
     <>
       <NavContainer>
         <Container>
+          <GeneralSettings />
           <AccountSettings />
-          <NotificationSettings />
-          <StoreSettings />
-          <TaxSettings />
-          <ProfileSettingsForm />
+          <NotificationSetting />
+          <SecuritySettings />
         </Container>
       </NavContainer>
     </>
@@ -22,246 +21,269 @@ const page = () => {
 
 export default page
 
+const GeneralSettings = () => {
+  const [companyName, setCompanyName] = useState('Dokan')
+  const [companyEmail, setCompanyEmail] = useState('info@dokan.com')
+  const [companyPhone, setCompanyPhone] = useState('+1 (555) 555-5555')
+  const [companyAddress, setCompanyAddress] = useState(
+    '123 Main St, Anytown USA'
+  )
+
+  const handleSaveChanges = () => {
+    // Logic to save changes
+    console.log('Changes saved!')
+  }
+
+  return (
+    <div className=" mx-auto mt-20 p-8 border border-gray-300 rounded-md">
+      <h1 className="text-2xl font-semibold tracking-wider mb-4">General</h1>
+      <p className="text-gray-600 mb-4">Manage your general settings</p>
+      <div className="grid grid-cols-2 gap-4">
+        <div>
+          <TextField
+            label="Company Name"
+            variant="outlined"
+            value={companyName}
+            onChange={(e) => setCompanyName(e.target.value)}
+            fullWidth
+            sx={{
+              '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline':
+                {
+                  border: '1px solid gray',
+                },
+            }}
+          />
+        </div>
+        <div>
+          <TextField
+            label="Company Email"
+            variant="outlined"
+            type="email"
+            value={companyEmail}
+            onChange={(e) => setCompanyEmail(e.target.value)}
+            fullWidth
+            sx={{
+              '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline':
+                {
+                  border: '1px solid gray',
+                },
+            }}
+          />
+        </div>
+        <div>
+          <TextField
+            label="Company Phone"
+            variant="outlined"
+            type="tel"
+            value={companyPhone}
+            onChange={(e) => setCompanyPhone(e.target.value)}
+            fullWidth
+            sx={{
+              '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline':
+                {
+                  border: '1px solid gray',
+                },
+            }}
+          />
+        </div>
+        <div>
+          <TextField
+            label="Company Address"
+            variant="outlined"
+            value={companyAddress}
+            onChange={(e) => setCompanyAddress(e.target.value)}
+            fullWidth
+            sx={{
+              '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline':
+                {
+                  border: '1px solid gray',
+                },
+            }}
+          />
+        </div>
+        <div className="col-span-2">
+          <Button
+            variant="contained"
+            color="success"
+            onClick={handleSaveChanges}
+          >
+            Save Changes
+          </Button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+const NotificationSetting = () => {
+  const [newOrderNotification, setNewOrderNotification] = useState(false)
+  const [lowInventoryNotification, setLowInventoryNotification] =
+    useState(false)
+  const [customerMessagesNotification, setCustomerMessagesNotification] =
+    useState(false)
+
+  const handleSaveChanges = () => {
+    // Logic to save changes
+    console.log('Changes saved!')
+  }
+
+  return (
+    <div className="mx-auto mt-8 p-8 border border-gray-300 rounded-md">
+      <h2 className="text-2xl font-semibold mb-4">Notifications</h2>
+      <p className="text-gray-600 mb-4">Manage your notification settings</p>
+      <div>
+        <FormControlLabel
+          control={
+            <Switch
+              color="warning"
+              checked={newOrderNotification}
+              onChange={(e) => setNewOrderNotification(e.target.checked)}
+            />
+          }
+          label="New Orders"
+        />
+      </div>
+      <div>
+        <FormControlLabel
+          control={
+            <Switch
+              color="warning"
+              checked={lowInventoryNotification}
+              onChange={(e) => setLowInventoryNotification(e.target.checked)}
+            />
+          }
+          label="Low Inventory"
+        />
+      </div>
+      <div>
+        <FormControlLabel
+          control={
+            <Switch
+              color="warning"
+              checked={customerMessagesNotification}
+              onChange={(e) =>
+                setCustomerMessagesNotification(e.target.checked)
+              }
+            />
+          }
+          label="Customer Messages"
+        />
+      </div>
+      <div className="mt-4">
+        <Button variant="contained" color="success" onClick={handleSaveChanges}>
+          Save Changes
+        </Button>
+      </div>
+    </div>
+  )
+}
+
 const AccountSettings = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
 
-  const handleSave = () => {
-    // Handle save functionality here
-    console.log('Email:', email)
-    console.log('Password:', password)
-    console.log('Confirm Password:', confirmPassword)
+  const handleSaveChanges = () => {
+    // Logic to save changes
+    console.log('Changes saved!')
   }
 
   return (
-    <div className="max-w-md pt-36">
+    <div className=" mx-auto mt-8 p-8 border border-gray-300 rounded-md">
       <h2 className="text-2xl font-semibold mb-4">Account Settings</h2>
-      <form onSubmit={handleSave}>
+      <div>
         <TextField
           label="Email"
+          variant="outlined"
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          variant="outlined"
           fullWidth
           className="mb-4"
-          required
         />
         <TextField
           label="Password"
+          variant="outlined"
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          variant="outlined"
           fullWidth
           className="mb-4"
-          required
         />
         <TextField
           label="Confirm Password"
+          variant="outlined"
           type="password"
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
-          variant="outlined"
           fullWidth
           className="mb-4"
-          required
         />
-        <Button
-          type="submit"
-          variant="contained"
-          color="primary"
-          className="mb-4"
-        >
+      </div>
+      <div className="mt-4">
+        <Button variant="contained" color="success" onClick={handleSaveChanges}>
           Save Changes
         </Button>
-      </form>
+      </div>
     </div>
   )
 }
 
-const NotificationSettings = () => {
-  const [emailNotifications, setEmailNotifications] = useState(true)
-  const [pushNotifications, setPushNotifications] = useState(true)
+const SecuritySettings = () => {
+  const [twoFactorAuth, setTwoFactorAuth] = useState(false)
+  const [ipRestrictions, setIpRestrictions] = useState(false)
+  const [activityLogging, setActivityLogging] = useState(false)
 
-  const handleSave = () => {
-    // Logic to save notification settings
+  const handleSaveChanges = () => {
+    // Logic to save changes
+    console.log('Changes saved!')
   }
 
   return (
-    <div className="p-4 bg-white rounded shadow my-20">
-      <h2 className="text-xl font-semibold mb-4">Notification Settings</h2>
-      <div className="mb-4">
+    <div className=" mt-8 p-8 border border-gray-300 rounded-md">
+      <h2 className="text-2xl font-semibold mb-4">Security</h2>
+      <p className="text-gray-600 mb-4">Manage your security settings</p>
+      <div>
         <FormControlLabel
           control={
             <Switch
-              checked={emailNotifications}
-              onChange={() => setEmailNotifications(!emailNotifications)}
-              color="primary"
+              color="warning"
+              checked={twoFactorAuth}
+              onChange={(e) => setTwoFactorAuth(e.target.checked)}
             />
           }
-          label="Email Notifications"
+          label="Two-Factor Authentication"
         />
       </div>
-      <div className="mb-4">
+      <div>
         <FormControlLabel
           control={
             <Switch
-              checked={pushNotifications}
-              onChange={() => setPushNotifications(!pushNotifications)}
-              color="primary"
+              color="warning"
+              checked={ipRestrictions}
+              onChange={(e) => setIpRestrictions(e.target.checked)}
             />
           }
-          label="Push Notifications"
+          label="IP Restrictions"
         />
       </div>
-      <div className="flex justify-end">
-        <Button variant="contained" color="primary" onClick={handleSave}>
-          Save
+      <div>
+        <FormControlLabel
+          control={
+            <Switch
+              color="warning"
+              checked={activityLogging}
+              onChange={(e) => setActivityLogging(e.target.checked)}
+            />
+          }
+          label="Activity Logging"
+        />
+      </div>
+      <div className="mt-4">
+        <Button variant="contained" color="success" onClick={handleSaveChanges}>
+          Save Changes
         </Button>
       </div>
-    </div>
-  )
-}
-
-const StoreSettings = () => {
-  const [storeName, setStoreName] = useState('')
-  const [storeDescription, setStoreDescription] = useState('')
-
-  const handleSave = () => {
-    // Logic to save store settings
-  }
-
-  return (
-    <div className="p-4 bg-white rounded shadow mt-10">
-      <h2 className="text-xl font-semibold mb-4">Store Settings</h2>
-      <div className="mb-4">
-        <TextField
-          label="Store Name"
-          variant="outlined"
-          fullWidth
-          value={storeName}
-          onChange={(e) => setStoreName(e.target.value)}
-        />
-      </div>
-      <div className="mb-4">
-        <TextField
-          label="Store Description"
-          variant="outlined"
-          fullWidth
-          multiline
-          rows={4}
-          value={storeDescription}
-          onChange={(e) => setStoreDescription(e.target.value)}
-        />
-      </div>
-      <div className="flex justify-end">
-        <Button variant="contained" color="primary" onClick={handleSave}>
-          Save
-        </Button>
-      </div>
-    </div>
-  )
-}
-
-const TaxSettings = () => {
-  const [taxRate, setTaxRate] = useState('')
-
-  const handleSave = () => {
-    // Logic to save tax settings
-  }
-
-  return (
-    <div className="p-4 bg-white rounded shadow mt-20">
-      <h2 className="text-xl font-semibold mb-4">Tax Settings</h2>
-      <div className="mb-4">
-        <TextField
-          label="Tax Rate (%)"
-          variant="outlined"
-          fullWidth
-          value={taxRate}
-          onChange={(e) => setTaxRate(e.target.value)}
-        />
-      </div>
-      <div className="flex justify-end">
-        <Button variant="contained" color="primary" onClick={handleSave}>
-          Save
-        </Button>
-      </div>
-    </div>
-  )
-}
-
-const ProfileSettingsForm = () => {
-  const [fullName, setFullName] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-
-  const handleSubmit = (e: any) => {
-    e.preventDefault()
-    // Add logic to update user profile/settings
-    console.log('Profile updated:', { fullName, email, password })
-  }
-
-  return (
-    <div className="bg-white p-6 rounded-lg shadow-md mt-20">
-      <h2 className="text-2xl font-semibold mb-6">Profile Settings</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="mb-4">
-          <label
-            htmlFor="fullName"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Full Name
-          </label>
-          <input
-            type="text"
-            id="fullName"
-            value={fullName}
-            onChange={(e) => setFullName(e.target.value)}
-            className="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:ring focus:ring-blue-200 focus:border-blue-500"
-          />
-        </div>
-        <div className="mb-4">
-          <label
-            htmlFor="email"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Email
-          </label>
-          <input
-            type="email"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:ring focus:ring-blue-200 focus:border-blue-500"
-          />
-        </div>
-        <div className="mb-6">
-          <label
-            htmlFor="password"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Password
-          </label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:ring focus:ring-blue-200 focus:border-blue-500"
-          />
-        </div>
-        <div className="flex justify-center">
-          <button
-            type="submit"
-            className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-200 focus:border-blue-500"
-          >
-            Save Changes
-          </button>
-        </div>
-      </form>
     </div>
   )
 }
