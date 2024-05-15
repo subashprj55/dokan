@@ -15,6 +15,7 @@ import Accordian from '@/components/accordian'
 import FeatureSection from '@/components/feature/page'
 import PricePlanDetails from '@/components/PricePlanDetails/page'
 import { aboutUsData, customerData, howItWorkData } from './homePageData'
+import { Button } from '@mui/material'
 
 export default function Home() {
   useEffect(() => {
@@ -41,48 +42,46 @@ export default function Home() {
 
 const Intro = () => {
   return (
-    <div className="bg-white">
-      <div>
-        <title>Your Grocery Store Management</title>
-        <meta
-          name="description"
-          content="Welcome to Your Grocery Store Management System"
-        />
-      </div>
-
-      {/* body contant  start form here*/}
-      <Container>
-        <div className="pt-48">
-          <h1
-            className="text-3xl md:text-7xl text-center font-bold text-gray-800 mb-4"
-            data-aos="fade-right"
-          >
-            Welcome to Your Grocery Store Management System
-          </h1>
-          <br />
-          <h1
-            className="text-5xl md:text-8xl text-center font-bold text-gray-600 mb-4"
-            data-aos="fade-left"
-          >
-            DOKAN
-          </h1>
-          <p
-            className=" text-gray-600 text-center mb-5 text-2xl mt-5 md:mt-14"
-            data-aos="fade-left"
-          >
-            Manage your grocery store efficiently with our user-friendly system.
-          </p>
-          <div className="flex justify-center gap-3 pt-5">
-            <Link
-              href={'/dashboard'}
-              className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg text-sm font-semibold transition-colors duration-300"
-            >
-              Let's Start
-            </Link>
+    <Container>
+      <div className="flex flex-col-reverse md:flex-row items-center justify-center pt-20  md:pt-32">
+        <div
+          className="md:w-1/2 mt-8 md:mt-0 md:mb-0 md:mr-4"
+          data-aos="fade-right"
+        >
+          <div className="mx-auto text-center md:text-left">
+            <h1 className="text-3xl lg:text-4xl xl:text-6xl font-bold text-gray-800 mb-4">
+              Welcome to Your Grocery Store Management System
+            </h1>
+            <h2 className="text-6xl lg:text-7xl xl:text-9xl font-bold text-gray-600 mb-4">
+              <span
+                className="bg-gradient-to-r text-transparent from-green-400 to-cyan-400"
+                style={{
+                  backgroundClip: 'text',
+                }}
+              >
+                DOKEN
+              </span>
+            </h2>
+            <p className="text-gray-600 text-lg md:text-xl mb-8">
+              Manage your grocery store efficiently with our user-friendly
+              system.
+            </p>
+            <div className="flex justify-center md:justify-start">
+              <Button variant="contained" color="success" href="/dashboard">
+                Let's Start
+              </Button>
+            </div>
           </div>
         </div>
-      </Container>
-    </div>
+        <div className="md:w-1/2 lg:flex justify-end" data-aos="fade-left">
+          <img
+            src="/images/intro.png "
+            alt="Grocery Image"
+            className="lg:w-[85%;] h-auto rounded-md"
+          />
+        </div>
+      </div>
+    </Container>
   )
 }
 
