@@ -43,7 +43,7 @@ export default function Home() {
 const Intro = () => {
   return (
     <Container>
-      <div className="flex flex-col md:flex-row items-center justify-center pt-20  md:pt-32">
+      <div className="flex flex-col-reverse md:flex-row items-center justify-center pt-20  md:pt-32">
         <div className="md:w-1/2 mb-8 md:mb-0 md:mr-4" data-aos="fade-right">
           <div className="mx-auto text-center md:text-left">
             <h1 className="text-3xl lg:text-4xl xl:text-6xl font-bold text-gray-800 mb-4">
