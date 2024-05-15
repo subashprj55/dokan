@@ -4,6 +4,7 @@ import Footer from '@/components/footer'
 import NavContainer from '@/components/navContainer'
 import {
   Alert,
+  Avatar,
   Button,
   Container,
   FormControl,
@@ -22,6 +23,7 @@ import {
   Typography,
 } from '@mui/material'
 import { RiDeleteBin6Line } from 'react-icons/ri'
+import { feedbackData } from './data'
 
 const page = () => {
   return (
@@ -30,7 +32,6 @@ const page = () => {
         <Container>
           <FeedbackForm />
           <FeedbackHistory />
-          <AnalyticsSection />
           <HelpSupportSection />
         </Container>
         <Footer />
@@ -42,187 +43,93 @@ const page = () => {
 export default page
 
 const FeedbackForm = () => {
-  const [feedbackData, setFeedbackData] = useState({
-    name: '',
-    email: '',
-    category: '',
-    message: '',
-  })
-  const [openSnackbar, setOpenSnackbar] = useState(false)
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [feedback, setFeedback] = useState('')
 
-  const handleChange = (e: any) => {
-    const { name, value } = e.target
-    setFeedbackData({ ...feedbackData, [name]: value })
-  }
-
-  const handleSubmit = (e: any) => {
-    e.preventDefault()
-    // Logic to submit feedback data (API call or other)
-    setOpenSnackbar(true)
-    // Reset form data
-    setFeedbackData({
-      name: '',
-      email: '',
-      category: '',
-      message: '',
-    })
-  }
-
-  const handleCloseSnackbar = () => {
-    setOpenSnackbar(false)
+  const handleSubmit = (event: any) => {
+    event.preventDefault()
+    // Handle submission logic here, such as sending the feedback to a server
+    console.log('Feedback submitted:', { name, email, feedback })
+    // Clear form fields after submission
+    setName('')
+    setEmail('')
+    setFeedback('')
   }
 
   return (
-    <div className="mt-32">
+    <div className="mt-20 p-4 pt-0">
+      <h2 className="text-2xl font-semibold mb-4">Send Us Feedback</h2>
+      <p className="mb-4">We'd love to hear your thoughts and suggestions.</p>
       <form onSubmit={handleSubmit}>
-        <TextField
-          required
-          fullWidth
-          label="Your Name"
-          name="name"
-          value={feedbackData.name}
-          onChange={handleChange}
-          margin="normal"
-        />
-        <TextField
-          fullWidth
-          label="Your Email"
-          name="email"
-          value={feedbackData.email}
-          onChange={handleChange}
-          margin="normal"
-        />
-        <FormControl fullWidth margin="normal">
-          <InputLabel id="category-label">Category</InputLabel>
-          <Select
+        <div className="mb-4">
+          <TextField
+            id="name"
+            label="Name"
+            variant="outlined"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            fullWidth
             required
-            labelId="category-label"
-            name="category"
-            value={feedbackData.category}
-            onChange={handleChange}
-          >
-            <MenuItem value="suggestion">Suggestion</MenuItem>
-            <MenuItem value="complaint">Complaint</MenuItem>
-            <MenuItem value="bug">Bug Report</MenuItem>
-          </Select>
-        </FormControl>
-        <TextField
-          required
-          fullWidth
-          label="Your Feedback"
-          name="message"
-          value={feedbackData.message}
-          onChange={handleChange}
-          margin="normal"
-          multiline
-          rows={4}
-        />
-        <Button type="submit" variant="contained" color="primary">
+          />
+        </div>
+        <div className="mb-4">
+          <TextField
+            id="email"
+            label="Email"
+            variant="outlined"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            fullWidth
+            required
+          />
+        </div>
+        <div className="mb-4">
+          <TextField
+            id="feedback"
+            label="Feedback"
+            variant="outlined"
+            multiline
+            rows={4}
+            value={feedback}
+            onChange={(e) => setFeedback(e.target.value)}
+            fullWidth
+            required
+          />
+        </div>
+        <Button type="submit" variant="contained" color="success">
           Submit Feedback
         </Button>
       </form>
-      <Snackbar
-        open={openSnackbar}
-        autoHideDuration={6000}
-        onClose={handleCloseSnackbar}
-      >
-        <Alert onClose={handleCloseSnackbar} severity="success">
-          Feedback submitted successfully!
-        </Alert>
-      </Snackbar>
     </div>
   )
 }
 
 const FeedbackHistory = () => {
-  const [feedbacks, setFeedbacks] = useState([
-    {
-      id: 1,
-      name: 'John Doe',
-      email: 'john@example.com',
-      category: 'Suggestion',
-      message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    },
-    {
-      id: 2,
-      name: 'Jane Smith',
-      email: 'jane@example.com',
-      category: 'Bug Report',
-      message:
-        'Nulla facilisi. Pellentesque vitae magna in risus ultricies sagittis.',
-    },
-  ])
-
-  const handleDeleteFeedback = (id: any) => {
-    setFeedbacks(feedbacks.filter((feedback) => feedback.id !== id))
-  }
-
   return (
-    <div className="py-8">
-      <Typography variant="h4" gutterBottom>
-        Feedback History
-      </Typography>
-      <TableContainer component={Paper}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Name</TableCell>
-              <TableCell>Email</TableCell>
-              <TableCell>Category</TableCell>
-              <TableCell>Message</TableCell>
-              <TableCell>Action</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {feedbacks.map((feedback) => (
-              <TableRow key={feedback.id}>
-                <TableCell>{feedback.name}</TableCell>
-                <TableCell>{feedback.email}</TableCell>
-                <TableCell>{feedback.category}</TableCell>
-                <TableCell>{feedback.message}</TableCell>
-                <TableCell>
-                  <button onClick={() => handleDeleteFeedback(feedback.id)}>
-                    <RiDeleteBin6Line />
-                  </button>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </div>
-  )
-}
-const AnalyticsSection = () => {
-  return (
-    <div className="p-4 space-y-4">
-      <Typography variant="h4" gutterBottom>
-        Analytics
-      </Typography>
-      <Paper elevation={3} className="p-4">
-        <Typography variant="h5" gutterBottom>
-          Total Sales
-        </Typography>
-        {/* Add your Total Sales chart here */}
-      </Paper>
-      <Paper elevation={3} className="p-4">
-        <Typography variant="h5" gutterBottom>
-          Profitability Analysis
-        </Typography>
-        {/* Add your Profitability Analysis chart here */}
-      </Paper>
-      <Paper elevation={3} className="p-4">
-        <Typography variant="h5" gutterBottom>
-          Supplier Performance
-        </Typography>
-        {/* Add your Supplier Performance chart here */}
-      </Paper>
-      <Paper elevation={3} className="p-4">
-        <Typography variant="h5" gutterBottom>
-          Forecasting
-        </Typography>
-        {/* Add your Forecasting chart here */}
-      </Paper>
+    <div className="mt-8 p-4">
+      <h2 className="text-2xl font-semibold ">Recent Feedback</h2>
+      <h6 className="mb-4">Check out the latest feedback from our users.</h6>
+      <div className="space-y-6">
+        {feedbackData.map(({ id, userName, time, comment, img }) => {
+          return (
+            <div className="md:p-4 rounded-lg" key={id}>
+              <div className="flex justify-between items-center mb-2 md:mb-0">
+                <div className="flex items-center">
+                  <Avatar alt="User Avatar" src={img} />
+                  <div className="ml-2 ">
+                    <span className="font-semibold">{userName}</span>
+                    <p className="text-gray-600 hidden md:block">{comment}</p>
+                  </div>
+                </div>
+                <div className="text-gray-500">{time}</div>
+              </div>
+              <p className="text-gray-600 ml-1 md:hidden md:ml-12">{comment}</p>
+            </div>
+          )
+        })}
+      </div>
     </div>
   )
 }
