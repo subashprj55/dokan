@@ -58,7 +58,7 @@ const Intro = () => {
                   backgroundClip: 'text',
                 }}
               >
-                DOKEN
+                DOKAN
               </span>
             </h2>
             <p className="text-gray-600 text-lg md:text-xl mb-8">

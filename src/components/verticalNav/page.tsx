@@ -20,8 +20,8 @@ const VerticalNav = () => {
                     button
                     className={`${
                       pathName === link
-                        ? 'bg-green-600 hover:bg-green-600 text-white'
-                        : 'hover:bg-green-600 hover:text-white'
+                        ? 'bg-teal-500 hover:bg-teal-600 text-white'
+                        : 'hover:bg-teal-600 hover:text-white'
                     }`}
                   >
                     <Icon className="text-xl mr-2" />
