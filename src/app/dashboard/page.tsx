@@ -78,8 +78,8 @@ const RecentActivity = () => {
                     <FaCheckCircle
                       className={`${
                         transationOn === 'cash'
-                          ? 'text-blue-500'
-                          : 'text-green-500'
+                          ? 'text-green-500'
+                          : 'text-blue-500'
                       }`}
                     />
                   </ListItemIcon>

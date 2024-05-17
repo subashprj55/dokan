@@ -53,7 +53,7 @@ const Nav = () => {
                 <div className="ml-10 flex items-baseline space-x-4">
                   <Link
                     href="/"
-                    className={`${routerPath === '/' ? 'text-blue-700' : ''}`}
+                    className={`${routerPath === '/' ? 'text-teal-700' : ''}`}
                   >
                     <p className=" hover:text-lavender-300 px-3 py-2 rounded-md text-sm font-medium">
                       Home
@@ -62,7 +62,7 @@ const Nav = () => {
                   <Link
                     href="/aboutUs"
                     className={`${
-                      routerPath === '/aboutUs' ? 'text-blue-700' : ''
+                      routerPath === '/aboutUs' ? 'text-teal-700' : ''
                     }`}
                   >
                     <p className=" hover:text-lavender-300 px-3 py-2 rounded-md text-sm  font-medium">
@@ -185,19 +185,16 @@ const Nav = () => {
               Login
             </p>
           </Link>
-          {VerticalLinks.map(({ id, name, link, icon: Icon }) => {
+          {VerticalLinks.map(({ id, name, link }) => {
             return (
-              <div
+              <p
                 key={id}
-                className={`flex items-center hover:text-lavender-300 md:block px-3 py-2 rounded-md text-lg ${
+                className={` hover:text-lavender-300 block px-3 py-2 rounded-md text-lg ${
                   routerPath === link ? 'bg-blue-500 text-white' : ''
                 }`}
               >
-                <Icon className="text-xl mr-2" />
-                <p>
-                  <Link href={link}>{name}</Link>
-                </p>
-              </div>
+                <Link href={link}>{name}</Link>
+              </p>
             )
           })}
         </div>

@@ -19,6 +19,7 @@ import TransactionTable from '@/components/transactionTable'
 import PopupWindow from '@/components/popUpWindow'
 import SearchInput from '@/components/searchInputBox'
 import AllStockTable from '@/components/allProductsTable'
+import DoTextField from '@/components/DoTextField'
 
 const page = () => {
   return (
@@ -37,64 +38,45 @@ const page = () => {
 }
 
 const CustomerInformationForm = () => {
+  const [customerName, setCustomerName] = useState<string>('')
+  const [phoneNumber, setPhoneNumber] = useState<string>('')
+  const [gmail, setGmail] = useState<string>('')
+  const [address, setAddress] = useState<string>('')
+
   return (
     <div className="bg-white mt-20 rounded-lg ">
-      <h2 className="text-lg font-medium mb-4">Customer Information</h2>
+      <h2 className="text-2xl font-medium mb-4">Customer Information</h2>
       <Grid container spacing={2}>
         <Grid item xs={12} sm={6}>
-          <TextField
-            id="customer-name"
-            placeholder="Customer Name"
-            variant="outlined"
-            fullWidth
-            sx={{
-              '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline':
-                {
-                  border: '1px solid gray',
-                },
-            }}
+          <h3 className="pb-1">Customer Name :</h3>
+          <DoTextField
+            placeholder={'Customer Name'}
+            value={customerName}
+            setValue={setCustomerName}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <TextField
-            id="customer-name"
-            placeholder="Customer Number"
-            variant="outlined"
-            fullWidth
-            sx={{
-              '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline':
-                {
-                  border: '1px solid gray',
-                },
-            }}
+          <h3 className="pb-1">Phone Number :</h3>
+          <DoTextField
+            placeholder={'Customer Number'}
+            value={phoneNumber}
+            setValue={setPhoneNumber}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <TextField
-            id="customer-name"
-            placeholder="Gmail"
-            variant="outlined"
-            fullWidth
-            sx={{
-              '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline':
-                {
-                  border: '1px solid gray',
-                },
-            }}
+          <h3 className="pb-1">Gmail :</h3>
+          <DoTextField
+            placeholder={'Customer Gmail'}
+            value={gmail}
+            setValue={setGmail}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <TextField
-            id="customer-name"
-            placeholder="Customer Address"
-            variant="outlined"
-            fullWidth
-            sx={{
-              '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline':
-                {
-                  border: '1px solid gray',
-                },
-            }}
+          <h3 className="pb-1">Address :</h3>
+          <DoTextField
+            placeholder={'Customer Adress'}
+            value={address}
+            setValue={setAddress}
           />
         </Grid>
       </Grid>
