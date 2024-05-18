@@ -10,7 +10,6 @@ const DoTextField = ({ value, setValue, placeholder }: IDoTextFIeld) => {
       variant="outlined"
       value={value}
       fullWidth
-      size="small"
       onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
         setValue(event.target.value)
       }}
