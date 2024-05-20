@@ -10,7 +10,7 @@ import {
   XAxis,
   YAxis,
 } from 'recharts'
-import { data } from './data'
+import { data, sampleData } from './data'
 import NavContainer from '@/components/navContainer'
 import Container from '@/components/containder'
 import Footer from '@/components/footer'
@@ -22,9 +22,6 @@ import {
   TableBody,
   TableRow,
   TableCell,
-  Typography,
-  Button,
-  TextField,
   Toolbar,
 } from '@mui/material'
 
@@ -149,15 +146,6 @@ const SupplierPerformance = () => {
     </div>
   )
 }
-
-const sampleData = [
-  { name: 'Jan', sales: 1000, predictedSales: 1100 },
-  { name: 'Feb', sales: 1200, predictedSales: 1250 },
-  { name: 'Mar', sales: 1500, predictedSales: 1400 },
-  { name: 'Apr', sales: 1300, predictedSales: 1350 },
-  { name: 'May', sales: 1600, predictedSales: 1550 },
-  { name: 'Jun', sales: 1800, predictedSales: 1700 },
-]
 
 const ForecastingAndPredictiveAnalytics = () => {
   return (

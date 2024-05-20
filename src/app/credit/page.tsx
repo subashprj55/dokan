@@ -19,10 +19,14 @@ import {
   AreaChart,
   CartesianGrid,
   Legend,
+  Line,
+  LineChart,
+  ResponsiveContainer,
   Tooltip,
   XAxis,
   YAxis,
 } from 'recharts'
+import Chart from '@/components/chart'
 
 const page = () => {
   return (
@@ -170,15 +174,15 @@ const yearlyCreditTransactions = [
   },
   {
     month: 'November',
-    totalCredit: 2100,
-    paidCredit: 1700,
+    totalCredit: 2200,
+    paidCredit: 1800,
     remainingCredit: 400,
   },
   {
     month: 'December',
-    totalCredit: 2200,
-    paidCredit: 1800,
-    remainingCredit: 400,
+    totalCredit: 3000,
+    paidCredit: 2000,
+    remainingCredit: 1000,
   },
 ]
 
@@ -189,50 +193,38 @@ const YearlyCreditTransactionsAnalysis = () => {
         Yearly Credit Transactions Analysis
       </h2>
       <Paper elevation={3} className="p-6">
-        <Typography variant="body1">
-          This section provides an overview of yearly credit transactions,
-          including total credit, paid credit, and remaining credit for each
-          month. Visualize the trends and patterns to understand credit
-          management and payment behavior over the course of the year.
-        </Typography>
-
         <div className="mt-8">
           <Typography variant="h6" gutterBottom>
             Credit Transactions by Month
           </Typography>
-          <AreaChart
-            width={600}
-            height={300}
-            data={yearlyCreditTransactions}
-            margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
-          >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="month" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Area
-              type="monotone"
-              dataKey="totalCredit"
-              stackId="1"
-              stroke="#8884d8"
-              fill="#8884d8"
-            />
-            <Area
-              type="monotone"
-              dataKey="paidCredit"
-              stackId="1"
-              stroke="#82ca9d"
-              fill="#82ca9d"
-            />
-            <Area
-              type="monotone"
-              dataKey="remainingCredit"
-              stackId="1"
-              stroke="#ffc658"
-              fill="#ffc658"
-            />
-          </AreaChart>
+          <div className="responsive-chart-container">
+            <div className="w-full -ml-10 md:mr-0  md:p-6 h-80">
+              <ResponsiveContainer>
+                <LineChart
+                  data={yearlyCreditTransactions}
+                  margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="month" />
+                  <YAxis />
+                  <Tooltip />
+                  <Legend />
+                  <Line
+                    type="monotone"
+                    dataKey="totalCredit"
+                    stroke="#8884d8"
+                    activeDot={{ r: 8 }}
+                  />
+                  <Line type="monotone" dataKey="paidCredit" stroke="#85ca9d" />
+                  <Line
+                    type="monotone"
+                    dataKey="remainingCredit"
+                    stroke="red"
+                  />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
         </div>
       </Paper>
     </div>
