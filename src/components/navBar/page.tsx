@@ -13,6 +13,7 @@ import Container from '@/components/containder'
 import { INavMobileViewPros } from './types'
 import { IoListOutline } from 'react-icons/io5'
 import { MdOutlineClose } from 'react-icons/md'
+import { lowStockProducts } from './data'
 
 const Nav = () => {
   const [isOpen, setIsOpen] = useState(false)
@@ -158,15 +159,7 @@ const Nav = () => {
 export default Nav
 
 const LogInNav = () => {
-  const [notificationCount, setNotificationCount] = useState(5)
-  const lowStockProducts = [
-    { id: 1, name: 'Product A', quantity: 2 },
-    { id: 2, name: 'Product B', quantity: 3 },
-    { id: 3, name: 'Product C', quantity: 1 },
-    { id: 4, name: 'Product A', quantity: 2 },
-    { id: 5, name: 'Product B', quantity: 3 },
-    { id: 6, name: 'Product C', quantity: 1 },
-  ]
+  const [notificationCount, setNotificationCount] = useState<number>(0)
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
   const open = Boolean(anchorEl)
@@ -178,12 +171,16 @@ const LogInNav = () => {
     setAnchorEl(null)
   }
 
+  useEffect(() => {
+    setNotificationCount(lowStockProducts.length)
+  }, [lowStockProducts])
+
   return (
     <div className="flex space-x-4 items-center">
-      <h1 className="capitalize tracking-wide hidden md:block">
+      <h1 className="capitalize text-lg text-gray-600 tracking-wide hidden md:block mr-1">
         ABC suppliers
       </h1>
-      <Avatar className="w-9 h-9 cursor-pointer" src="/images/user.jpg" />
+      <Avatar className="cursor-pointer" src="/images/user.jpg" />
       <Button id="basic-button" onClick={handleClick}>
         <Badge badgeContent={notificationCount} color="info">
           <TiShoppingCart className="text-3xl" />
@@ -229,7 +226,7 @@ const NavMobileView = ({
         <>
           <Link href="/">
             <p
-              className={` hover:text-lavender-300 block px-3 py-2 rounded-md text-lg ${
+              className={`hover:text-lavender-300 block px-3 py-2 rounded-md text-lg ${
                 routerPath === '/' ? 'bg-blue-500 text-white' : ''
               }`}
             >
@@ -268,16 +265,22 @@ const NavMobileView = ({
 
     return (
       <>
+        <div className="mb-1 px-3 ">
+          <h1 className="capitalize bg-white py-1 rounded-md text-xl text-center text-gray-600 tracking-wide">
+            ABC suppliers
+          </h1>
+        </div>
         {VerticalLinks.map(({ id, name, link }) => {
           return (
-            <p
-              key={id}
-              className={` hover:text-lavender-300 block px-3 py-2 rounded-md text-lg ${
-                routerPath === link ? 'bg-blue-500 text-white' : ''
-              }`}
-            >
-              <Link href={link}>{name}</Link>
-            </p>
+            <Link href={link} key={id}>
+              <p
+                className={` hover:text-lavender-300 block px-3 py-2 rounded-md text-lg ${
+                  routerPath === link ? 'bg-blue-500 text-white' : ''
+                }`}
+              >
+                {name}
+              </p>
+            </Link>
           )
         })}
       </>
