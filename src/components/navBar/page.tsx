@@ -112,7 +112,11 @@ const Nav = () => {
           } transition-colors duration-500 ease-in-out `}
         >
           <div className="flex justify-center">
-            <div className="max-w-[1500px;] px-[2%] w-full">
+            <div
+              className={`max-w-[1500px;] px-[2%] ${
+                isLogIn ? '' : 'md:px-[5%]'
+              }  w-full`}
+            >
               <div className="py-2 flex justify-between md:block">
                 <div className="flex justify-between items-center w-full">
                   <div className="flex-shrink-0">
