@@ -6,11 +6,11 @@ const NavContainer = ({ children }: any) => {
   return (
     <>
       <Nav />
-      <div className="flex">
+      <div className="flex justify-center">
         <div className="hidden md:block w-[15%]">
           <VerticalNav />
         </div>
-        <div className="w-full md:w-[85%]">{children}</div>
+        <div className="w-full md:w-[85%] 2xl:max-w-[1200px;]">{children}</div>
       </div>
     </>
   )

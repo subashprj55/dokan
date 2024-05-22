@@ -111,40 +111,42 @@ const Nav = () => {
             isScrolled ? 'md:bg-gray-200' : 'md:bg-transparant'
           } transition-colors duration-500 ease-in-out `}
         >
-          <Container>
-            <div className="py-2 flex justify-between md:block">
-              <div className="flex justify-between items-center w-full">
-                <div className="flex-shrink-0">
-                  <Link href={'/'}>
-                    <img
-                      className="w-[100px;]  md:w-[130px;] cursor-pointer"
-                      src="/images/logo.png"
-                      alt="Logo"
-                    />
-                  </Link>
+          <div className="flex justify-center">
+            <div className="max-w-[1500px;] px-[2%] w-full">
+              <div className="py-2 flex justify-between md:block">
+                <div className="flex justify-between items-center w-full">
+                  <div className="flex-shrink-0">
+                    <Link href={'/'}>
+                      <img
+                        className="w-[100px;]  md:w-[130px;] cursor-pointer"
+                        src="/images/logo.png"
+                        alt="Logo"
+                      />
+                    </Link>
+                  </div>
+                  {renderProfiles()}
                 </div>
-                {renderProfiles()}
-              </div>
-              <div className="-mr-2 flex md:hidden ">
-                <button
-                  onClick={toggleNavbar}
-                  type="button"
-                  className="inline-flex items-center justify-center px-2 rounded-md focus:outline-none"
-                  aria-expanded="false"
-                >
-                  {/* Icon when navbar is closed */}
-                  <IoListOutline
-                    className={`${isOpen ? 'hidden' : 'block'} text-3xl`}
-                  />
+                <div className="-mr-2 flex md:hidden ">
+                  <button
+                    onClick={toggleNavbar}
+                    type="button"
+                    className="inline-flex items-center justify-center px-2 rounded-md focus:outline-none"
+                    aria-expanded="false"
+                  >
+                    {/* Icon when navbar is closed */}
+                    <IoListOutline
+                      className={`${isOpen ? 'hidden' : 'block'} text-3xl`}
+                    />
 
-                  {/* Icon when navbar is open */}
-                  <MdOutlineClose
-                    className={`${isOpen ? 'block' : 'hidden'} text-3xl`}
-                  />
-                </button>
+                    {/* Icon when navbar is open */}
+                    <MdOutlineClose
+                      className={`${isOpen ? 'block' : 'hidden'} text-3xl`}
+                    />
+                  </button>
+                </div>
               </div>
             </div>
-          </Container>
+          </div>
         </nav>
       </div>
       <NavMobileView
@@ -160,13 +162,14 @@ export default Nav
 
 const LogInNav = () => {
   const [notificationCount, setNotificationCount] = useState<number>(0)
-
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
   const open = Boolean(anchorEl)
+
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget)
     setNotificationCount(0)
   }
+
   const handleClose = () => {
     setAnchorEl(null)
   }

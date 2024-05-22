@@ -8,7 +8,7 @@ import { VerticalLinks } from './data'
 const VerticalNav = () => {
   const pathName = usePathname()
   return (
-    <div className="fixed left-0 top-16 pt-1 h-full bg-white w-[inherit] overflow-y-auto ">
+    <div className="fixed left-0 2xl:left-auto 2xl:shadow-md top-16 pt-1 h-full bg-white w-[inherit] overflow-y-auto ">
       <nav className="border-r border-gray-200 h-full">
         <List className="pt-0">
           {VerticalLinks.map(({ id, name, link, icon: Icon }) => {
