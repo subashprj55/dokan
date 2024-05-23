@@ -2,7 +2,13 @@ import { TextField } from '@mui/material'
 import React from 'react'
 import { IDoTextFIeld } from './types'
 
-const DoTextField = ({ value, setValue, placeholder }: IDoTextFIeld) => {
+const DoTextField = ({
+  value,
+  setValue,
+  placeholder,
+  error = false,
+  helperText = '',
+}: IDoTextFIeld) => {
   return (
     <TextField
       id={placeholder}
@@ -19,6 +25,8 @@ const DoTextField = ({ value, setValue, placeholder }: IDoTextFIeld) => {
             border: '1px solid gray',
           },
       }}
+      error={error}
+      helperText={helperText}
     />
   )
 }

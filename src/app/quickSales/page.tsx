@@ -1,7 +1,6 @@
 'use client'
 import React, { useState } from 'react'
 import {
-  TextField,
   Grid,
   TableCell,
   TableBody,
@@ -17,6 +16,8 @@ import { products } from '@/app/purchase/data'
 import Footer from '@/components/footer'
 import TransactionTable from '@/components/transactionTable'
 import PopupWindow from '@/components/popUpWindow'
+import DoTextField from '@/components/DoTextField'
+import useQuickSalesStore from '@/store/quickSalesStore'
 
 const page = () => {
   return (
@@ -35,46 +36,6 @@ const page = () => {
 
 export default page
 
-const CustomerInformationForm = () => {
-  return (
-    <div className="mt-10">
-      <h2 className="text-lg md:text-xl font-medium mb-5">
-        Customer Information
-      </h2>
-      <Grid container spacing={2}>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            id="customer-name"
-            placeholder="Customer Name"
-            variant="outlined"
-            fullWidth
-            sx={{
-              '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline':
-                {
-                  border: '1px solid gray',
-                },
-            }}
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            id="customer-phone"
-            placeholder="Phone Number"
-            variant="outlined"
-            fullWidth
-            sx={{
-              '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline':
-                {
-                  border: '1px solid gray',
-                },
-            }}
-          />
-        </Grid>
-      </Grid>
-    </div>
-  )
-}
-
 const ProductsInfoSection = () => {
   return (
     <div className="mt-20 ">
@@ -84,6 +45,41 @@ const ProductsInfoSection = () => {
       <div className="max-h-[600px] overflow-y-auto">
         <TransactionTable productsData={products} />
       </div>
+    </div>
+  )
+}
+
+const CustomerInformationForm = () => {
+  const customerName = useQuickSalesStore((state) => state.customerName)
+  const phoneNumber = useQuickSalesStore((state) => state.phoneNumber)
+  const updateCustomerName = useQuickSalesStore(
+    (state) => state.updateFirstName
+  )
+  const updatePhoneNumber = useQuickSalesStore(
+    (state) => state.updatePhoneNumber
+  )
+
+  return (
+    <div className="mt-10">
+      <h2 className="text-lg md:text-xl font-medium mb-5">
+        Customer Information
+      </h2>
+      <Grid container spacing={2}>
+        <Grid item xs={12} sm={6}>
+          <DoTextField
+            placeholder="Customer Name"
+            value={customerName}
+            setValue={updateCustomerName}
+          />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <DoTextField
+            placeholder="Phone Number"
+            value={phoneNumber}
+            setValue={updatePhoneNumber}
+          />
+        </Grid>
+      </Grid>
     </div>
   )
 }
@@ -167,14 +163,16 @@ const PaymentMethodSelection = () => {
 }
 
 const QuickSalesSubmitSection = () => {
+  const customerName = useQuickSalesStore((state) => state.customerName)
+  const phoneNumber = useQuickSalesStore((state) => state.phoneNumber)
   return (
     <div className="p-2 md:p-4 w-full m-2 md:min-w-[500px;]">
       <h1>
-        <span className="text-xl font-semibold">Customer Name </span>: Suresh
-        Dahal
+        <span className="text-xl font-semibold">Customer Name </span>:{' '}
+        {customerName}
       </h1>
       <h2>
-        <span className="text-lg">Phone Number </span>: 9842322232
+        <span className="text-lg">Phone Number </span>: {phoneNumber}
       </h2>
       <h1 className="text-xl font-semibold mt-5">Products Info</h1>
       <div className="mt-4 ">
