@@ -12,19 +12,19 @@ import {
   TextField,
 } from '@mui/material'
 import { FaTrash } from 'react-icons/fa'
-import { IProduct, ITransationTableProps } from './types'
+import { ITransationTableProps } from './types'
 
-const TransactionTable = ({ productsData }: ITransationTableProps) => {
-  const [products, setProducts] = useState<IProduct[]>([
-    { name: '', remaining: 0, quantity: 0, price: 0, total: 0 },
-  ])
-
+const TransactionTable = ({
+  productsData,
+  productsList,
+  updateProductsList,
+}: ITransationTableProps) => {
   const allProductName = productsData.map((pro: any) => {
     return pro.name
   })
 
   const handleChange = (value: string, index: number) => {
-    const updatedProducts = [...products]
+    const updatedProducts = [...productsList]
     updatedProducts[index].name = value
     updatedProducts[index].quantity = 1
 
@@ -39,7 +39,7 @@ const TransactionTable = ({ productsData }: ITransationTableProps) => {
     updatedProducts[index].total =
       updatedProducts[index].price * updatedProducts[index].quantity
 
-    setProducts(updatedProducts)
+    updateProductsList(updatedProducts)
   }
 
   const handleTextFieldChange = (
@@ -47,11 +47,11 @@ const TransactionTable = ({ productsData }: ITransationTableProps) => {
     value: number | string,
     index: number
   ) => {
-    const updatedProducts = [...products]
+    const updatedProducts = [...productsList]
     updatedProducts[index][name] = value
     updatedProducts[index].total =
       updatedProducts[index].price * updatedProducts[index].quantity
-    setProducts(updatedProducts)
+    updateProductsList(updatedProducts)
   }
 
   const findRowTotal = (quantity: number, price: number) => {
@@ -60,8 +60,8 @@ const TransactionTable = ({ productsData }: ITransationTableProps) => {
 
   ////////////////////////////////////////////////////////////////
   const handleAddRow = () => {
-    setProducts([
-      ...products,
+    updateProductsList([
+      ...productsList,
       {
         name: '',
         remaining: 0,
@@ -73,13 +73,13 @@ const TransactionTable = ({ productsData }: ITransationTableProps) => {
   }
 
   const handleRemoveRow = (index: number) => {
-    const updatedProducts = [...products]
+    const updatedProducts = [...productsList]
     updatedProducts.splice(index, 1)
-    setProducts(updatedProducts)
+    updateProductsList(updatedProducts)
   }
 
   const getTotal = () => {
-    return products.reduce((total, product) => {
+    return productsList.reduce((total, product) => {
       return total + product.total
     }, 0)
   }
@@ -100,7 +100,7 @@ const TransactionTable = ({ productsData }: ITransationTableProps) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {products.map((product, index) => (
+              {productsList.map((product, index) => (
                 <TableRow key={index}>
                   {/* Product Name */}
                   <TableCell>
@@ -133,6 +133,7 @@ const TransactionTable = ({ productsData }: ITransationTableProps) => {
                   <TableCell>
                     <TextField
                       type="number"
+                      inputProps={{ min: 0 }}
                       value={product.quantity}
                       onChange={(event) =>
                         handleTextFieldChange(
@@ -191,7 +192,7 @@ const TransactionTable = ({ productsData }: ITransationTableProps) => {
           </Table>
         </div>
         <div className="mt-3 px-3 flex justify-between items-center">
-          <Button className="text-yellow-700 " onClick={handleAddRow}>
+          <Button className="text-yellow-700" onClick={handleAddRow}>
             Add Product
           </Button>
           <p>Total: Rs {getTotal().toFixed(2)}</p>

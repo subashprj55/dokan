@@ -33,10 +33,10 @@ const PopupWindow = ({
           <div className="flex justify-end">
             <Button
               variant="contained"
-              className="my-5 md:mb-0 mr-3 md:mr-0"
+              className="my-5 md:mb-0 mr-3 md:mr-0 capitalize"
               onClick={handleSubmit}
             >
-              Submit
+              Confirm order
             </Button>
           </div>
         </Box>

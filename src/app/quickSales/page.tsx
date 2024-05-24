@@ -37,13 +37,21 @@ const page = () => {
 export default page
 
 const ProductsInfoSection = () => {
+  const productsList = useQuickSalesStore((state) => state.productsList)
+  const updateProductsList = useQuickSalesStore(
+    (state) => state.updateProductsList
+  )
   return (
     <div className="mt-20 ">
       <h2 className="text-xl md:text-2xl font-medium mb-5">
         Products Transaction
       </h2>
       <div className="max-h-[600px] overflow-y-auto">
-        <TransactionTable productsData={products} />
+        <TransactionTable
+          productsData={products}
+          productsList={productsList}
+          updateProductsList={updateProductsList}
+        />
       </div>
     </div>
   )
@@ -85,34 +93,29 @@ const CustomerInformationForm = () => {
 }
 
 const PaymentMethodSelection = () => {
-  const [paymentMethod, setPaymentMethod] = useState('')
+  const paymentMethod = useQuickSalesStore((state) => state.paymentMethod)
+  const updatePaymentMethod = useQuickSalesStore(
+    (state) => state.updatePaymentMethod
+  )
+  const phoneNumber = useQuickSalesStore((state) => state.phoneNumber)
   const [popUpModel, setPopUpModel] = useState(false)
-  const [error, setError] = useState(false)
+  const [errorMessage, setErrorMessage] = useState<string>('')
 
   const handlePaymentMethodChange = (event: any) => {
-    setPaymentMethod(event.target.value)
+    updatePaymentMethod(event.target.value)
   }
 
   const handleSubmit = () => {
-    if (paymentMethod === 'credit') {
-      setError(true)
+    if (!paymentMethod) {
+      setErrorMessage('Please select a payment method')
       return
     }
-    setError(false)
-    setPopUpModel(true)
-  }
-
-  const renderContent = () => {
-    if (error) {
-      return (
-        <div className="mt-5">
-          <p className="text-red-500">
-            Credit Transaction need Customer Phone Number
-          </p>
-        </div>
-      )
+    if (paymentMethod === 'credit' && !phoneNumber) {
+      setErrorMessage('Please enter user phone number on credit teansation')
+      return
     }
-    return <></>
+    setErrorMessage('')
+    setPopUpModel(true)
   }
 
   return (
@@ -146,7 +149,9 @@ const PaymentMethodSelection = () => {
           Credit
         </label>
       </div>
-      {renderContent()}
+      <div className="mt-5">
+        <p className="text-rose-500">{errorMessage}</p>
+      </div>
       <div className="">
         <button
           onClick={handleSubmit}
@@ -165,6 +170,8 @@ const PaymentMethodSelection = () => {
 const QuickSalesSubmitSection = () => {
   const customerName = useQuickSalesStore((state) => state.customerName)
   const phoneNumber = useQuickSalesStore((state) => state.phoneNumber)
+  const ProductsList = useQuickSalesStore((state) => state.productsList)
+
   return (
     <div className="p-2 md:p-4 w-full m-2 md:min-w-[500px;]">
       <h1>
@@ -187,18 +194,16 @@ const QuickSalesSubmitSection = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              <TableRow>
-                <TableCell>patato</TableCell>
-                <TableCell>12</TableCell>
-                <TableCell>100</TableCell>
-                <TableCell>1200</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>Rice</TableCell>
-                <TableCell>1</TableCell>
-                <TableCell>600</TableCell>
-                <TableCell>600</TableCell>
-              </TableRow>
+              {ProductsList.map((product, index) => {
+                return (
+                  <TableRow key={index}>
+                    <TableCell>{product.name}</TableCell>
+                    <TableCell>{product.quantity}</TableCell>
+                    <TableCell>{product.price}</TableCell>
+                    <TableCell>{product.total}</TableCell>
+                  </TableRow>
+                )
+              })}
             </TableBody>
           </Table>
         </TableContainer>

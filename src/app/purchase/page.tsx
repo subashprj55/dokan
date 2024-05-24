@@ -17,6 +17,7 @@ import TransactionTable from '@/components/transactionTable'
 import SearchInput from '@/components/searchInputBox'
 import AllStockTable from '@/components/allProductsTable'
 import PopupWindow from '@/components/popUpWindow'
+import useQuickSalesStore from '@/store/quickSalesStore'
 
 const PurchaseItem = () => {
   return (
@@ -133,11 +134,19 @@ const SupplierInformation = () => {
 }
 
 const NewProductsInfo = () => {
+  const productsList = useQuickSalesStore((state) => state.productsList)
+  const updateProductsList = useQuickSalesStore(
+    (state) => state.updateProductsList
+  )
   return (
     <div className="p-6 pb-0">
       <h2 className="text-lg font-semibold mb-2">New Products Info</h2>
       <div>
-        <TransactionTable productsData={products} />
+        <TransactionTable
+          productsData={products}
+          productsList={productsList}
+          updateProductsList={updateProductsList}
+        />
       </div>
     </div>
   )
