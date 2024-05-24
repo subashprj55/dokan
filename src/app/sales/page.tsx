@@ -20,6 +20,7 @@ import PopupWindow from '@/components/popUpWindow'
 import SearchInput from '@/components/searchInputBox'
 import AllStockTable from '@/components/allProductsTable'
 import DoTextField from '@/components/DoTextField'
+import useQuickSalesStore from '@/store/quickSalesStore'
 
 const page = () => {
   return (
@@ -85,13 +86,21 @@ const CustomerInformationForm = () => {
 }
 
 const ProductSection = () => {
+  const productsList = useQuickSalesStore((state) => state.productsList)
+  const updateProductsList = useQuickSalesStore(
+    (state) => state.updateProductsList
+  )
   return (
     <div className="mt-10 ">
       <h2 className="text-lg md:text-xl font-medium mb-5">
         Products Transaction
       </h2>
       <div className="max-h-[600px] overflow-y-auto">
-        <TransactionTable productsData={products} />
+        <TransactionTable
+          productsData={products}
+          productsList={productsList}
+          updateProductsList={updateProductsList}
+        />
       </div>
     </div>
   )

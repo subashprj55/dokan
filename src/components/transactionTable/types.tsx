@@ -17,4 +17,6 @@ interface Product {
 
 export interface ITransationTableProps {
   productsData: Product[]
+  productsList: IProduct[]
+  updateProductsList: (value: IProduct[]) => void
 }
