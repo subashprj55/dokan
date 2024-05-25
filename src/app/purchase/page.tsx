@@ -285,7 +285,7 @@ const QuickSalesSubmitSection = () => {
 const PurchaseHistory = () => {
   return (
     <div className="my-20 p-6 bg-gray-50 text-2xl">
-      <h1>Nedd to show purchase history</h1>
+      <h1>Purchase history</h1>
       <h2>comming soon.....</h2>
     </div>
   )

@@ -9,7 +9,6 @@ import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import { Avatar, Badge, Divider, Typography } from '@mui/material'
 import { TiShoppingCart } from 'react-icons/ti'
-import Container from '@/components/containder'
 import { INavMobileViewPros } from './types'
 import { IoListOutline } from 'react-icons/io5'
 import { MdOutlineClose } from 'react-icons/md'
@@ -18,7 +17,7 @@ import { lowStockProducts } from './data'
 const Nav = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState<boolean>(false)
-  const [isLogIn, setIsLogIn] = useState<boolean>(true)
+  const [isLogIn, setIsLogIn] = useState<boolean>(false)
 
   const routerPath = usePathname()
   const LogOutPages = ['/', '/aboutUs', '/signIn', '/login']
@@ -26,9 +25,9 @@ const Nav = () => {
   useEffect(() => {
     if (LogOutPages.includes(routerPath)) {
       setIsLogIn(false)
-    } else {
-      setIsLogIn(true)
+      return
     }
+    setIsLogIn(true)
   }, [])
 
   useEffect(() => {
@@ -180,7 +179,7 @@ const LogInNav = () => {
 
   useEffect(() => {
     setNotificationCount(lowStockProducts.length)
-  }, [lowStockProducts])
+  }, [])
 
   return (
     <div className="flex space-x-4 items-center">
