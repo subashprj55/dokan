@@ -12,7 +12,7 @@ import { TiShoppingCart } from 'react-icons/ti'
 import { INavMobileViewPros } from './types'
 import { IoListOutline } from 'react-icons/io5'
 import { MdOutlineClose } from 'react-icons/md'
-import { lowStockProducts } from './data'
+import useNavBarStore from '@/store/navBarStore'
 
 const Nav = () => {
   const [isOpen, setIsOpen] = useState(false)
@@ -164,22 +164,22 @@ const Nav = () => {
 export default Nav
 
 const LogInNav = () => {
-  const [notificationCount, setNotificationCount] = useState<number>(0)
+  const lowStockProducts = useNavBarStore((state) => state.lowStockProducts)
+  const totalNotifications = useNavBarStore((state) => state.totalNotifications)
+  const updateNotifications = useNavBarStore(
+    (state) => state.updateNotifications
+  )
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
   const open = Boolean(anchorEl)
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget)
-    setNotificationCount(0)
+    updateNotifications(0)
   }
 
   const handleClose = () => {
     setAnchorEl(null)
   }
-
-  useEffect(() => {
-    setNotificationCount(lowStockProducts.length)
-  }, [])
 
   return (
     <div className="flex space-x-4 items-center">
@@ -188,7 +188,7 @@ const LogInNav = () => {
       </h1>
       <Avatar className="cursor-pointer" src="/images/user.jpg" />
       <Button id="basic-button" onClick={handleClick}>
-        <Badge badgeContent={notificationCount} color="info">
+        <Badge badgeContent={totalNotifications} color="info">
           <TiShoppingCart className="text-3xl" />
         </Badge>
       </Button>
@@ -215,6 +215,11 @@ const LogInNav = () => {
               {product.name} - Quantity: {product.quantity}
             </MenuItem>
           ))}
+          <MenuItem className="text-gray-500">Product 1 - Quantity: 5</MenuItem>
+          <MenuItem className="text-gray-500">
+            Product 2 - Quantity: 10
+          </MenuItem>
+          <MenuItem className="text-gray-500">Product 3 - Quantity: 3</MenuItem>
         </Menu>
       </div>
     </div>
