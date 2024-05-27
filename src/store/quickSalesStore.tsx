@@ -23,7 +23,6 @@ type Action = {
   updateProductsList: (productsList: State['productsList']) => void
 }
 
-// Create your store, which includes both state and (optionally) actions
 const useQuickSalesStore = create<State & Action>((set) => ({
   customerName: '',
   phoneNumber: '',
