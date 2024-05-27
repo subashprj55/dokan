@@ -12,7 +12,6 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  TextField,
 } from '@mui/material'
 import { products } from '@/app/purchase/data'
 import TransactionTable from '@/components/transactionTable'
@@ -20,7 +19,7 @@ import PopupWindow from '@/components/popUpWindow'
 import SearchInput from '@/components/searchInputBox'
 import AllStockTable from '@/components/allProductsTable'
 import DoTextField from '@/components/DoTextField'
-import useQuickSalesStore from '@/store/quickSalesStore'
+import useSalesStore from '@/store/sales'
 
 const page = () => {
   return (
@@ -39,10 +38,14 @@ const page = () => {
 }
 
 const CustomerInformationForm = () => {
-  const [customerName, setCustomerName] = useState<string>('')
-  const [phoneNumber, setPhoneNumber] = useState<string>('')
-  const [gmail, setGmail] = useState<string>('')
-  const [address, setAddress] = useState<string>('')
+  const customerName = useSalesStore((state) => state.customerName)
+  const phoneNumber = useSalesStore((state) => state.phoneNumber)
+  const gmail = useSalesStore((state) => state.gmail)
+  const address = useSalesStore((state) => state.address)
+  const updateCustomerName = useSalesStore((state) => state.updateCustomerName)
+  const updatePhoneNumber = useSalesStore((state) => state.updatePhoneNumber)
+  const updateAddress = useSalesStore((state) => state.updateAddress)
+  const UpdateGmail = useSalesStore((state) => state.updateGmail)
 
   return (
     <div className="bg-white mt-20 rounded-lg ">
@@ -53,7 +56,7 @@ const CustomerInformationForm = () => {
           <DoTextField
             placeholder={'Customer Name'}
             value={customerName}
-            setValue={setCustomerName}
+            setValue={updateCustomerName}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -61,7 +64,7 @@ const CustomerInformationForm = () => {
           <DoTextField
             placeholder={'Customer Number'}
             value={phoneNumber}
-            setValue={setPhoneNumber}
+            setValue={updatePhoneNumber}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -69,7 +72,7 @@ const CustomerInformationForm = () => {
           <DoTextField
             placeholder={'Customer Gmail'}
             value={gmail}
-            setValue={setGmail}
+            setValue={UpdateGmail}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -77,7 +80,7 @@ const CustomerInformationForm = () => {
           <DoTextField
             placeholder={'Customer Adress'}
             value={address}
-            setValue={setAddress}
+            setValue={updateAddress}
           />
         </Grid>
       </Grid>
@@ -86,10 +89,8 @@ const CustomerInformationForm = () => {
 }
 
 const ProductSection = () => {
-  const productsList = useQuickSalesStore((state) => state.productsList)
-  const updateProductsList = useQuickSalesStore(
-    (state) => state.updateProductsList
-  )
+  const productsList = useSalesStore((state) => state.productsList)
+  const updateProductsList = useSalesStore((state) => state.updateProductsList)
   return (
     <div className="mt-10 ">
       <h2 className="text-lg md:text-xl font-medium mb-5">
@@ -107,35 +108,26 @@ const ProductSection = () => {
 }
 
 const PaymentMethodSelection = () => {
-  const [paymentMethod, setPaymentMethod] = useState('')
-  const [popUpModel, setPopUpModel] = useState(false)
-  const [error, setError] = useState(false)
+  const paymentMethod = useSalesStore((state) => state.paymentMethod)
+  const updatePaymentMethod = useSalesStore(
+    (state) => state.updatePaymentMethod
+  )
+  const [popUpModel, setPopUpModel] = useState<boolean>(false)
+  const [error, setError] = useState<string>('')
 
   const handlePaymentMethodChange = (event: any) => {
-    setPaymentMethod(event.target.value)
+    updatePaymentMethod(event.target.value)
   }
 
   const handleSubmit = () => {
-    if (!paymentMethod) return
-    if (paymentMethod === 'credit') {
-      setError(true)
+    if (!paymentMethod) {
+      setError('Please select a payment method')
       return
     }
-    setError(false)
-    setPopUpModel(true)
-  }
-
-  const renderContent = () => {
-    if (error) {
-      return (
-        <div className="mt-5">
-          <p className="text-red-500">
-            Credit Transaction need Customer Phone Number
-          </p>
-        </div>
-      )
+    if (paymentMethod === 'credit') {
     }
-    return <></>
+    setError('')
+    setPopUpModel(true)
   }
 
   return (
@@ -169,11 +161,13 @@ const PaymentMethodSelection = () => {
           Credit
         </label>
       </div>
-      {renderContent()}
-      <div className="">
+      <div className="mt-5">
+        <p className="text-rose-500">{error}</p>
+      </div>
+      <div className="my-3">
         <button
           onClick={handleSubmit}
-          className="mt-4 bg-teal-600 hover:bg-teal-700 text-white text-base py-2 px-4 rounded"
+          className=" w-44 tracking-wider mt-4 bg-teal-600 hover:bg-teal-700 text-white text-base py-2 px-4 rounded"
         >
           Submit
         </button>
@@ -186,17 +180,25 @@ const PaymentMethodSelection = () => {
 }
 
 const QuickSalesSubmitSection = () => {
+  const paymentMethod = useSalesStore((state) => state.paymentMethod)
+  const productsList = useSalesStore((state) => state.productsList)
+  const customerName = useSalesStore((state) => state.customerName)
+  const phoneNumber = useSalesStore((state) => state.phoneNumber)
+  const gmail = useSalesStore((state) => state.gmail)
+  const address = useSalesStore((state) => state.address)
   return (
     <div className="p-2 md:p-4 w-full m-2 md:min-w-[500px;]">
-      <h1 className="text-xl font-medium mb-1">Customer Name : Ram Sharma</h1>
+      <h1 className="text-xl font-medium mb-1">
+        Customer Name : {customerName}
+      </h1>
       <h2>
-        <span className="text-lg">Phone Number </span>: 9842322232
+        <span className="text-lg">Phone Number </span>: {phoneNumber}
       </h2>
       <h2>
-        <span className="text-lg">Gmail </span>: MeroDokan123@gmail.com
+        <span className="text-lg">Gmail </span>: {gmail}
       </h2>
       <h2>
-        <span className="text-lg capitalize">Adress </span>: Chitwan, Nepal
+        <span className="text-lg capitalize">Adress </span>: {address}
       </h2>
       <h1 className="text-xl font-semibold mt-5">Products Info</h1>
       <div className="mt-4 ">
@@ -211,24 +213,22 @@ const QuickSalesSubmitSection = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              <TableRow>
-                <TableCell>patato</TableCell>
-                <TableCell>12</TableCell>
-                <TableCell>100</TableCell>
-                <TableCell>1200</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>Rice</TableCell>
-                <TableCell>1</TableCell>
-                <TableCell>600</TableCell>
-                <TableCell>600</TableCell>
-              </TableRow>
+              {productsList.map((product, index) => {
+                return (
+                  <TableRow key={index}>
+                    <TableCell>{product.name}</TableCell>
+                    <TableCell>{product.quantity}</TableCell>
+                    <TableCell>{product.price}</TableCell>
+                    <TableCell>{product.total}</TableCell>
+                  </TableRow>
+                )
+              })}
             </TableBody>
           </Table>
         </TableContainer>
         <div className="mt-5">
           <p className="capitalize text-lg text-gray-500">
-            Transaction on cash
+            Transaction on {paymentMethod}
           </p>
         </div>
       </div>

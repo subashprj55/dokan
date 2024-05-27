@@ -12,6 +12,8 @@ interface IProduct {
 type State = {
   customerName: string
   phoneNumber: string
+  gmail: string
+  address: string
   paymentMethod: string
   productsList: IProduct[]
 }
@@ -19,23 +21,29 @@ type State = {
 type Action = {
   updateCustomerName: (firstName: State['customerName']) => void
   updatePhoneNumber: (lastName: State['phoneNumber']) => void
+  updateGmail: (gmail: State['gmail']) => void
+  updateAddress: (address: State['address']) => void
   updatePaymentMethod: (paymentMethod: State['customerName']) => void
   updateProductsList: (productsList: State['productsList']) => void
 }
 
 // Create your store, which includes both state and (optionally) actions
-const useQuickSalesStore = create<State & Action>((set) => ({
+const useSalesStore = create<State & Action>((set) => ({
   customerName: '',
   phoneNumber: '',
+  gmail: '',
+  address: '',
   paymentMethod: '',
   productsList: [{ name: '', remaining: 0, quantity: 0, price: 0, total: 0 }],
   updateCustomerName: (customerName) =>
     set(() => ({ customerName: customerName })),
   updatePhoneNumber: (phoneNumber) => set(() => ({ phoneNumber: phoneNumber })),
+  updateGmail: (gmail) => set(() => ({ gmail: gmail })),
+  updateAddress: (customerAddress) => set(() => ({ address: customerAddress })),
   updatePaymentMethod: (paymentMethod) =>
     set(() => ({ paymentMethod: paymentMethod })),
   updateProductsList: (productsList) =>
     set(() => ({ productsList: productsList })),
 }))
 
-export default useQuickSalesStore
+export default useSalesStore
