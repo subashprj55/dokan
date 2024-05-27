@@ -61,7 +61,7 @@ const CustomerInformationForm = () => {
   const customerName = useQuickSalesStore((state) => state.customerName)
   const phoneNumber = useQuickSalesStore((state) => state.phoneNumber)
   const updateCustomerName = useQuickSalesStore(
-    (state) => state.updateFirstName
+    (state) => state.updateCustomerName
   )
   const updatePhoneNumber = useQuickSalesStore(
     (state) => state.updatePhoneNumber
@@ -155,7 +155,7 @@ const PaymentMethodSelection = () => {
       <div className="">
         <button
           onClick={handleSubmit}
-          className="mt-4 bg-teal-600 hover:bg-teal-700 text-white text-base py-2 px-4 rounded"
+          className="w-36 tracking-wider mt-4 bg-teal-600 hover:bg-teal-700 text-white text-base py-2 px-4 rounded"
         >
           Submit
         </button>
@@ -171,6 +171,7 @@ const QuickSalesSubmitSection = () => {
   const customerName = useQuickSalesStore((state) => state.customerName)
   const phoneNumber = useQuickSalesStore((state) => state.phoneNumber)
   const ProductsList = useQuickSalesStore((state) => state.productsList)
+  const paymentMethod = useQuickSalesStore((state) => state.paymentMethod)
 
   return (
     <div className="p-2 md:p-4 w-full m-2 md:min-w-[500px;]">
@@ -209,7 +210,7 @@ const QuickSalesSubmitSection = () => {
         </TableContainer>
         <div className="mt-5">
           <p className="capitalize text-lg text-gray-500">
-            Transaction on cash
+            Transaction on {paymentMethod}
           </p>
         </div>
       </div>
