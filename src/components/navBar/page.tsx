@@ -208,7 +208,6 @@ const LogInNav = () => {
           <h3 className="text-lg font-[500] tracking-wide text-gray-500 pl-4 mb-1">
             Low Stock Products
           </h3>
-
           <Divider />
           {lowStockProducts.map((product) => (
             <MenuItem key={product.id}>
