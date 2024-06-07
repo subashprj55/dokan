@@ -15,6 +15,7 @@ import FeatureSection from '@/components/feature/page'
 import PricePlanDetails from '@/components/PricePlanDetails/page'
 import { aboutUsData, customerData, howItWorkData } from './homePageData'
 import { Button } from '@mui/material'
+import { FaHandPointLeft } from 'react-icons/fa'
 
 export default function Home() {
   useEffect(() => {
@@ -65,10 +66,11 @@ const Intro = () => {
               Manage your grocery store efficiently with our user-friendly
               system.
             </p>
-            <div className="flex justify-center md:justify-start">
+            <div className="flex justify-center items-center md:justify-start gap-2">
               <Button variant="contained" color="success" href="/dashboard">
                 Let's Start
               </Button>
+              <FaHandPointLeft className="text-gray-500 text-3xl animate-bounce" />
             </div>
           </div>
         </div>
