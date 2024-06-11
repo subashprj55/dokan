@@ -13,11 +13,12 @@ import Container from '@/components/containder'
 import NavContainer from '@/components/navContainer'
 import { products } from './data'
 import { Paper, Grid, TextField } from '@mui/material'
-import TransactionTable from '@/components/transactionTable'
 import SearchInput from '@/components/searchInputBox'
 import AllStockTable from '@/components/allProductsTable'
 import PopupWindow from '@/components/popUpWindow'
-import useQuickSalesStore from '@/store/quickSalesStore'
+import DoTextField from '@/components/DoTextField'
+import usePurchaseStor from '@/store/purchase'
+import PurchaseTable from '@/components/purchaseTable'
 
 const PurchaseItem = () => {
   return (
@@ -26,7 +27,7 @@ const PurchaseItem = () => {
         <Container>
           <AllStockTalbe />
           <SupplierInformation />
-          <NewProductsInfo />
+          <NewPurchaseInfoSection />
           <PaymentMethodSelection />
           <PurchaseHistory />
         </Container>
@@ -66,54 +67,48 @@ const AllStockTalbe = () => {
 }
 
 const SupplierInformation = () => {
+  const supplierName = usePurchaseStor((state) => state.supplierName)
+  const contactNumber = usePurchaseStor((state) => state.contactNumber)
+  const address = usePurchaseStor((state) => state.address)
+  const noteData = usePurchaseStor((state) => state.note)
+  const updateSupplierName = usePurchaseStor(
+    (state) => state.updateSupplierName
+  )
+  const updateContactNumber = usePurchaseStor(
+    (state) => state.updateContactNumber
+  )
+  const updateAddress = usePurchaseStor((state) => state.updateAddress)
+  const updateNoteDate = usePurchaseStor((state) => state.updateNote)
+
   return (
     <Box className="mt-10 md:mt-20 p-6 rounded-lg">
       <h2 className="text-lg font-semibold mb-2">Supplier Information</h2>
       <Grid container spacing={2} className="mt-2">
         <Grid item xs={12} sm={6}>
-          <TextField
-            id="customer-name"
+          <DoTextField
+            value={supplierName}
+            setValue={updateSupplierName}
             placeholder="Supplier Name"
-            variant="outlined"
-            fullWidth
-            sx={{
-              '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline':
-                {
-                  border: '1px solid gray',
-                },
-            }}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <TextField
-            id="customer-name"
+          <DoTextField
             placeholder="Contact Number"
-            variant="outlined"
-            fullWidth
-            sx={{
-              '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline':
-                {
-                  border: '1px solid gray',
-                },
-            }}
+            value={contactNumber}
+            setValue={updateContactNumber}
           />
         </Grid>
         <Grid item xs={12}>
-          <TextField
-            id="customer-name"
+          <DoTextField
             placeholder="Address"
-            variant="outlined"
-            fullWidth
-            sx={{
-              '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline':
-                {
-                  border: '1px solid gray',
-                },
-            }}
+            value={address}
+            setValue={updateAddress}
           />
         </Grid>
         <Grid item xs={12}>
           <TextField
+            value={noteData}
+            onChange={(e) => updateNoteDate(e.target.value)}
             id="customer-name"
             placeholder="Notes"
             variant="outlined"
@@ -133,41 +128,40 @@ const SupplierInformation = () => {
   )
 }
 
-const NewProductsInfo = () => {
-  const productsList = useQuickSalesStore((state) => state.productsList)
-  const updateProductsList = useQuickSalesStore(
-    (state) => state.updateProductsList
+const NewPurchaseInfoSection = () => {
+  const purchaseList = usePurchaseStor((state) => state.purchaseList)
+  const updatePurchaseList = usePurchaseStor(
+    (state) => state.updatePurchaseList
   )
   return (
     <div className="p-6 pb-0">
-      <h2 className="text-lg font-semibold mb-2">New Products Info</h2>
-      <div>
-        <TransactionTable
-          productsData={products}
-          productsList={productsList}
-          updateProductsList={updateProductsList}
-        />
-      </div>
+      <h2 className="text-lg font-semibold mb-2">Purchase Items Lists</h2>
+      <PurchaseTable
+        purchaseList={purchaseList}
+        updatePurchaseList={updatePurchaseList}
+      />
     </div>
   )
 }
 
 const PaymentMethodSelection = () => {
-  const [paymentMethod, setPaymentMethod] = useState('')
-  const [popUpModel, setPopUpModel] = useState(false)
-  const [error, setError] = useState(false)
+  const paymentMethod = usePurchaseStor((state) => state.paymentMethod)
+  const setPaymentMethod = usePurchaseStor((state) => state.updatePaymentMethod)
+  const [popUpModel, setPopUpModel] = useState<boolean>(false)
+  const [error, setError] = useState<string>('')
 
   const handlePaymentMethodChange = (event: any) => {
     setPaymentMethod(event.target.value)
   }
 
   const handleSubmit = () => {
-    if (!paymentMethod) return
-    if (paymentMethod === 'credit') {
-      setError(true)
+    if (!paymentMethod) {
+      setError('Please select a payment method')
       return
     }
-    setError(false)
+    if (paymentMethod === 'credit') {
+    }
+    setError('')
     setPopUpModel(true)
   }
 
@@ -175,9 +169,7 @@ const PaymentMethodSelection = () => {
     if (error) {
       return (
         <div className="mt-5 ">
-          <p className="text-red-500">
-            Credit Transaction need Customer Phone Number
-          </p>
+          <p className="text-red-500">{error}</p>
         </div>
       )
     }
@@ -232,17 +224,26 @@ const PaymentMethodSelection = () => {
 }
 
 const QuickSalesSubmitSection = () => {
+  const supplierName = usePurchaseStor((state) => state.supplierName)
+  const contactNumber = usePurchaseStor((state) => state.contactNumber)
+  const address = usePurchaseStor((state) => state.address)
+  const noteData = usePurchaseStor((state) => state.note)
+  const purchaseList = usePurchaseStor((state) => state.purchaseList)
+  const paymentMethod = usePurchaseStor((state) => state.paymentMethod)
+
   return (
     <div className="p-2 md:p-4 w-full m-2 md:min-w-[500px;]">
-      <h1 className="text-xl font-medium mb-1">Customer Name : Ram Sharma</h1>
+      <h1 className="text-xl font-medium mb-1">
+        Customer Name : {supplierName}
+      </h1>
       <h2>
-        <span className="text-lg">Phone Number </span>: 9842322232
+        <span className="text-lg">Phone Number </span>: {contactNumber}
       </h2>
       <h2>
-        <span className="text-lg">Gmail </span>: MeroDokan123@gmail.com
+        <span className="text-lg capitalize">Adress </span>: {address}
       </h2>
       <h2>
-        <span className="text-lg capitalize">Adress </span>: Chitwan, Nepal
+        <span className="text-lg capitalize">Note </span>: {noteData}
       </h2>
       <h1 className="text-xl font-semibold mt-5">Products Info</h1>
       <div className="mt-4 ">
@@ -257,24 +258,22 @@ const QuickSalesSubmitSection = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              <TableRow>
-                <TableCell>patato</TableCell>
-                <TableCell>12</TableCell>
-                <TableCell>100</TableCell>
-                <TableCell>1200</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>Rice</TableCell>
-                <TableCell>1</TableCell>
-                <TableCell>600</TableCell>
-                <TableCell>600</TableCell>
-              </TableRow>
+              {purchaseList.map(({ name, quantity, price, total }) => {
+                return (
+                  <TableRow key={name}>
+                    <TableCell>{name}</TableCell>
+                    <TableCell>{quantity}</TableCell>
+                    <TableCell>{price}</TableCell>
+                    <TableCell>{total}</TableCell>
+                  </TableRow>
+                )
+              })}
             </TableBody>
           </Table>
         </TableContainer>
         <div className="mt-5">
           <p className="capitalize text-lg text-gray-500">
-            Transaction on cash
+            Transaction on {paymentMethod}
           </p>
         </div>
       </div>

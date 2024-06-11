@@ -1,6 +1,5 @@
-export interface IProduct {
+interface IProduct {
   name: string
-  remaining: number
   quantity: number
   price: number
   total: number
@@ -16,7 +15,6 @@ interface Product {
 }
 
 export interface ITransationTableProps {
-  productsData: Product[]
-  productsList: IProduct[]
-  updateProductsList: (value: IProduct[]) => void
+  purchaseList: IProduct[]
+  updatePurchaseList: (value: IProduct[]) => void
 }
