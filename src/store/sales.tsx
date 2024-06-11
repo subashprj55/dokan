@@ -20,10 +20,10 @@ type State = {
 
 type Action = {
   updateCustomerName: (firstName: State['customerName']) => void
-  updatePhoneNumber: (lastName: State['phoneNumber']) => void
+  updatePhoneNumber: (phoneNumber: State['phoneNumber']) => void
   updateGmail: (gmail: State['gmail']) => void
   updateAddress: (address: State['address']) => void
-  updatePaymentMethod: (paymentMethod: State['customerName']) => void
+  updatePaymentMethod: (paymentMethod: State['paymentMethod']) => void
   updateProductsList: (productsList: State['productsList']) => void
 }
 
