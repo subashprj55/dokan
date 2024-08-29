@@ -9,7 +9,25 @@ const page = () => {
     <>
       <Nav />
       <Container>
-        <div className="h-screen"></div>
+        <div className="h-screen pt-20">
+          <div></div>
+          <div className="mt-20 p-10 shadow-md ">
+            <div className="flex justify-between">
+              <iframe
+                src="https://player.vdocipher.com/v2/?otp=20160313versASE323Xka4FBiRbSHMzus9q8DiuWcG14OCvcBRlbdTWEdzIg8bkR&playbackInfo=eyJ2aWRlb0lkIjoiY2FlZjFkZmQzOWQ1N2E0MGMwY2JmMDVmOGI4NmI4MDcifQ=="
+                className="h-[360px;] w-[540px;] max-w-full"
+                allowFullScreen
+                allow="encrypted-media"
+              ></iframe>
+              <iframe
+                src="https://player.vdocipher.com/v2/?otp=20160313versASE323P3PHwd1NcKKUiEkOYxFCRVTTeQW5dfWmC1hKYw4zHxDg74&playbackInfo=eyJ2aWRlb0lkIjoiNDU5OTY1YTM2ZDVhNDBkOGIzN2JhNmUwYzE5ZGRiMjMifQ=="
+                className="h-[360px;] w-[540px;] max-w-full"
+                allowFullScreen
+                allow="encrypted-media"
+              ></iframe>
+            </div>
+          </div>
+        </div>
         <Footer />
       </Container>
     </>
