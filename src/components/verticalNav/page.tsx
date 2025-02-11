@@ -1,6 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
-import { List, ListItem, ListItemIcon, ListItemText } from '@mui/material'
+import { List, ListItem, ListItemText } from '@mui/material'
 import Divider from '@mui/material/Divider'
 import { usePathname } from 'next/navigation'
 import { VerticalLinks } from './data'
