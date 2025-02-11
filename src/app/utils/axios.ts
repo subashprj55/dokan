@@ -5,3 +5,12 @@ export const axiosAuth = axios.create({
   withCredentials: true,
   headers: { 'Content-Type': 'application/json' },
 })
+
+// automatically attach token to every request
+axiosAuth.interceptors.request.use((config) => {
+  const token = localStorage.getItem('token')
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`
+  }
+  return config
+})
