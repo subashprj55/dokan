@@ -2,13 +2,16 @@
 import Link from 'next/link'
 import { FaGoogle, FaApple } from 'react-icons/fa'
 import Nav from '@/components/navBar/page'
-import Footer from '@/components/footer'
 import { useForm } from 'react-hook-form'
-import { IFormInput } from './types'
-import useSignup from '../hooks/useSignup'
+import { IFormInput, IPopupWindowSectionProps } from './types'
+import useSignup from '../../hooks/useSignup'
 import toast from 'react-hot-toast'
-import { useRouter } from 'next/navigation'
 import Loading from '@/components/loading'
+import { useRef, useState } from 'react'
+import PopupWindow from '@/components/popUpWindow'
+import { Box, TextField, Typography } from '@mui/material'
+import useVerifyOtp from '../../hooks/useVerifyOpt'
+import { useRouter } from 'next/navigation'
 
 const SignInPage = () => {
   return (
@@ -27,12 +30,14 @@ const SignInSection = () => {
     getValues,
   } = useForm<IFormInput>()
 
-  const router = useRouter()
+  const [isPopupWindowOpen, setIsPopupWindowOpen] = useState<boolean>(false)
+
+  const [userEmail, setUserEmail] = useState<string>('')
 
   const { mutate, isPending } = useSignup(
     () => {
-      toast.success('User created successfully!')
-      router.push('/login')
+      // on success
+      setIsPopupWindowOpen(true)
     },
     () => {
       toast.error('Something went wrong. Please try again later')
@@ -40,13 +45,18 @@ const SignInSection = () => {
   )
 
   const handleSignUp = (data: IFormInput) => {
+    setUserEmail(data.email)
     mutate(data)
   }
 
   return (
     <>
       {isPending && <Loading />}
-
+      <PopupWindowSection
+        isPopupWindowOpen={isPopupWindowOpen}
+        setIsPopupWindowOpen={setIsPopupWindowOpen}
+        userEmail={userEmail}
+      />
       <div className="bg-gray-100 min-h-screen flex flex-col justify-center items-center">
         <div
           className="bg-white p-8 rounded-lg shadow-lg max-w-[500px] w-full "
@@ -151,3 +161,109 @@ const SignInSection = () => {
 }
 
 export default SignInPage
+
+const PopupWindowSection = ({
+  isPopupWindowOpen,
+  setIsPopupWindowOpen,
+  userEmail,
+}: IPopupWindowSectionProps) => {
+  const [otp, setOtp] = useState<string[]>(Array.from({ length: 6 }, () => ''))
+
+  const router = useRouter()
+
+  const { mutate, isPending } = useVerifyOtp(
+    () => {
+      toast.success('User created successfully!')
+      router.push('/dashboard')
+    },
+    () => {
+      toast.error('Something went wrong. Please check OPTS and try again')
+    }
+  )
+
+  const inputRefs = useRef<(HTMLInputElement | null)[]>(
+    Array.from({ length: 6 }, () => null)
+  )
+
+  const handleChange = (index: number, value: string) => {
+    if (!/^\d*$/.test(value)) return
+
+    setOtp((prevOtp) => {
+      const newOtp = [...prevOtp]
+      newOtp[index] = value.slice(-1)
+      return newOtp
+    })
+
+    if (value && index < otp.length - 1) {
+      inputRefs.current[index + 1]?.focus()
+    }
+  }
+
+  const handleBackspace = (
+    index: number,
+    e: React.KeyboardEvent<HTMLInputElement>
+  ) => {
+    if (e.key !== 'Backspace' || otp[index] || index === 0) return
+    inputRefs.current[index - 1]?.focus()
+  }
+
+  const handlePaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
+    const pastedData = e.clipboardData.getData('text').trim()
+    if (/^\d{6}$/.test(pastedData)) {
+      setOtp(pastedData.split(''))
+      inputRefs.current[5]?.focus()
+    }
+  }
+
+  const handleSubmit = () => {
+    const newOtp = otp.join('')
+    if (newOtp.length < 6) return
+
+    const newData = {
+      email: userEmail,
+      OTP: newOtp,
+    }
+    mutate(newData)
+  }
+  const abc = true
+
+  return (
+    <>
+      <PopupWindow
+        popUpModel={isPopupWindowOpen}
+        setPopUpModel={setIsPopupWindowOpen}
+        handleSubmit={handleSubmit}
+        isLoading={isPending}
+      >
+        <Box className="p-6 text-center">
+          <Typography variant="h5" className="font-semibold pb-1">
+            OTP Authentication
+          </Typography>
+          <Typography variant="body2" className="text-gray-500 pb-5">
+            {`Enter the 6-digit OTP sent to ${userEmail}.`}
+          </Typography>
+
+          <Box className="flex justify-center gap-2 mb-4">
+            {otp.map((digit, index) => (
+              <TextField
+                key={index}
+                type="text"
+                inputRef={(el) => (inputRefs.current[index] = el)}
+                inputProps={{
+                  maxLength: 1,
+                  className: 'text-center',
+                  // @ts-ignore
+                  onKeyDown: (e) => handleBackspace(index, e),
+                }}
+                value={digit}
+                onChange={(e) => handleChange(index, e.target.value)}
+                onPaste={handlePaste}
+                className="w-12 h-12 text-lg border rounded-md"
+              />
+            ))}
+          </Box>
+        </Box>
+      </PopupWindow>
+    </>
+  )
+}
