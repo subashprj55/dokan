@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { axiosAuth } from '../utils/axios'
+import { axiosAuth } from '../app/utils/axios'
 
 const useGetUserInfo = () => {
   const getUser = async () => {

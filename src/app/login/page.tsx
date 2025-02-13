@@ -1,17 +1,14 @@
 'use client'
-import { useContext, useEffect, useState } from 'react'
+import { useState } from 'react'
 import { FaGoogle, FaApple } from 'react-icons/fa'
-import AOS from 'aos'
-import 'aos/dist/aos.css'
 import Nav from '@/components/navBar/page'
 import Footer from '@/components/footer'
 import { useForm } from 'react-hook-form'
 import { IFormInput } from './types'
-import useLogin from '../hooks/useLogin'
+import useLogin from '../../hooks/useLogin'
 import Loading from '@/components/loading'
 import toast from 'react-hot-toast'
 import { useRouter } from 'next/navigation'
-import { AuthContext } from '@/providers/AuthContex'
 
 const LoginPage = () => {
   return (
@@ -27,9 +24,6 @@ export default LoginPage
 
 const LoginSection = () => {
   const router = useRouter()
-  const auth = useContext(AuthContext)
-
-  console.log(auth?.user)
 
   const {
     register,

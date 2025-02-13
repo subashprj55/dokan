@@ -1,19 +1,18 @@
 import { useMutation } from '@tanstack/react-query'
-import { IFormInput } from '../login/types'
-import { axiosAuth } from '../utils/axios'
-import { useContext } from 'react'
-import { AuthContext } from '@/providers/AuthContex'
+import { useAuthStore } from '@/store/authStore'
+import { IFormInput } from '@/app/login/types'
+import { axiosAuth } from '@/app/utils/axios'
 
 const useLogin = (onSuccess: () => void, onError: () => void) => {
-  const auth = useContext(AuthContext)
+  const { login } = useAuthStore()
 
-  const login = async (data: IFormInput) => {
+  const signin = async (data: IFormInput) => {
     const response = await axiosAuth.post('/auth/signin', data)
-    auth?.login(response.data.access_token)
+    login(response.data.access_token)
   }
 
   const { mutate, isPending } = useMutation({
-    mutationFn: login,
+    mutationFn: signin,
     onSuccess,
     onError,
   })
