@@ -25,8 +25,11 @@ import {
 import Box from '@/components/box/page'
 import AllStockTable from '@/components/allProductsTable'
 import SearchInput from '@/components/searchInputBox'
+import useGetUserInfo from '../hooks/useGetUserInfo'
 
 const Dashboard = () => {
+  const { data, isPending, error } = useGetUserInfo()
+
   return (
     <>
       <NavContainer>
