@@ -53,26 +53,13 @@ const PrivateRouteGuard = ({ children }: { children: ReactNode }) => {
     const token = localStorage.getItem('token')
 
     if (!token) {
-<<<<<<< HEAD
       router.push('/login')
-=======
-      router.push('/login') // Redirect to login if no token
->>>>>>> main
     } else {
       setIsAuthenticated(true)
     }
   }, [router])
 
-<<<<<<< HEAD
   if (isAuthenticated === null) return <Loading />
 
   return <>{children}</>
 }
-=======
-  if (isAuthenticated === null) return <p>Loading...</p> // Show loader while checking auth
-
-  return <>{children}</>
-}
-
-export default RouteGuard
->>>>>>> main
