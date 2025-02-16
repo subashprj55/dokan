@@ -1,9 +1,7 @@
 'use client'
-import React, { useState } from 'react'
 import Container from '@/components/containder'
 import Footer from '@/components/footer'
 import NavContainer from '@/components/navContainer'
-import { products } from '@/app/purchase/data'
 import {
   Typography,
   List,
@@ -24,12 +22,9 @@ import {
 } from './data'
 import Box from '@/components/box/page'
 import AllStockTable from '@/components/allProductsTable'
-import SearchInput from '@/components/searchInputBox'
-import useGetUserInfo from '../hooks/useGetUserInfo'
+import { useEffect, useState } from 'react'
 
 const Dashboard = () => {
-  const { data, isPending, error } = useGetUserInfo()
-
   return (
     <>
       <NavContainer>
@@ -38,8 +33,8 @@ const Dashboard = () => {
           <DashboardCharts />
           <RecentActivity />
           <LowStockProducts />
-          <AllStockTalbe />
-          {/* <InventoryOverview /> */}
+          <AllStockTable />
+          <InventoryOverview />
         </Container>
         <Footer />
       </NavContainer>
@@ -165,79 +160,51 @@ const LowStockProducts = () => {
   )
 }
 
-const AllStockTalbe = () => {
-  const [searchTerm, setSearchTerm] = useState('')
+const InventoryOverview = () => {
+  // Sample inventory data (replace with actual data)
+  const [inventory, setInventory] = useState([
+    { id: 1, name: 'Apples', quantity: 100, category: 'Fruits' },
+    { id: 2, name: 'Bananas', quantity: 8, category: 'Fruits' },
+    { id: 3, name: 'Milk', quantity: 9, category: 'Dairy' },
+    // Add more products as needed
+  ])
 
-  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(event.target.value)
-  }
+  // Calculate total number of products
+  const totalProducts = inventory.length
 
-  const filteredProducts = products.filter((product) =>
-    Object.values(product).some(
-      (value) =>
-        typeof value === 'string' &&
-        value.toLowerCase().includes(searchTerm.toLowerCase())
-    )
+  // Calculate total quantity of all products
+  const totalQuantity = inventory.reduce(
+    (total, product) => total + product.quantity,
+    0
   )
 
+  // Calculate number of low-stock products (quantity less than 10)
+  const lowStockProducts = inventory.filter(
+    (product) => product.quantity < 10
+  ).length
+
+  useEffect(() => {
+    // Fetch inventory data from API or database
+    // Example: fetchInventoryData().then(data => setInventory(data));
+  }, []) // Empty dependency array ensures useEffect only runs once on component mount
+
   return (
-    <div className="mt-20">
-      <div className="flex justify-between items-center mb-6">
-        <h2 className="text-xl md:text-2xl font-semibold">
-          All Products Information
-        </h2>
-        <SearchInput searchTerm={searchTerm} handleSearch={handleSearch} />
+    <div className="bg-white p-6 rounded-lg shadow-md mt-20">
+      <h2 className="text-2xl font-semibold mb-4">Inventory Overview</h2>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="border p-4 rounded-lg bg-blue-200">
+          <h3 className="text-lg font-semibold mb-2">Total Products</h3>
+          <p className="text-3xl font-bold">{totalProducts}</p>
+        </div>
+        <div className="border p-4 rounded-lg bg-green-200">
+          <h3 className="text-lg font-semibold mb-2">Total Quantity</h3>
+          <p className="text-3xl font-bold">{totalQuantity}</p>
+        </div>
+        <div className="border p-4 rounded-lg bg-red-300">
+          <h3 className="text-lg font-semibold mb-2">Low-Stock Products</h3>
+          <p className="text-3xl font-bold">{lowStockProducts}</p>
+        </div>
       </div>
-      <AllStockTable filteredProducts={filteredProducts} />
     </div>
   )
 }
-
-// const InventoryOverview = () => {
-//   // Sample inventory data (replace with actual data)
-//   const [inventory, setInventory] = useState([
-//     { id: 1, name: 'Apples', quantity: 100, category: 'Fruits' },
-//     { id: 2, name: 'Bananas', quantity: 8, category: 'Fruits' },
-//     { id: 3, name: 'Milk', quantity: 9, category: 'Dairy' },
-//     // Add more products as needed
-//   ])
-
-//   // Calculate total number of products
-//   const totalProducts = inventory.length
-
-//   // Calculate total quantity of all products
-//   const totalQuantity = inventory.reduce(
-//     (total, product) => total + product.quantity,
-//     0
-//   )
-
-//   // Calculate number of low-stock products (quantity less than 10)
-//   const lowStockProducts = inventory.filter(
-//     (product) => product.quantity < 10
-//   ).length
-
-//   useEffect(() => {
-//     // Fetch inventory data from API or database
-//     // Example: fetchInventoryData().then(data => setInventory(data));
-//   }, []) // Empty dependency array ensures useEffect only runs once on component mount
-
-//   return (
-//     <div className="bg-white p-6 rounded-lg shadow-md mt-20">
-//       <h2 className="text-2xl font-semibold mb-4">Inventory Overview</h2>
-//       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-//         <div className="border p-4 rounded-lg bg-blue-200">
-//           <h3 className="text-lg font-semibold mb-2">Total Products</h3>
-//           <p className="text-3xl font-bold">{totalProducts}</p>
-//         </div>
-//         <div className="border p-4 rounded-lg bg-green-200">
-//           <h3 className="text-lg font-semibold mb-2">Total Quantity</h3>
-//           <p className="text-3xl font-bold">{totalQuantity}</p>
-//         </div>
-//         <div className="border p-4 rounded-lg bg-red-300">
-//           <h3 className="text-lg font-semibold mb-2">Low-Stock Products</h3>
-//           <p className="text-3xl font-bold">{lowStockProducts}</p>
-//         </div>
-//       </div>
-//     </div>
-//   )
-// }

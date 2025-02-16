@@ -1,11 +1,12 @@
-type Product = {
+export interface IProduct {
   id: number
   name: string
-  quantity: number
   price: number
-  expireDate: string
+  quantity: number
 }
 
-export interface IAllStockTableProps {
-  filteredProducts: Product[]
+export interface ITableComponent {
+  data: IProduct[]
+  isPending: boolean
+  error: Error | null
 }
