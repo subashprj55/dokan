@@ -2,6 +2,7 @@
 import React, { useState } from 'react'
 import {
   Box,
+  Button,
   Table,
   TableBody,
   TableCell,
@@ -11,25 +12,30 @@ import {
 } from '@mui/material'
 import Container from '@/components/containder'
 import NavContainer from '@/components/navContainer'
-import { products } from './data'
-import { Paper, Grid, TextField } from '@mui/material'
-import SearchInput from '@/components/searchInputBox'
+import { Paper, Grid } from '@mui/material'
 import AllStockTable from '@/components/allProductsTable'
-import PopupWindow from '@/components/popUpWindow'
-import DoTextField from '@/components/DoTextField'
-import usePurchaseStor from '@/store/purchase'
-import PurchaseTable from '@/components/purchaseTable'
+import NewSupplier from './newSupplier'
+import useGetAllSuppliers from '@/hooks/useGetAllSuppliers'
+import FormProvider from '@/hook-form/FormProvider'
+import { useFieldArray, useForm } from 'react-hook-form'
+import DokTextField from '@/hook-form/DokTextField'
+import { DokSelect } from '@/hook-form/DokSelect'
+import * as yup from 'yup'
+import { IFormData } from './types'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { FaTrash } from 'react-icons/fa'
+import ConfirmDialogComponent from './confirmDialogComponent'
+import toast from 'react-hot-toast'
+import PurchaseHistory from './PurchaseHistory'
 
 const PurchaseItem = () => {
   return (
     <>
       <NavContainer>
         <Container>
-          <AllStockTalbe />
+          <AllStockTable />
           <SupplierInformation />
-          <NewPurchaseInfoSection />
-          <PaymentMethodSelection />
-          <PurchaseHistory />
+          <PurchaseHistorySection />
         </Container>
       </NavContainer>
     </>
@@ -38,254 +44,210 @@ const PurchaseItem = () => {
 
 export default PurchaseItem
 
-const AllStockTalbe = () => {
-  const [searchTerm, setSearchTerm] = useState('')
-
-  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(event.target.value)
-  }
-
-  const filteredProducts = products.filter((product) =>
-    Object.values(product).some(
-      (value) =>
-        typeof value === 'string' &&
-        value.toLowerCase().includes(searchTerm.toLowerCase())
-    )
-  )
-
-  return (
-    <div className="mt-20">
-      <div className="flex justify-between items-center mb-2">
-        <h2 className="text-lg font-semibold mb-2">Products</h2>
-        <SearchInput searchTerm={searchTerm} handleSearch={handleSearch} />
-      </div>
-      <div className="max-h-[500px;] overflow-y-auto shadow-md">
-        <AllStockTable filteredProducts={filteredProducts} />
-      </div>
-    </div>
-  )
-}
-
 const SupplierInformation = () => {
-  const supplierName = usePurchaseStor((state) => state.supplierName)
-  const contactNumber = usePurchaseStor((state) => state.contactNumber)
-  const address = usePurchaseStor((state) => state.address)
-  const noteData = usePurchaseStor((state) => state.note)
-  const updateSupplierName = usePurchaseStor(
-    (state) => state.updateSupplierName
-  )
-  const updateContactNumber = usePurchaseStor(
-    (state) => state.updateContactNumber
-  )
-  const updateAddress = usePurchaseStor((state) => state.updateAddress)
-  const updateNoteDate = usePurchaseStor((state) => state.updateNote)
+  const [isPopupWindowOpen, setIsPopupWindowOpen] = useState<boolean>(false)
 
-  return (
-    <Box className="mt-10 md:mt-20 p-6 rounded-lg">
-      <h2 className="text-lg font-semibold mb-2">Supplier Information</h2>
-      <Grid container spacing={2} className="mt-2">
-        <Grid item xs={12} sm={6}>
-          <DoTextField
-            value={supplierName}
-            setValue={updateSupplierName}
-            placeholder="Supplier Name"
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <DoTextField
-            placeholder="Contact Number"
-            value={contactNumber}
-            setValue={updateContactNumber}
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <DoTextField
-            placeholder="Address"
-            value={address}
-            setValue={updateAddress}
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            value={noteData}
-            onChange={(e) => updateNoteDate(e.target.value)}
-            id="customer-name"
-            placeholder="Notes"
-            variant="outlined"
-            fullWidth
-            multiline
-            rows={3}
-            sx={{
-              '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline':
-                {
-                  border: '1px solid gray',
-                },
-            }}
-          />
-        </Grid>
-      </Grid>
-    </Box>
-  )
-}
+  const [confirmPopup, setConfirmPopup] = useState<boolean>(false)
 
-const NewPurchaseInfoSection = () => {
-  const purchaseList = usePurchaseStor((state) => state.purchaseList)
-  const updatePurchaseList = usePurchaseStor(
-    (state) => state.updatePurchaseList
-  )
-  return (
-    <div className="p-6 pb-0">
-      <h2 className="text-lg font-semibold mb-2">Purchase Items Lists</h2>
-      <PurchaseTable
-        purchaseList={purchaseList}
-        updatePurchaseList={updatePurchaseList}
-      />
-    </div>
-  )
-}
+  const { data: Suppliers, error } = useGetAllSuppliers()
 
-const PaymentMethodSelection = () => {
-  const paymentMethod = usePurchaseStor((state) => state.paymentMethod)
-  const setPaymentMethod = usePurchaseStor((state) => state.updatePaymentMethod)
-  const [popUpModel, setPopUpModel] = useState<boolean>(false)
-  const [error, setError] = useState<string>('')
-
-  const handlePaymentMethodChange = (event: any) => {
-    setPaymentMethod(event.target.value)
-  }
-
-  const handleSubmit = () => {
-    if (!paymentMethod) {
-      setError('Please select a payment method')
-      return
-    }
-    if (paymentMethod === 'credit') {
-    }
-    setError('')
-    setPopUpModel(true)
-  }
-
-  const renderContent = () => {
-    if (error) {
-      return (
-        <div className="mt-5 ">
-          <p className="text-red-500">{error}</p>
-        </div>
+  // yup validation schema
+  const NewPurchaseSchema = yup.object().shape({
+    supplier: yup
+      .number()
+      .moreThan(0, 'Please select a supplier')
+      .required('Please select a supplier'),
+    stock: yup
+      .array()
+      .of(
+        yup.object().shape({
+          name: yup.string().required('please enter product name'),
+          quantity: yup
+            .number()
+            .moreThan(0, 'Please inter valid number')
+            .transform((value, originalValue) =>
+              String(originalValue).trim() === '' ? undefined : value
+            )
+            .typeError('Please enter a valid quantity')
+            .required('Please enter quantity'),
+          price: yup
+            .number()
+            .moreThan(0, 'Please inter valid number')
+            .transform((value, originalValue) =>
+              String(originalValue).trim() === '' ? undefined : value
+            )
+            .typeError('Please enter a valid price')
+            .required('Please enter price'),
+        })
       )
-    }
-    return <></>
+      .min(1, 'Stock is required')
+      .default([{ name: '', quantity: 0, price: 0 }]),
+  })
+
+  const defaultValues = {
+    supplier: 0,
+    stock: [{ name: '', quantity: 0, price: 0 }],
+  }
+
+  const [formData, setFormData] = useState<IFormData>(defaultValues)
+
+  const methods = useForm<IFormData>({
+    resolver: yupResolver(NewPurchaseSchema),
+    defaultValues,
+  })
+
+  const { watch, handleSubmit, control, reset } = methods
+
+  const value = watch()
+
+  const { fields, append, remove } = useFieldArray({ control, name: 'stock' })
+
+  const handleAddStockOption = () => {
+    append({
+      name: '',
+      quantity: 0,
+      price: 0,
+    })
+  }
+
+  const handleRemoveStockOption = (index: number) => {
+    remove(index)
+  }
+
+  const totalPrice = value.stock.reduce(
+    (acc, item) => acc + item.price * item.quantity,
+    0
+  )
+
+  const findRowTotal = (index: number) => {
+    const price = value.stock[index].price
+    const quantity = value.stock[index].quantity
+    return price * quantity
+  }
+
+  const onSubmit = (data: IFormData) => {
+    setFormData(data)
+    setConfirmPopup(true)
   }
 
   return (
-    <div className="bg-white p-6">
-      <h2 className="text-lg font-semibold mb-2">Select Payment Method</h2>
-      <div className="flex items-center space-x-4">
-        <input
-          type="radio"
-          id="cash"
-          name="payment-method"
-          value="cash"
-          checked={paymentMethod === 'cash'}
-          onChange={handlePaymentMethodChange}
-          className="form-radio h-5 w-5 text-blue-600"
-        />
-        <label htmlFor="cash" className="text-lg text-gray-700">
-          Cash
-        </label>
-      </div>
-      <div className="flex items-center space-x-4">
-        <input
-          type="radio"
-          id="credit"
-          name="payment-method"
-          value="credit"
-          checked={paymentMethod === 'credit'}
-          onChange={handlePaymentMethodChange}
-          className="form-radio h-5 w-5 text-blue-600"
-        />
-        <label htmlFor="credit" className="text-lg text-gray-700">
-          Credit
-        </label>
-      </div>
-      {renderContent()}
-      <div className="">
-        <button
-          onClick={handleSubmit}
-          className="mt-4 bg-teal-600 hover:bg-teal-700 text-white text-base py-2 px-4 rounded"
-        >
-          Submit
-        </button>
-      </div>
-      <PopupWindow popUpModel={popUpModel} setPopUpModel={setPopUpModel}>
-        <QuickSalesSubmitSection />
-      </PopupWindow>
-    </div>
-  )
-}
-
-const QuickSalesSubmitSection = () => {
-  const supplierName = usePurchaseStor((state) => state.supplierName)
-  const contactNumber = usePurchaseStor((state) => state.contactNumber)
-  const address = usePurchaseStor((state) => state.address)
-  const noteData = usePurchaseStor((state) => state.note)
-  const purchaseList = usePurchaseStor((state) => state.purchaseList)
-  const paymentMethod = usePurchaseStor((state) => state.paymentMethod)
-
-  return (
-    <div className="p-2 md:p-4 w-full m-2 md:min-w-[500px;]">
-      <h1 className="text-xl font-medium mb-1">
-        Customer Name : {supplierName}
-      </h1>
-      <h2>
-        <span className="text-lg">Phone Number </span>: {contactNumber}
-      </h2>
-      <h2>
-        <span className="text-lg capitalize">Adress </span>: {address}
-      </h2>
-      <h2>
-        <span className="text-lg capitalize">Note </span>: {noteData}
-      </h2>
-      <h1 className="text-xl font-semibold mt-5">Products Info</h1>
-      <div className="mt-4 ">
-        <TableContainer component={Paper} className="min-w-full -ml-2 md:ml-0">
-          <Table>
-            <TableHead>
-              <TableRow className="bg-gray-100">
-                <TableCell>Name</TableCell>
-                <TableCell>Quantity</TableCell>
-                <TableCell>Price</TableCell>
-                <TableCell>Total</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {purchaseList.map(({ name, quantity, price, total }) => {
-                return (
-                  <TableRow key={name}>
-                    <TableCell>{name}</TableCell>
-                    <TableCell>{quantity}</TableCell>
-                    <TableCell>{price}</TableCell>
-                    <TableCell>{total}</TableCell>
-                  </TableRow>
-                )
-              })}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <div className="mt-5">
-          <p className="capitalize text-lg text-gray-500">
-            Transaction on {paymentMethod}
-          </p>
+    <>
+      {error &&
+        toast.error(
+          'An error occurred to get supplier information. Please try again later.'
+        )}
+      <NewSupplier open={isPopupWindowOpen} setOpen={setIsPopupWindowOpen} />
+      <ConfirmDialogComponent
+        open={confirmPopup}
+        setOpen={setConfirmPopup}
+        formData={formData}
+        totalPrice={totalPrice}
+        suppliers={Suppliers}
+        reset={reset}
+      />
+      <Box className="mt-10 md:mt-20 p-6 rounded-lg">
+        <div className="flex justify-between">
+          <h2 className="text-lg font-semibold mb-2">Supplier Information</h2>
+          <Button
+            onClick={() => setIsPopupWindowOpen(true)}
+            variant="contained"
+          >
+            Add new Supplier
+          </Button>
         </div>
-      </div>
-    </div>
+        <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
+          <Grid container spacing={2} className="mt-2">
+            <Grid item xs={12} sm={6}>
+              <DokSelect native name="supplier" label="Suppliers">
+                <option value="" />
+                {Suppliers?.map(({ id, name }: any) => (
+                  <option key={id} value={id}>
+                    {name}
+                  </option>
+                ))}
+              </DokSelect>
+            </Grid>
+          </Grid>
+          <div className="my-6">
+            <h2 className="text-lg font-semibold">Purchase Items Lists</h2>
+            <div>
+              <TableContainer
+                component={Paper}
+                className="min-w-full shadow-none"
+              >
+                <div className="overflow-auto">
+                  <Table>
+                    <TableHead>
+                      <TableRow>
+                        <TableCell>Name</TableCell>
+                        <TableCell>Quantity</TableCell>
+                        <TableCell>Price</TableCell>
+                        <TableCell>Total</TableCell>
+                        <TableCell></TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {fields.map((field, index) => (
+                        <TableRow key={field.id}>
+                          <TableCell>
+                            <DokTextField
+                              name={`stock[${index}].name`}
+                              label={'product name'}
+                            />
+                          </TableCell>
+                          <TableCell>
+                            <DokTextField
+                              name={`stock[${index}].quantity`}
+                              label={'quantity'}
+                            />
+                          </TableCell>
+                          {/* price */}
+                          <TableCell>
+                            <DokTextField
+                              name={`stock[${index}].price`}
+                              label={'price'}
+                            />
+                          </TableCell>
+                          {/* row total price */}
+                          <TableCell>Rs {findRowTotal(index)}</TableCell>
+                          <TableCell>
+                            <Button
+                              onClick={() => handleRemoveStockOption(index)}
+                            >
+                              <FaTrash className="text-pink-500" />
+                            </Button>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </div>
+                <div className="mt-3 px-3 flex justify-between items-center">
+                  <Button
+                    className="text-yellow-700"
+                    onClick={handleAddStockOption}
+                  >
+                    Add Product
+                  </Button>
+                  <p>Total: Rs {totalPrice.toFixed(2)}</p>
+                </div>
+              </TableContainer>
+            </div>
+          </div>
+          <Button variant="contained" type="submit">
+            Submit
+          </Button>
+        </FormProvider>
+      </Box>
+    </>
   )
 }
 
-const PurchaseHistory = () => {
+const PurchaseHistorySection = () => {
   return (
     <div className="my-20 p-6 bg-gray-50 text-2xl">
-      <h1>Purchase history</h1>
-      <h2>comming soon.....</h2>
+      <h1 className="text-lg font-semibold">Purchase history</h1>
+      <PurchaseHistory />
     </div>
   )
 }

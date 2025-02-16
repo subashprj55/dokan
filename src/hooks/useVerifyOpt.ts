@@ -1,5 +1,5 @@
 import { useMutation } from '@tanstack/react-query'
-import { axiosAuth } from '../app/utils/axios'
+import { axiosAuth } from '../utils/axios'
 import { useAuthStore } from '@/store/authStore'
 
 interface IFormData {

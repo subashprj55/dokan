@@ -1,5 +1,5 @@
 import { IFormInput } from '@/app/signIn/types'
-import { axiosAuth } from '@/app/utils/axios'
+import { axiosAuth } from '@/utils/axios'
 import { useMutation } from '@tanstack/react-query'
 
 const useSignup = (onSuccess: () => void, onError: () => void) => {
