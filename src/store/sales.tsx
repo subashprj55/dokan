@@ -16,6 +16,7 @@ type State = {
   address: string
   paymentMethod: string
   productsList: IProduct[]
+  totalPrice: number
 }
 
 type Action = {
@@ -25,6 +26,7 @@ type Action = {
   updateAddress: (address: State['address']) => void
   updatePaymentMethod: (paymentMethod: State['paymentMethod']) => void
   updateProductsList: (productsList: State['productsList']) => void
+  updateTotalPrice: (totalPrice: State['totalPrice']) => void
 }
 
 const useSalesStore = create<State & Action>((set) => ({
@@ -33,6 +35,7 @@ const useSalesStore = create<State & Action>((set) => ({
   gmail: '',
   address: '',
   paymentMethod: '',
+  totalPrice: 0,
   productsList: [{ name: '', remaining: 0, quantity: 0, price: 0, total: 0 }],
   updateCustomerName: (customerName) =>
     set(() => ({ customerName: customerName })),
@@ -43,6 +46,7 @@ const useSalesStore = create<State & Action>((set) => ({
     set(() => ({ paymentMethod: paymentMethod })),
   updateProductsList: (productsList) =>
     set(() => ({ productsList: productsList })),
+  updateTotalPrice: (totalPrice) => set(() => ({ totalPrice: totalPrice })),
 }))
 
 export default useSalesStore

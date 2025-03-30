@@ -1,5 +1,5 @@
 'use client'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   CartesianGrid,
   Legend,
@@ -22,8 +22,17 @@ import {
   TableBody,
   TableRow,
   TableCell,
-  Toolbar,
+  Grid,
+  Button,
 } from '@mui/material'
+import {
+  startOfToday,
+  endOfToday,
+  startOfWeek,
+  endOfWeek,
+  startOfMonth,
+  endOfMonth,
+} from 'date-fns'
 
 const page = () => {
   return (
@@ -187,24 +196,80 @@ const ForecastingAndPredictiveAnalytics = () => {
     </div>
   )
 }
-import { FiCalendar } from 'react-icons/fi'
+
+type DateRange = [Date | null, Date | null] | null
+type FilterDate = 'today' | 'week' | 'month' | 'custom'
 
 const AnalysisPage = () => {
+  const [range, setRange] = useState<DateRange>(null)
+  const [dates, setDates] = useState<[Date, Date]>([
+    startOfToday(),
+    endOfToday(),
+  ])
+  const [filterDate, setFilterDate] = useState<FilterDate>('today')
+
+  // Handle date range change from DateRangePicker
+  const handleDateRangeChange = (value: DateRange) => {
+    setRange(value)
+    setDates(value)
+    setFilterDate('custom')
+    if (value === null) {
+      handleFilterDateChange('today')
+    }
+  }
+
+  // Handle filter date change (today, week, month)
+  const handleFilterDateChange = (filter: FilterDate) => {
+    setFilterDate(filter)
+    const today = new Date()
+    setRange(null)
+
+    switch (filter) {
+      case 'today':
+        setDates([startOfToday(), endOfToday()])
+        break
+      case 'week':
+        setDates([startOfWeek(today), endOfWeek(today)])
+        break
+      case 'month':
+        setDates([startOfMonth(today), endOfMonth(today)])
+        break
+      default:
+        break
+    }
+  }
+
+  // const [value, setValue] = useState<[Date | null, Date | null]>([null, null])
+
+  // Initialize default date range on component mount
+  useEffect(() => {
+    handleFilterDateChange('today')
+  }, [])
+
   return (
     <div className="mt-20">
-      <Toolbar>
-        <div className="flex items-center justify-end space-x-4 w-full">
-          <button className="capitalize border px-2 py-1 borde border-gray-200 rounded-lg hover:bg-gray-100">
+      <Grid container spacing={3}>
+        <Grid item xs={12} md={10} mb={2} sx={{ display: 'flex', gap: '15px' }}>
+          <Button
+            variant={filterDate === 'today' ? 'contained' : 'outlined'}
+            onClick={() => handleFilterDateChange('today')}
+          >
             Today
-          </button>
-          <button className="capitalize border px-2 py-1 borde border-gray-200 rounded-lg hover:bg-gray-100">
-            This month
-          </button>
-          <button className="capitalize flex items-center gap-2 border px-2 py-1 borde border-gray-200 rounded-lg hover:bg-gray-100">
-            Date Picker <FiCalendar />
-          </button>
-        </div>
-      </Toolbar>
+          </Button>
+          <Button
+            variant={filterDate === 'week' ? 'contained' : 'outlined'}
+            onClick={() => handleFilterDateChange('week')}
+          >
+            this week
+          </Button>
+          <Button
+            variant={filterDate === 'month' ? 'contained' : 'outlined'}
+            onClick={() => handleFilterDateChange('month')}
+          >
+            this month
+          </Button>
+        </Grid>
+      </Grid>
     </div>
   )
 }

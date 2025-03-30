@@ -16,13 +16,17 @@ import { FaCheckCircle, FaExclamationCircle } from 'react-icons/fa'
 import Chart from '@/components/chart'
 import {
   chartData,
-  lowStockProducts,
-  recentActivityData,
-  todayData,
+  // lowStockProducts,
+  // recentActivityData,
+  // todayData,
 } from './data'
 import Box from '@/components/box/page'
 import AllStockTable from '@/components/allProductsTable'
 import { useEffect, useState } from 'react'
+import useTodayRecord from '@/hooks/useGetTodayRecord'
+import { format } from 'date-fns'
+import useGetLowStock from '@/hooks/useGetLowStock'
+import useGetTransactionsByHour from '@/hooks/useGetTransactionsByHour'
 
 const Dashboard = () => {
   return (
@@ -45,21 +49,63 @@ const Dashboard = () => {
 export default Dashboard
 
 const SummaryWidgets = () => {
+  const { data, isPending, error } = useTodayRecord()
+
+  const uniqueCustomers = new Set(data?.map((sale: any) => sale.customer.name))
+    .size
+
+  const totalTransaction = data?.reduce(
+    (sum: number, sale: any) => sum + sale.totalCash,
+    0
+  )
+
+  const totalItemsSold = data?.reduce(
+    (sum: number, sale: any) =>
+      sum +
+      sale.items.reduce(
+        (itemSum: number, item: any) => itemSum + item.quantity,
+        0
+      ),
+    0
+  )
+
+  const numberOfTransaction = data ? data.length : 0
+
   return (
     <>
       <h2 className="text-2xl md:text-3xl font-semibold mb-6 pt-20">
         Today's Transaction
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-20">
-        {todayData.map((data) => {
-          return <Box key={data.id} {...data} />
-        })}
+        <Box
+          title="Total Customers"
+          textColor={'text-blue-500'}
+          value={uniqueCustomers}
+        />
+        <Box
+          title="Total Transactions"
+          textColor={'text-green-500'}
+          value={totalTransaction}
+        />
+        <Box
+          title="Total Sold Items"
+          textColor={'text-yellow-500'}
+          value={totalItemsSold}
+        />
+        <Box
+          title="Number of Transactions"
+          textColor={'text-pink-500'}
+          value={numberOfTransaction}
+        />
       </div>
     </>
   )
 }
 
 const RecentActivity = () => {
+  const { data, isPending, error } = useTodayRecord()
+  const transactionOn = 'cash'
+
   return (
     <div className="bg-white p-6 rounded-lg shadow-lg mt-20">
       <Typography className="text-xl md:text-2xl" gutterBottom>
@@ -68,27 +114,32 @@ const RecentActivity = () => {
       <Divider />
       <div className="overflow-y-auto max-h-[450px;] ">
         <List>
-          {recentActivityData.map(
-            ({ id, customerName, transationOn, amount, time }) => {
-              return (
-                <ListItem key={id} className="cursor-pointer hover:bg-gray-50">
-                  <ListItemIcon>
-                    <FaCheckCircle
-                      className={`${
-                        transationOn === 'cash'
-                          ? 'text-green-500'
-                          : 'text-blue-500'
-                      }`}
-                    />
-                  </ListItemIcon>
-                  <ListItemText
-                    primary={`${customerName} On ${transationOn} Rs ${amount}`}
-                    secondary={time}
+          {data?.map((transaction: any) => {
+            return (
+              <ListItem
+                key={transaction.id}
+                className="cursor-pointer hover:bg-gray-50"
+              >
+                <ListItemIcon>
+                  <FaCheckCircle
+                    className={`${
+                      transactionOn === 'cash'
+                        ? 'text-green-500'
+                        : 'text-blue-500'
+                    }`}
                   />
-                </ListItem>
-              )
-            }
-          )}
+                </ListItemIcon>
+                <ListItemText
+                  className="capitalize"
+                  primary={`${transaction.customer.name} On ${transactionOn} Rs ${transaction.totalCash}`}
+                  secondary={format(
+                    new Date(transaction.createdAt),
+                    'yyyy-MM-dd hh:mm a'
+                  )}
+                />
+              </ListItem>
+            )
+          })}
         </List>
       </div>
     </div>
@@ -96,14 +147,48 @@ const RecentActivity = () => {
 }
 
 const DashboardCharts = () => {
+  const { data, isPending, error } = useGetTransactionsByHour()
+  let filledData = []
+  // Convert timestamps to Date objects and sort them (if not already sorted)
+  if (data && data.length > 0) {
+    data.sort(
+      (a: any, b: any) =>
+        new Date(a.hour).getTime() - new Date(b.hour).getTime()
+    )
+
+    const startTime = new Date(data[0].hour)
+    const endTime = new Date(data[data.length - 1].hour)
+
+    // Create a map of existing data for quick lookup
+    const transactionMap = new Map(
+      data.map((t: any) => [new Date(t.hour).getTime(), t.total_cash])
+    )
+
+    // Generate all hourly timestamps between startTime and endTime
+
+    for (
+      let time = new Date(startTime);
+      time <= endTime;
+      time.setHours(time.getHours() + 1)
+    ) {
+      const timeKey = new Date(time).getTime()
+      filledData.push({
+        name: format(new Date(time).toISOString(), 'h a'),
+        value: transactionMap.has(timeKey) ? transactionMap.get(timeKey) : 0,
+      })
+    }
+  }
+
   return (
     <div className="mt-20  md:-ml-5">
-      <Chart data={chartData} />
+      <Chart data={filledData} />
     </div>
   )
 }
 
 const LowStockProducts = () => {
+  const { data, error, isPending } = useGetLowStock()
+
   return (
     <div className="mt-20">
       <Typography
@@ -113,48 +198,30 @@ const LowStockProducts = () => {
         Low Stock Products
       </Typography>
       <div className="pb-5 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 max-h-[500px] overflow-y-auto">
-        {lowStockProducts.map(
-          ({
-            id,
-            name,
-            currentStockLevel,
-            reorderLevel,
-            supplier,
-            lastPurchaseDate,
-          }) => (
-            <Card key={id} className="shadow-lg md:hover:shadow-2xl">
-              <CardContent>
-                <div className="flex items-center mb-2">
-                  <FaExclamationCircle
-                    className={`${
-                      currentStockLevel === 0
-                        ? 'text-red-500 '
-                        : 'text-yellow-500 '
-                    }mr-2`}
-                  />
-                  <Typography variant="h6">{name}</Typography>
-                </div>
-                <Divider className="my-2" />
-                <Typography
-                  variant="body1"
+        {data?.map((stock: any) => (
+          <Card key={stock.id} className="shadow-lg md:hover:shadow-2xl">
+            <CardContent>
+              <div className="flex items-center mb-2">
+                <FaExclamationCircle
                   className={`${
-                    currentStockLevel === 0 ? 'text-red-600 ' : ''
-                  }`}
-                >
-                  {' '}
-                  Current Stock Level: {currentStockLevel}
+                    stock.quantity === 0 ? 'text-red-500 ' : 'text-yellow-500 '
+                  }mr-2`}
+                />
+                <Typography className="capitalize" variant="h6">
+                  {stock.name}
                 </Typography>
-                <Typography variant="body1">
-                  Reorder Level: {reorderLevel}
-                </Typography>
-                <Typography variant="body1">Supplier: {supplier}</Typography>
-                <Typography variant="body1">
-                  Last Purchase Date: {lastPurchaseDate}
-                </Typography>
-              </CardContent>
-            </Card>
-          )
-        )}
+              </div>
+              <Divider className="my-2" />
+              <Typography
+                variant="body1"
+                className={`${stock.quantity === 0 ? 'text-red-600 ' : ''}`}
+              >
+                Current Stock Level: {stock.quantity}
+              </Typography>
+              <Typography variant="body1">Price: {stock.price}</Typography>
+            </CardContent>
+          </Card>
+        ))}
       </div>
     </div>
   )

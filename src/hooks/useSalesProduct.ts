@@ -1,24 +1,18 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { axiosAuth } from '@/utils/axios'
-import { IFormData } from '@/app/purchase/types'
 
-interface IPurchaseForm extends IFormData {
-  totalPrice: number
-}
-
-const usePurchaseItems = (onSuccess: () => void, onError: () => void) => {
+const useSalesProduct = (onSuccess: () => void, onError: () => void) => {
   const queryClient = useQueryClient()
 
-  const addItems = async (data: IPurchaseForm) => {
-    // await axiosAuth.post('/purchase', data)
+  const addItems = async (data: any) => {
     console.log(data)
+    await axiosAuth.post('/sales', data)
   }
 
   const { mutate, isPending } = useMutation({
     mutationFn: addItems,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['stock'] })
-      queryClient.invalidateQueries({ queryKey: ['purchase-history'] })
       onSuccess()
     },
     onError,
@@ -27,4 +21,4 @@ const usePurchaseItems = (onSuccess: () => void, onError: () => void) => {
   return { mutate, isPending }
 }
 
-export default usePurchaseItems
+export default useSalesProduct

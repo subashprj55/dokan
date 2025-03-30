@@ -13,13 +13,16 @@ import {
 } from '@mui/material'
 import { FaTrash } from 'react-icons/fa'
 import { ITransationTableProps } from './types'
+import useSalesStore from '@/store/sales'
 
 const TransactionTable = ({
   productsData,
   productsList,
   updateProductsList,
 }: ITransationTableProps) => {
-  const allProductName = productsData.map((pro: any) => {
+  const updateTotalPrice = useSalesStore((state) => state.updateTotalPrice)
+
+  const allProductName = productsData?.map((pro: any) => {
     return pro.name
   })
 
@@ -48,7 +51,7 @@ const TransactionTable = ({
     index: number
   ) => {
     const updatedProducts = [...productsList]
-    updatedProducts[index][name] = value
+    updatedProducts[index][name] = Number(value)
     updatedProducts[index].total =
       updatedProducts[index].price * updatedProducts[index].quantity
     updateProductsList(updatedProducts)
@@ -79,9 +82,11 @@ const TransactionTable = ({
   }
 
   const getTotal = () => {
-    return productsList.reduce((total, product) => {
+    const total = productsList.reduce((total, product) => {
       return total + product.total
     }, 0)
+    updateTotalPrice(total)
+    return total
   }
 
   return (
