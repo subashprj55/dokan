@@ -13,12 +13,12 @@ export const VerticalLinks = [
     link: '/dashboard',
     icon: AiFillAppstore,
   },
-  {
-    id: 1,
-    name: 'Quick Sales',
-    link: '/quickSales',
-    icon: BiMoney,
-  },
+  // {
+  //   id: 1,
+  //   name: 'Quick Sales',
+  //   link: '/quickSales',
+  //   icon: BiMoney,
+  // },
   {
     id: 2,
     name: 'Sales',
@@ -37,12 +37,12 @@ export const VerticalLinks = [
     link: '/analysis',
     icon: VscGraph,
   },
-  {
-    id: 5,
-    name: 'Credit',
-    link: '/credit',
-    icon: GoCreditCard,
-  },
+  // {
+  //   id: 5,
+  //   name: 'Credit',
+  //   link: '/credit',
+  //   icon: GoCreditCard,
+  // },
   {
     id: 6,
     name: 'Setting',

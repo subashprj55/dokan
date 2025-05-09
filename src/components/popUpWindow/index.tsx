@@ -1,43 +1,46 @@
 // ModalPopup.js
 import React from 'react'
-import { Modal, Button } from '@mui/material'
+import { Modal, Button, CircularProgress } from '@mui/material'
 import { Box } from '@mui/system'
-import { MdClose } from 'react-icons/md'
 import { IPopUpWindown } from './types'
 
 const PopupWindow = ({
   children,
   popUpModel,
   setPopUpModel,
+  handleSubmit,
+  isLoading,
 }: IPopUpWindown) => {
   const handleClose = () => {
     // Check if the click event target is the close button or the submit button
     setPopUpModel(false)
   }
 
-  const handleSubmit = () => {
-    setPopUpModel(false)
-  }
-
   return (
     <div>
-      <Modal open={popUpModel}>
-        <Box className="md:px-8 md:py-5  absolute top-1/2 left-1/2 w-[95%;] md:w-auto bg-white -translate-x-1/2 -translate-y-1/2 rounded-md">
-          <Button
-            onClick={handleClose}
-            className="absolute top-0 md:top-5 -right-2 md:right-5"
-          >
-            <MdClose className="text-3xl text-gray-500 " />
-          </Button>
+      <Modal open={popUpModel} className="">
+        <Box className="md:px-8 md:py-5 min-w-[400px;]  absolute top-1/2 left-1/2 md:w-auto bg-white -translate-x-1/2 -translate-y-1/2 rounded-md">
           {children}
-          <div className="flex justify-end">
+          <div className="flex justify-between">
             <Button
-              variant="contained"
+              disabled={isLoading}
+              variant="outlined"
               className="my-5 md:mb-0 mr-3 md:mr-0 capitalize"
-              onClick={handleSubmit}
+              onClick={handleClose}
             >
-              Confirm order
+              cancel
             </Button>
+            <div className="flex gap-2">
+              {isLoading && <CircularProgress color="success" />}
+              <Button
+                disabled={isLoading}
+                variant="contained"
+                className="my-5 md:mb-0 mr-3 md:mr-0 capitalize"
+                onClick={handleSubmit}
+              >
+                confirm
+              </Button>
+            </div>
           </div>
         </Box>
       </Modal>
