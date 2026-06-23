@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react'
 import Link from 'next/link'
 import { useState } from 'react'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { VerticalLinks } from '../verticalNav/data'
 import { Button } from '@mui/base'
 import Menu from '@mui/material/Menu'
@@ -13,6 +13,7 @@ import { INavMobileViewPros } from './types'
 import { IoListOutline } from 'react-icons/io5'
 import { MdOutlineClose } from 'react-icons/md'
 import useNavBarStore from '@/store/navBarStore'
+import { useAuthStore } from '@/store/authStore'
 
 const Nav = () => {
   const [isOpen, setIsOpen] = useState(false)
@@ -166,19 +167,41 @@ export default Nav
 const LogInNav = () => {
   const lowStockProducts = useNavBarStore((state) => state.lowStockProducts)
   const totalNotifications = useNavBarStore((state) => state.totalNotifications)
+  const { logout } = useAuthStore()
+
+  const router = useRouter()
+
   const updateNotifications = useNavBarStore(
     (state) => state.updateNotifications
   )
+  const [notification, setNotification] = React.useState<null | HTMLElement>(
+    null
+  )
+  const openNotification = Boolean(notification)
+
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
   const open = Boolean(anchorEl)
-
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget)
+  }
+  const handleClose = () => {
+    setAnchorEl(null)
+  }
+
+  const handleLogout = () => {
+    logout()
+    router.push('/')
+  }
+
+  const handleNotificationClick = (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    setNotification(event.currentTarget)
     updateNotifications(0)
   }
 
-  const handleClose = () => {
-    setAnchorEl(null)
+  const handleNotificationClose = () => {
+    setNotification(null)
   }
 
   return (
@@ -186,8 +209,25 @@ const LogInNav = () => {
       <h1 className="capitalize text-lg text-gray-600 tracking-wide hidden md:block mr-1">
         ABC suppliers
       </h1>
-      <Avatar className="cursor-pointer" src="/images/user.jpg" />
-      <Button id="basic-button" onClick={handleClick}>
+      <Button onClick={handleClick}>
+        <Avatar className="cursor-pointer" src="/images/user.jpg" />
+      </Button>
+      <Menu
+        id="basic-menu"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        PaperProps={{
+          style: {
+            marginTop: '10px',
+          },
+        }}
+      >
+        <MenuItem onClick={handleClose}>Profile</MenuItem>
+        <MenuItem onClick={handleClose}>My account</MenuItem>
+        <MenuItem onClick={handleLogout}>Logout</MenuItem>
+      </Menu>
+      <Button id="basic-button" onClick={handleNotificationClick}>
         <Badge badgeContent={totalNotifications} color="info">
           <TiShoppingCart className="text-3xl" />
         </Badge>
@@ -195,9 +235,9 @@ const LogInNav = () => {
       <div>
         <Menu
           id="basic-menu"
-          anchorEl={anchorEl}
-          open={open}
-          onClose={handleClose}
+          anchorEl={notification}
+          open={openNotification}
+          onClose={handleNotificationClose}
           PaperProps={{
             style: {
               marginTop: '10px',

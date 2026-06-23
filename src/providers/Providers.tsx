@@ -7,17 +7,10 @@ import AOS from 'aos'
 import 'aos/dist/aos.css'
 // for notification
 import { Toaster } from 'react-hot-toast'
-import { AuthProvider } from './AuthContex'
-import { usePathname } from 'next/navigation'
 import RouteGuard from './RouteGuard'
 
 export default function Providers({ children }: { children: ReactNode }) {
   const queryClient = new QueryClient()
-
-  const pathName = usePathname()
-
-  const publicRoute = ['/', '/login', '/signup', '/aboutUs']
-  const isProtect = !publicRoute.includes(pathName)
 
   useEffect(() => {
     AOS.init({
@@ -29,11 +22,9 @@ export default function Providers({ children }: { children: ReactNode }) {
   return (
     <>
       <Toaster position="top-right" toastOptions={{ duration: 4000 }} />
-      <AuthProvider>
-        <QueryClientProvider client={queryClient}>
-          {isProtect ? <RouteGuard>{children}</RouteGuard> : children}
-        </QueryClientProvider>
-      </AuthProvider>
+      <QueryClientProvider client={queryClient}>
+        <RouteGuard>{children}</RouteGuard>
+      </QueryClientProvider>
     </>
   )
 }
